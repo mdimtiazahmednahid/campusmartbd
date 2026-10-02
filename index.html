@@ -476,111 +476,101 @@
             <h3>Your Cart</h3>
             <button class="close-cart" id="close-cart">&times;</button>
         </div>
-
-        <div class="cart-items" id="cart-items">
-            <!-- Items injected by JS -->
-        </div>
-
-        <div class="cart-footer">
-            <div class="coupon-section">
-                <input type="text" id="coupon-code" placeholder="Coupon Code (e.g. EARLYBIRDS)">
-                <button type="button" id="apply-coupon" class="btn btn-apply">Apply</button>
-            </div>
-            <div id="coupon-message" class="coupon-message"></div>
-
-            <div class="cart-subtotal" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
-                <span>Subtotal:</span>
-                <span id="cart-subtotal-price">৳ 0</span>
-            </div>
-            <div class="cart-delivery-charge" style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
-                <span>Delivery Charge:</span>
-                <span id="cart-delivery-price">৳ 0</span>
-            </div>
-            <div class="cart-total" style="border-top: 1px dashed var(--border-color); padding-top: 1rem;">
-                <span>Total:</span>
-                <span id="cart-total-price">৳ 0</span>
-            </div>
-
-            <form name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form"
-                id="checkout-form">
-                <!-- Netlify hidden input -->
+    <form name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form" id="checkout-form" style="display: flex; flex-direction: column; flex: 1; min-height: 0; margin: 0; padding: 0;">
+        <div class="cart-scrollable-content" style="flex: 1; overflow-y: auto; padding: 1.5rem; -webkit-overflow-scrolling: touch;">
+            <!-- Netlify hidden input -->
                 <input type="hidden" name="form-name" value="checkout">
                 <p style="display: none;">
                     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                 </p>
-                <!-- Hidden inputs to store order data -->
-                <input type="hidden" name="order_details" id="order_details">
-                <input type="hidden" name="total_amount" id="total_amount">
-                <input type="hidden" name="coupon_code" id="hidden_coupon_code">
-
-                <div class="checkout-section">
+            
+            <div class="checkout-section">
                     <div class="checkout-section-header">
                         <span class="step-num">1</span>
                         <h5>Contact Information</h5>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Full Name *" required>
+                        <label class="floating-label-group">
+                            <span class="label-text">Full Name *</span>
+                            <input type="text" name="name" placeholder="e.g. John Doe" required>
+                        </label>
                     </div>
                     <div class="form-row-2">
                         <div class="form-group" style="flex:1;">
-                            <input type="tel" name="phone" placeholder="Phone Number *" required>
+                            <label class="floating-label-group">
+                                <span class="label-text">Phone Number *</span>
+                                <input type="tel" name="phone" placeholder="e.g. 017XXXXXXXX" required>
+                            </label>
                         </div>
                         <div class="form-group" style="flex:1;">
-                            <input type="email" name="email" placeholder="Email Address *" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="checkout-section">
-                    <div class="checkout-section-header">
-                        <span class="step-num">2</span>
-                        <h5>Delivery Details</h5>
-                    </div>
-                    
-                    <div class="form-group delivery-options-group"
-                        style="background: var(--section-bg); padding: 1rem; border-radius: 8px;">
-                        <p style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem;">Delivery Method</p>
-                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                            <label
-                                style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
-                                <input type="radio" name="delivery_option" value="Inside Campus" checked>
-                                Inside Campus (Free)
-                            </label>
-                            <label
-                                style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
-                                <input type="radio" name="delivery_option" value="Outside Campus">
-                                Outside Campus
+                            <label class="floating-label-group">
+                                <span class="label-text">Email Address *</span>
+                                <input type="email" name="email" placeholder="e.g. name@example.com" required>
                             </label>
                         </div>
-                        <p id="outside-campus-msg"
-                            style="display: none; color: #4b5563; font-size: 0.85rem; margin-top: 0.75rem; font-weight: 500; background: rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 4px; border-left: 3px solid #3b82f6;">
-                            ℹ️ Subject to delivery partner. We'll call you and share the details promptly.</p>
                     </div>
-
-                    <div class="form-row-2" style="margin-bottom: 1rem;">
-                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
-                            <select name="division" id="division" required
-                                style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: inherit;">
-                                <option value="">Select Division *</option>
+            
+            </div>
+            <div class="checkout-section">
+                <div class="checkout-section-header">
+                    <span class="step-num">2</span>
+                    <h5>Delivery Details</h5>
+                </div>
+                
+                <div class="form-row-2" style="margin-bottom: 1rem;">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label class="floating-label-group">
+                            <span class="label-text">Division *</span>
+                            <select name="division" id="division" required>
+                                <option value="">Select Division</option>
                             </select>
-                        </div>
-                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
-                            <select name="district" id="district" required disabled
-                                style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: inherit;">
-                                <option value="">Select District *</option>
+                        </label>
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label class="floating-label-group">
+                            <span class="label-text">District *</span>
+                            <select name="district" id="district" required disabled>
+                                <option value="">Select District</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="upazila" placeholder="Upazila / Thana *" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="address" placeholder="Full Delivery Address (Street, House/Apt No.) *" required
-                            rows="2"></textarea>
+                        </label>
                     </div>
                 </div>
+                
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label class="floating-label-group">
+                        <span class="label-text">Upazila / Thana *</span>
+                        <input type="text" name="upazila" placeholder="e.g. Mirpur" required>
+                    </label>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="floating-label-group">
+                        <span class="label-text">Full Delivery Address *</span>
+                        <textarea name="address" placeholder="Street, House/Apt No." required rows="2" style="padding-top:1.5rem;"></textarea>
+                    </label>
+                </div>
 
-                <div class="checkout-section">
+                <div class="form-group delivery-options-group">
+                    <p>Delivery Method *</p>
+                    <div class="delivery-cards-wrapper">
+                        <label class="delivery-card-label">
+                            <input type="radio" name="delivery_option" value="Inside Campus" disabled>
+                            <span class="delivery-card-title">Inside Campus</span>
+                            <span class="delivery-card-subtitle">Free</span>
+                        </label>
+                        <label class="delivery-card-label">
+                            <input type="radio" name="delivery_option" value="Outside Campus" checked>
+                            <span class="delivery-card-title">Outside Campus</span>
+                            <span class="delivery-card-subtitle" id="dynamic-outside-charge">৳80 - ৳130</span>
+                        </label>
+                    </div>
+                    <p id="outside-campus-msg"
+                        style="display: none; color: #4b5563; font-size: 0.85rem; margin-top: 0.75rem; font-weight: 500; background: rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 4px; border-left: 3px solid #ff8c00;">
+                        ℹ️ Subject to delivery partner. We'll call you to confirm.</p>
+                </div>
+            </div>
+            
+            <div class="checkout-section">
                     <div class="checkout-section-header">
                         <span class="step-num">3</span>
                         <h5>Customization</h5>
@@ -600,10 +590,16 @@
                             
                             <div class="form-row-2">
                                 <div class="form-group" style="flex: 2; margin-bottom: 1rem;">
-                                    <input type="text" name="custom_name" placeholder="Customized name *">
+                                    <label class="floating-label-group">
+                                        <span class="label-text">Customized Name *</span>
+                                        <input type="text" name="custom_name" placeholder="e.g. CAMPUSMART">
+                                    </label>
                                 </div>
                                 <div class="form-group" style="flex: 1; margin-bottom: 1rem;">
-                                    <input type="text" name="custom_number" placeholder="Number *">
+                                    <label class="floating-label-group">
+                                        <span class="label-text">Number *</span>
+                                        <input type="text" name="custom_number" placeholder="e.g. 10">
+                                    </label>
                                 </div>
                             </div>
 
@@ -628,22 +624,68 @@
 
                             <div class="form-row-2">
                                 <div class="form-group" style="flex: 1; margin-bottom: 1rem;">
-                                    <input type="tel" name="sender_number" placeholder="Your sending number *">
+                                    <label class="floating-label-group">
+                                        <span class="label-text">Your bKash/Nagad Number *</span>
+                                        <input type="tel" name="sender_number" placeholder="01XXXXXXXXX">
+                                    </label>
                                 </div>
                                 <div class="form-group" style="flex: 1; margin-bottom: 1rem;">
-                                    <input type="text" name="trx_id" placeholder="Transaction ID">
+                                    <label class="floating-label-group">
+                                        <span class="label-text">Transaction ID *</span>
+                                        <input type="text" name="trx_id" placeholder="Transaction ID">
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            
+            <div class="checkout-section order-summary-section" style="margin-top: 2rem;">
+                <div class="checkout-section-header">
+                    <span class="step-num">4</span>
+                    <h5>Order Summary</h5>
+                </div>
+                
+                <div class="cart-items" id="cart-items">
+            <!-- Items injected by JS -->
+        </div>
+                
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 1rem;">
+                    <div class="coupon-section">
+                <input type="text" id="coupon-code" placeholder="Coupon Code (e.g. EARLYBIRDS)">
+                <button type="button" id="apply-coupon" class="btn btn-apply">Apply</button>
+            </div>
+            <div id="coupon-message" class="coupon-message"></div>
+                    
+                    <div style="margin-top: 1rem;">
+                        <div class="cart-subtotal" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal-price">৳ 0</span>
+            </div>
+                        <div class="cart-delivery-charge" style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
+                <span>Delivery Charge:</span>
+                <span id="cart-delivery-price">৳ 0</span>
+            </div>
+                        <div class="cart-total" style="border-top: 1px dashed var(--border-color); padding-top: 1rem;">
+                <span>Total:</span>
+                <span id="cart-total-price">৳ 0</span>
+            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cart-footer-sticky" style="padding: 1.5rem; background: white; border-top: 1px solid var(--border-color); flex-shrink: 0; box-shadow: 0 -4px 10px rgba(0,0,0,0.02);">
+            <!-- Hidden inputs to store order data -->
+                <input type="hidden" name="order_details" id="order_details">
+                <input type="hidden" name="total_amount" id="total_amount">
+                <input type="hidden" name="coupon_code" id="hidden_coupon_code">
 
                 <button type="submit" class="btn btn-primary btn-checkout" style="margin-top: 1rem;">Confirm Order & Pay</button>
-</form>
         </div>
+    </form>
     </div>
-
-    <!-- Toast Notification -->
+<!-- Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-content">
             <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

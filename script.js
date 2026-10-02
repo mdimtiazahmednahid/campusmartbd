@@ -33,6 +33,30 @@ function reportError(message, actionContext) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    function checkCampusAvailability() {
+        const divisionSelect = document.getElementById('division');
+        const districtSelect = document.getElementById('district');
+        const insideCampusRadio = document.querySelector('input[value="Inside Campus"]');
+        const outsideCampusRadio = document.querySelector('input[value="Outside Campus"]');
+        const insideCampusLabel = insideCampusRadio.closest('label');
+        
+        if (divisionSelect.value === 'Sylhet' && districtSelect.value === 'Sylhet') {
+            insideCampusRadio.disabled = false;
+            insideCampusLabel.style.opacity = '1';
+            insideCampusLabel.style.pointerEvents = 'auto';
+        } else {
+            insideCampusRadio.disabled = true;
+            insideCampusLabel.style.opacity = '0.5';
+            insideCampusLabel.style.pointerEvents = 'none';
+            
+            if (insideCampusRadio.checked) {
+                outsideCampusRadio.checked = true;
+                document.getElementById('outside-campus-msg').style.display = 'block';
+            }
+        }
+    }
+
     // BD Location Data
     const bdLocations = {
         "Dhaka": ["Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"],
@@ -248,8 +272,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate Delivery Charge
         let deliveryCharge = 0;
         const isInsideCampus = document.querySelector('input[name="delivery_option"]:checked')?.value === 'Inside Campus';
+        const district = document.getElementById('district').value;
+        
+        let outsideChargeText = "৳80 - ৳130";
+        if (district === 'Dhaka' || district === 'Sylhet') {
+            outsideChargeText = "৳80";
+        } else if (district) {
+            outsideChargeText = "৳130";
+        }
+        
+        const dynamicChargeEl = document.getElementById('dynamic-outside-charge');
+        if (dynamicChargeEl) {
+            dynamicChargeEl.textContent = outsideChargeText;
+        }
+
         if (!isInsideCampus) {
-            const district = document.getElementById('district').value;
             if (district === 'Dhaka' || district === 'Sylhet') {
                 deliveryCharge = 80;
             } else if (district) {
@@ -286,11 +323,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="cart-item-options" style="display:flex; gap:0.5rem; margin-top:0.25rem;">
                         <select class="cart-size-select" data-index="${index}" style="padding:0.25rem; font-size:0.8rem; border-radius:4px; border:1px solid var(--border-color); width:48%; background:white; cursor:pointer; outline:none; ${(item.size === '' && document.getElementById('checkout-form').classList.contains('submitted')) ? 'border-color: #dc2626; box-shadow: 0 0 0 1px #dc2626;' : ''}">
                             <option value="">Size</option>
-                            <option value="M" ${item.size === 'M' ? 'selected' : ''}>M</option>
-                            <option value="L" ${item.size === 'L' ? 'selected' : ''}>L</option>
-                            <option value="XL" ${item.size === 'XL' ? 'selected' : ''}>XL</option>
-                            <option value="XXL" ${item.size === 'XXL' ? 'selected' : ''}>XXL</option>
-                            <option value="3XL" ${item.size === '3XL' ? 'selected' : ''}>3XL</option>
+                            <option value="M" ${item.size === 'M' ? 'selected' : ''}>M (Chest-38, Length-27)</option>
+                            <option value="L" ${item.size === 'L' ? 'selected' : ''}>L (Chest-40, Length-28)</option>
+                            <option value="XL" ${item.size === 'XL' ? 'selected' : ''}>XL (Chest-42, Length-29)</option>
+                            <option value="XXL" ${item.size === 'XXL' ? 'selected' : ''}>XXL (Chest-44, Length-30)</option>
+                            <option value="3XL" ${item.size === '3XL' ? 'selected' : ''}>3XL (Chest-46, Length-31)</option>
                         </select>
                         <select class="cart-type-select" data-index="${index}" style="padding:0.25rem; font-size:0.8rem; border-radius:4px; border:1px solid var(--border-color); width:48%; background:white; cursor:pointer; outline:none; ${(item.tShirtType === '' && document.getElementById('checkout-form').classList.contains('submitted')) ? 'border-color: #dc2626; box-shadow: 0 0 0 1px #dc2626;' : ''}">
                             <option value="">Type</option>
@@ -687,9 +724,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             districtSelect.disabled = true;
         }
+        checkCampusAvailability();
+        updateCart();
     });
     
-    districtSelect.addEventListener('change', () => {
+    districtSelect.addEventListener('change', (e) => {
+        checkCampusAvailability();
         updateCart();
     });
 
@@ -699,14 +739,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // Load existing data if available
         const savedVal = localStorage.getItem(`campusmart_user_${input.name}`);
         if (savedVal && savedVal !== 'undefined' && savedVal !== 'null') {
-            input.value = savedVal;
-        } else {
+            if (input.type === 'radio') {
+                if (input.value === savedVal) {
+                    input.checked = true;
+                }
+            } else if (input.type === 'checkbox') {
+                input.checked = savedVal === 'true';
+            } else {
+                input.value = savedVal;
+            }
+        } else if (input.type !== 'radio' && input.type !== 'checkbox') {
             input.value = '';
         }
 
         // Save on input/change
         input.addEventListener('change', (e) => {
-            localStorage.setItem(`campusmart_user_${e.target.name}`, e.target.value);
+            if (e.target.type === 'checkbox') {
+                localStorage.setItem(`campusmart_user_${e.target.name}`, e.target.checked);
+            } else {
+                localStorage.setItem(`campusmart_user_${e.target.name}`, e.target.value);
+            }
         });
         
         if (input.tagName === 'INPUT' || input.tagName === 'TEXTAREA') {
@@ -735,6 +787,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Initial render
+    checkCampusAvailability();
     updateCart();
 });
 
