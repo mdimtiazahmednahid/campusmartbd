@@ -224,7 +224,7 @@ h1, h2, h3, h4 {
     width: 100%;
     
     /* Premium Navy Blue background */
-    background: linear-gradient(135deg, #b32624 0%, #6b1716 100%); /* Premium Dark Red */
+    background: linear-gradient(135deg, #6c0a1a 0%, #9b1122 45%, #42040d 100%); /* Premium Dark Red */
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(179, 38, 36, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.05);
