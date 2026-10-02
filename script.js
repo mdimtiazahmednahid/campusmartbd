@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cart.forEach((item, index) => {
             const effectivePrice = item.price - discountPerItem;
             total += effectivePrice * item.quantity;
-            orderDetailsStr += `${item.title} (Size: ${item.size}) x${item.quantity} - ৳${effectivePrice * item.quantity}\n`;
+            orderDetailsStr += `${item.title} (${item.collar}, ${item.sleeve}, Size: ${item.size}) x${item.quantity} - ৳${effectivePrice * item.quantity}\n`;
 
             const itemEl = document.createElement('div');
             itemEl.className = 'cart-item';
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${item.image}" alt="${item.title}">
                 <div class="cart-item-details">
                     <div class="cart-item-title">${item.title}</div>
-                    <div class="cart-item-meta">Size: ${item.size}</div>
+                    <div class="cart-item-meta">${item.collar}, ${item.sleeve}, Size: ${item.size}</div>
                     <div class="cart-item-price">৳ ${effectivePrice} ${isEarlyBirds ? '<del style="font-size:0.75rem;color:#9ca3af;margin-left:0.25rem;">৳ '+item.price+'</del>' : ''}</div>
                     <div class="cart-item-actions">
                         <button class="qty-btn minus" data-index="${index}">-</button>
@@ -276,8 +276,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const addBtn = card.querySelector('.btn-add-cart');
             const buyBtn = card.querySelector('.btn-buy-now');
             
-            // Assuming base price is what is initially set, let's read it or assume 450 for Kiloroad, 400 for Red Sustverse
-            // Better to pull from data attribute. If not set, initialize it.
+            const id = addBtn.getAttribute('data-id');
+            const sizeSelect = document.getElementById(`size-${id}`);
+            
             if (!card.dataset.basePrice) {
                 card.dataset.basePrice = addBtn.getAttribute('data-price');
             }
@@ -285,14 +286,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let basePrice = parseInt(card.dataset.basePrice);
             let additionalCost = 0;
             
-            // Add 50 BDT for XXL size
-            if (e.target.value === 'XXL') {
+            if (sizeSelect && sizeSelect.value === 'XXL') {
                 additionalCost = 50;
             }
             
             const newPrice = basePrice + additionalCost;
             
-            // Update UI and Button data attributes
             priceElement.textContent = `৳ ${newPrice}`;
             addBtn.setAttribute('data-price', newPrice);
             buyBtn.setAttribute('data-price', newPrice);
@@ -306,17 +305,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const price = parseInt(btn.getAttribute('data-price'));
         const image = btn.getAttribute('data-image');
         
-        // Get size
         const sizeSelect = document.getElementById(`size-${id}`);
-        const size = sizeSelect ? sizeSelect.value : 'M';
+        const collarSelect = document.getElementById(`collar-${id}`);
+        const sleeveSelect = document.getElementById(`sleeve-${id}`);
+        
+        const size = sizeSelect ? sizeSelect.value : '';
+        const collar = collarSelect ? collarSelect.value : '';
+        const sleeve = sleeveSelect ? sleeveSelect.value : '';
 
-        // Check if item already exists in cart with same size
-        const existingItemIndex = cart.findIndex(item => item.id === id && item.size === size);
+        if (!size || !collar || !sleeve) {
+            alert('Please select a Size, Collar type, and Sleeve type before adding to cart.');
+            return;
+        }
+
+        const existingItemIndex = cart.findIndex(item => item.id === id && item.size === size && item.collar === collar && item.sleeve === sleeve);
         
         if (existingItemIndex > -1) {
             cart[existingItemIndex].quantity++;
         } else {
-            cart.push({ id, title, price, image, size, quantity: 1 });
+            cart.push({ id, title, price, image, size, collar, sleeve, quantity: 1 });
         }
 
         updateCart();
@@ -380,7 +387,10 @@ document.addEventListener('DOMContentLoaded', () => {
             body: new URLSearchParams(formData).toString()
         })
         .then(() => {
-            // Generate Order Receipt Download
+            // Generate PDF Receipt Download
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
             const orderDetails = formData.get('order_details');
             const total = formData.get('total_amount');
             const name = formData.get('name');
@@ -388,39 +398,62 @@ document.addEventListener('DOMContentLoaded', () => {
             const delivery = formData.get('delivery_option');
             const address = `${formData.get('address')}, ${formData.get('upazila')}, ${formData.get('district')}, ${formData.get('division')}`;
             
-            let receiptContent = `======================================\n`;
-            receiptContent += `       CAMPUSMART ORDER RECEIPT       \n`;
-            receiptContent += `======================================\n\n`;
-            receiptContent += `CUSTOMER DETAILS:\n`;
-            receiptContent += `Name: ${name}\n`;
-            receiptContent += `Phone: ${phone}\n`;
-            receiptContent += `Delivery Option: ${delivery}\n`;
-            receiptContent += `Address: ${address}\n\n`;
-            receiptContent += `ORDER ITEMS:\n`;
-            receiptContent += `${orderDetails}\n`;
-            receiptContent += `Total Amount: ৳${total}\n`;
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text("CAMPUSMART ORDER RECEIPT", 105, 20, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text("CUSTOMER DETAILS", 20, 40);
+            
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Name: ${name}`, 20, 50);
+            doc.text(`Phone: ${phone}`, 20, 58);
+            doc.text(`Delivery Option: ${delivery}`, 20, 66);
+            
+            const splitAddress = doc.splitTextToSize(`Address: ${address}`, 170);
+            doc.text(splitAddress, 20, 74);
+            
+            let currentY = 74 + (splitAddress.length * 7) + 5;
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text("ORDER ITEMS", 20, currentY);
+            currentY += 10;
+            
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'normal');
+            const splitItems = doc.splitTextToSize(orderDetails, 170);
+            doc.text(splitItems, 20, currentY);
+            currentY += (splitItems.length * 7) + 5;
+            
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(`Total Amount: Tk ${total}`, 20, currentY);
+            currentY += 15;
             
             if (formData.get('is_customized') === 'on') {
-                receiptContent += `\nCUSTOMIZATION DETAILS:\n`;
-                receiptContent += `Name on Jersey: ${formData.get('custom_name')}\n`;
-                receiptContent += `Number on Jersey: ${formData.get('custom_number')}\n`;
-                receiptContent += `Advance Paid via bKash/Nagad\n`;
-                receiptContent += `Sender Number: ${formData.get('sender_number')}\n`;
-                receiptContent += `TrxID: ${formData.get('trx_id') || 'N/A'}\n`;
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.text("CUSTOMIZATION DETAILS", 20, currentY);
+                currentY += 10;
+                
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                doc.text(`Name on Jersey: ${formData.get('custom_name')}`, 20, currentY);
+                doc.text(`Number on Jersey: ${formData.get('custom_number')}`, 20, currentY + 8);
+                doc.text(`Advance Paid via bKash/Nagad`, 20, currentY + 16);
+                doc.text(`Sender Number: ${formData.get('sender_number')}`, 20, currentY + 24);
+                doc.text(`TrxID: ${formData.get('trx_id') || 'N/A'}`, 20, currentY + 32);
+                currentY += 45;
             }
             
-            receiptContent += `\n======================================\n`;
-            receiptContent += `Thank you for shopping with CampusMart!\n`;
-
-            const blob = new Blob([receiptContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `CampusMart_Order_${Date.now()}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'italic');
+            doc.text("Thank you for shopping with CampusMart!", 105, currentY, null, null, "center");
+            
+            doc.save(`CampusMart_Order_${Date.now()}.pdf`);
 
             // Show toast
             const toast = document.getElementById('toast');
