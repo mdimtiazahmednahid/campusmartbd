@@ -373,6 +373,39 @@
                     <textarea name="address" placeholder="Full Delivery Address (Street, House, etc.)" required rows="3"></textarea>
                 </div>
                 
+                <div class="form-group customization-group" style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; color: var(--primary-color);">
+                        <input type="checkbox" id="is_customized" name="is_customized" style="width: auto; margin: 0; cursor: pointer; accent-color: var(--primary-color);">
+                        Yes, I want a customized jersey (Name & Number on back)
+                    </label>
+                    
+                    <div id="customization-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(16, 185, 129, 0.3);">
+                        <div style="margin-bottom: 1rem;">
+                            <input type="text" name="custom_name" placeholder="Customized name">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <input type="text" name="custom_number" placeholder="Customized number">
+                        </div>
+                        
+                        <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; text-align: center;">
+                            <p style="font-size: 0.95rem; margin-bottom: 0.5rem; font-weight: 700;">50% amount: <span id="advance-amount" style="color: #dc2626;">৳ 0</span></p>
+                            <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">Pay to- number (bKash/Nagad):</p>
+                            <button type="button" id="copy-number-btn" style="background: #f1f5f9; border: 1px dashed var(--border-color); padding: 0.5rem 1rem; border-radius: 4px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 1.1rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+                                +880 1600-265376
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                            <p id="copy-toast" style="display: none; color: var(--primary-color); font-size: 0.8rem; margin-top: 0.5rem;">Copied!</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <input type="tel" name="sender_number" placeholder="Sender number">
+                        </div>
+                        <div>
+                            <input type="text" name="trx_id" placeholder="Trx number (Optional)">
+                        </div>
+                    </div>
+                </div>
+                
                 <button type="submit" class="btn btn-primary btn-checkout">Confirm Order</button>
             </form>
         </div>

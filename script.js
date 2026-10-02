@@ -35,6 +35,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Customization Toggle
+    const isCustomizedCheckbox = document.getElementById('is_customized');
+    const customizationDetails = document.getElementById('customization-details');
+    const advanceAmountSpan = document.getElementById('advance-amount');
+    
+    if (isCustomizedCheckbox && customizationDetails) {
+        isCustomizedCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                customizationDetails.style.display = 'block';
+                // Make required fields required
+                document.querySelector('input[name="custom_name"]').required = true;
+                document.querySelector('input[name="custom_number"]').required = true;
+                document.querySelector('input[name="sender_number"]').required = true;
+            } else {
+                customizationDetails.style.display = 'none';
+                // Remove required attribute
+                document.querySelector('input[name="custom_name"]').required = false;
+                document.querySelector('input[name="custom_number"]').required = false;
+                document.querySelector('input[name="sender_number"]').required = false;
+            }
+        });
+    }
+
+    // Copy bKash/Nagad Number
+    const copyBtn = document.getElementById('copy-number-btn');
+    const copyToast = document.getElementById('copy-toast');
+    if (copyBtn && copyToast) {
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText('+8801600265376').then(() => {
+                copyToast.style.display = 'block';
+                setTimeout(() => {
+                    copyToast.style.display = 'none';
+                }, 2000);
+            });
+        });
+    }
+
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const navMenu = document.getElementById('nav-menu');
@@ -169,6 +206,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Netlify Form hidden inputs
         orderDetailsInput.value = orderDetailsStr;
         totalAmountInput.value = total;
+        
+        // Update advance amount for customization
+        const advanceAmountSpan = document.getElementById('advance-amount');
+        if (advanceAmountSpan) {
+            advanceAmountSpan.textContent = `৳ ${Math.ceil(total / 2)}`;
+        }
         if (hiddenCouponCodeInput) {
             hiddenCouponCodeInput.value = isEarlyBirds ? 'EARLYBIRDS' : '';
         }
