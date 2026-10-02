@@ -1062,7 +1062,7 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.style.left = '0';
             overlay.style.width = '100vw';
             overlay.style.height = '100vh';
-            overlay.style.backgroundColor = 'rgba(15, 23, 42, 0.95)';
+            overlay.style.backgroundColor = 'rgba(42, 4, 13, 0.95)';
             overlay.style.backdropFilter = 'blur(10px)';
             overlay.style.zIndex = '999999';
             overlay.style.display = 'flex';
@@ -1113,12 +1113,12 @@ document.addEventListener('DOMContentLoaded', () => {
             details.style.color = 'white';
             details.style.textAlign = 'center';
             details.style.marginTop = '20px';
-            details.innerHTML = `<h3 style="margin:0; font-size:1.5rem; font-weight:800;">${title}</h3><p style="color:#f97316; font-size:1.25rem; font-weight:700; margin:5px 0 15px;">৳ ${price}</p>`;
+            details.innerHTML = `<h3 style="margin:0; font-size:1.5rem; font-weight:800;">${title}</h3><p style="color:#ff4d66; font-size:1.25rem; font-weight:700; margin:5px 0 15px;">৳ ${price}</p>`;
             
             // Buy Now Action
             const actionBtn = document.createElement('button');
             actionBtn.textContent = 'Buy Now';
-            actionBtn.style.background = 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)';
+            actionBtn.style.background = 'linear-gradient(135deg, #6c0a1a 0%, #9b1122 45%, #42040d 100%)';
             actionBtn.style.color = 'white';
             actionBtn.style.border = 'none';
             actionBtn.style.padding = '1rem 3rem';
@@ -1126,7 +1126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             actionBtn.style.fontSize = '1.1rem';
             actionBtn.style.fontWeight = '700';
             actionBtn.style.cursor = 'pointer';
-            actionBtn.style.boxShadow = '0 8px 20px rgba(234, 88, 12, 0.4)';
+            actionBtn.style.boxShadow = '0 8px 24px rgba(108, 10, 26, 0.6)';
             actionBtn.onclick = () => {
                 closeOverlay();
                 buyBtn.click();

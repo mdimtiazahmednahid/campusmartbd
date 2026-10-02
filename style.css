@@ -937,11 +937,14 @@ h1, h2, h3, h4 {
         font-size: 0.95rem;
     }
     .promo-image-wrapper {
-        height: 260px; /* Slightly taller for better view */
+        height: 260px; /* Strictly defined */
+        min-height: 260px;
+        flex: none; /* Do not allow flex layout to squash it */
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden; /* Prevent jumping */
     }
     .container {
         padding: 0 1rem;
@@ -1803,4 +1806,85 @@ button:active {
 }
 .qty-btn:active {
     transform: scale(0.9) !important;
+}
+
+/* =========================================
+   OVERRIDE: PREMIUM RED WINE PRODUCT CARDS
+   ========================================= */
+
+.product-card {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(155, 17, 34, 0.08) !important;
+    box-shadow: 0 8px 24px rgba(108, 10, 26, 0.03) !important;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    padding: 1rem !important;
+}
+
+.product-card:hover {
+    border-color: rgba(155, 17, 34, 0.3) !important;
+    box-shadow: 0 20px 40px rgba(108, 10, 26, 0.12), 0 0 0 1px rgba(155, 17, 34, 0.1) !important;
+    transform: translateY(-6px) !important;
+}
+
+.product-image-container {
+    background: #ffffff !important; /* Pure White as requested */
+    border-radius: 16px !important;
+    position: relative;
+    padding: 1rem !important;
+    aspect-ratio: 1 / 1 !important; /* Fixed height! */
+    margin-bottom: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid rgba(0,0,0,0.03) !important;
+}
+
+.product-image-container img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+}
+
+.product-title {
+    color: #42040d !important; /* Deep Burgundy */
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+}
+
+.product-price {
+    color: #9b1122 !important; /* Vibrant Ruby */
+    font-weight: 800 !important;
+}
+
+.original-price {
+    color: #a3b1c6 !important;
+}
+
+.btn-add-cart {
+    background: linear-gradient(135deg, #fff5f6 0%, #fef1f2 100%) !important;
+    color: #9b1122 !important;
+    border: 1px solid rgba(155, 17, 34, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-add-cart:hover {
+    background: linear-gradient(135deg, #9b1122 0%, #6c0a1a 100%) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 8px 16px rgba(155, 17, 34, 0.2) !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-buy-now {
+    background: linear-gradient(135deg, #6c0a1a 0%, #9b1122 45%, #42040d 100%) !important; /* Match Launch Offer */
+    color: #ffffff !important;
+    box-shadow: 0 8px 20px rgba(108, 10, 26, 0.2) !important;
+    border: none !important;
+}
+
+.btn-buy-now:hover {
+    box-shadow: 0 12px 24px rgba(108, 10, 26, 0.3) !important;
+    transform: translateY(-2px) !important;
 }
