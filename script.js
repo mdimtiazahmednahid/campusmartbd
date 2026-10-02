@@ -593,6 +593,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData(checkoutForm);
         
+        // Anti-Autofill Bug Fix: Explicitly grab and set values directly from the DOM
+        const nameInput = checkoutForm.querySelector('[name="name"]');
+        const phoneInput = checkoutForm.querySelector('[name="phone"]');
+        const emailInput = checkoutForm.querySelector('[name="email"]');
+        if (nameInput) formData.set('name', nameInput.value);
+        if (phoneInput) formData.set('phone', phoneInput.value);
+        if (emailInput) formData.set('email', emailInput.value);
+        
         fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -1113,7 +1121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             details.style.color = 'white';
             details.style.textAlign = 'center';
             details.style.marginTop = '20px';
-            details.innerHTML = `<h3 style="margin:0; font-size:1.5rem; font-weight:800;">${title}</h3><p style="color:#ff4d66; font-size:1.25rem; font-weight:700; margin:5px 0 15px;">৳ ${price}</p>`;
+            details.innerHTML = `<h3 style="margin:0; font-size:1.5rem; font-weight:800; color:#ffffff;">${title}</h3><p style="color:#ff4d66; font-size:1.25rem; font-weight:700; margin:5px 0 15px;">৳ ${price}</p>`;
             
             // Buy Now Action
             const actionBtn = document.createElement('button');

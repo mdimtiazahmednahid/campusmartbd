@@ -103,7 +103,7 @@ h1, h2, h3, h4 {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: 1100; /* Restored correct z-index */
     border-bottom: 1px solid var(--border-color);
     transition: var(--transition);
 }
@@ -1054,7 +1054,7 @@ h1, h2, h3, h4 {
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-    z-index: 1000;
+    z-index: 1100; /* Restored correct z-index */
     transition: var(--transition);
 }
 
@@ -1887,4 +1887,126 @@ button:active {
 .btn-buy-now:hover {
     box-shadow: 0 12px 24px rgba(108, 10, 26, 0.3) !important;
     transform: translateY(-2px) !important;
+}
+
+/* =========================================
+   PREMIUM MINIMALIST ANIMATED BACKGROUND
+   ========================================= */
+
+body {
+    position: relative;
+    background-color: #fafafa !important; /* Soft, clean minimalist white */
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -9999;
+    pointer-events: none;
+    /* Create a subtle dot pattern */
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.6;
+    /* Fade out the dots at the edges of the screen for a vignette effect */
+    mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+    /* Infinitely pan the dots slowly */
+    animation: pan-grid 60s linear infinite;
+    will-change: background-position;
+}
+
+@keyframes pan-grid {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 64px 64px; } /* Move by exactly 2x the background size to loop seamlessly */
+}
+
+/* Cart Micromovement and Contrast Fixes */
+.cart-sidebar {
+    position: fixed;
+    z-index: 1100; /* Restored correct z-index */
+}
+
+.cart-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(#94a3b8 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+    animation: pan-grid-cart 40s linear infinite;
+    will-change: background-position;
+    mask-image: linear-gradient(to bottom, black 10%, transparent 90%);
+    -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 90%);
+}
+
+@keyframes pan-grid-cart {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 40px 40px; }
+}
+
+/* Fix White on White contrast inside cart */
+.checkout-section {
+    border: 1px solid rgba(0, 0, 0, 0.05) !important; /* Subtle dark border to separate white from white */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.02) !important; /* Stronger shadow */
+}
+
+.cart-item {
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    background: #ffffff !important;
+}
+
+/* FIX: Chrome Autofill covering floating labels */
+.floating-label-group {
+    position: relative;
+}
+
+.floating-label-group .label-text {
+    z-index: 10 !important;
+}
+
+/* Force autofill background to match our design */
+.floating-label-group input:-webkit-autofill,
+.floating-label-group input:-webkit-autofill:hover, 
+.floating-label-group input:-webkit-autofill:focus, 
+.floating-label-group input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+    -webkit-text-fill-color: #1e293b !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* FIX MOBILE PRODUCT CARD OVERLAY COVERING IMAGE */
+@media (max-width: 768px) {
+    .product-image-container {
+        aspect-ratio: auto !important;
+        padding: 1rem 1rem 0 1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+    }
+    
+    .product-image-container img {
+        height: 220px !important; /* Fixed height for image so it doesn't explode */
+        width: 100% !important;
+        object-fit: contain !important;
+        margin-bottom: 1rem;
+    }
+
+    .product-overlay {
+        position: relative !important;
+        bottom: auto !important;
+        width: 100% !important;
+        padding: 0 0 1rem 0 !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+    }
 }
