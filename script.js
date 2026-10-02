@@ -43,12 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (divisionSelect.value === 'Sylhet' && districtSelect.value === 'Sylhet') {
             insideCampusRadio.disabled = false;
-            insideCampusLabel.style.opacity = '1';
-            insideCampusLabel.style.pointerEvents = 'auto';
+            insideCampusLabel.style.display = 'flex';
         } else {
             insideCampusRadio.disabled = true;
-            insideCampusLabel.style.opacity = '0.5';
-            insideCampusLabel.style.pointerEvents = 'none';
+            insideCampusLabel.style.display = 'none';
             
             if (insideCampusRadio.checked) {
                 outsideCampusRadio.checked = true;
@@ -829,7 +827,21 @@ const closeHistory = document.getElementById('close-history');
 const historyItems = document.getElementById('history-items');
 
 function loadOrderHistory() {
-    const history = JSON.parse(localStorage.getItem('campusMartHistory')) || [];
+    let history = [];
+    try {
+        const stored = localStorage.getItem('campusMartHistory');
+        if (stored && stored !== 'undefined' && stored !== 'null') {
+            history = JSON.parse(stored);
+        }
+    } catch (e) {
+        console.error('Failed to parse history', e);
+        history = [];
+    }
+    
+    if (!Array.isArray(history)) {
+        history = [];
+    }
+    
     historyItems.innerHTML = '';
     
     if (history.length === 0) {
@@ -851,13 +863,13 @@ function loadOrderHistory() {
 
 function openHistory() {
     loadOrderHistory();
-    historySidebar.classList.add('open');
-    historyOverlay.classList.add('open');
+    historySidebar.classList.add('active');
+    historyOverlay.classList.add('active');
 }
 
 function closeHistoryFn() {
-    historySidebar.classList.remove('open');
-    historyOverlay.classList.remove('open');
+    historySidebar.classList.remove('active');
+    historyOverlay.classList.remove('active');
 }
 
 if (navHistory) {

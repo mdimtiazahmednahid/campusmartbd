@@ -1499,3 +1499,246 @@ h1, h2, h3, h4 {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
+
+/* =========================================
+   EYE-SOOTHING PREMIUM CART OVERHAUL
+   ========================================= */
+
+/* 1. Glassmorphism Overlay */
+.cart-overlay.open {
+    background: rgba(15, 23, 42, 0.3) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* 2. Soft Sidebar Background */
+.cart-sidebar {
+    background: #f4f7f9 !important; /* Extremely soft, cool gray/blue */
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.06) !important;
+}
+
+@media (max-width: 768px) {
+    .cart-sidebar {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+
+/* 3. Floating Card Sections */
+.checkout-section {
+    background: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0,0,0,0.01) !important;
+    border-radius: 16px !important;
+    padding: 1.75rem !important;
+    margin-bottom: 1.5rem !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.checkout-section:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0,0,0,0.02) !important;
+}
+
+/* 4. Elegant Step Indicators */
+.checkout-section-header .step-num {
+    background: #eff6ff !important;
+    color: #3b82f6 !important;
+    box-shadow: none !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.9rem !important;
+}
+
+/* 5. Soothing Input Fields */
+.floating-label-group input:not([type="radio"]):not([type="checkbox"]),
+.floating-label-group select,
+.floating-label-group textarea {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    color: #334155 !important;
+    font-weight: 500 !important;
+}
+
+.floating-label-group input:focus,
+.floating-label-group select:focus,
+.floating-label-group textarea:focus {
+    background: #ffffff !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* 6. Soft Visual Delivery Cards */
+.delivery-card-label {
+    background: #f8fafc !important;
+    border: 2px solid transparent !important;
+    border-radius: 14px !important;
+    padding: 1.2rem 0.5rem !important;
+}
+
+.delivery-card-label:has(input:checked) {
+    background: #ffffff !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12) !important;
+}
+
+.delivery-card-label:has(input[value="Outside Campus"]:checked) .delivery-card-subtitle {
+    color: #3b82f6 !important;
+}
+
+/* 7. Beautiful Order Summary */
+.order-summary-section {
+    background: #ffffff !important;
+}
+.order-summary-section > div[style*="background: #f8fafc"] {
+    background: #f8fafc !important;
+    border: none !important;
+}
+
+#cart-total-price {
+    color: #3b82f6 !important;
+    font-size: 1.4rem !important;
+}
+
+/* 8. Premium Sticky Footer */
+.cart-footer-sticky {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-top: 1px solid rgba(0,0,0,0.03) !important;
+}
+
+.btn-checkout {
+    background: #1e293b !important;
+    color: #ffffff !important;
+    border-radius: 14px !important;
+    height: 56px !important;
+    font-size: 1.15rem !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 15px rgba(30, 41, 59, 0.2) !important;
+    border: none !important;
+}
+
+.btn-checkout:hover {
+    background: #0f172a !important;
+    box-shadow: 0 8px 25px rgba(30, 41, 59, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Smooth Out the Main Cart Items */
+.cart-item {
+    border: 1px solid #f1f5f9 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.01) !important;
+}
+.cart-size-select, .cart-type-select {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* 9. Extra Breathing Room (Spacing Enhancements) */
+.checkout-section {
+    margin-bottom: 1rem !important; /* Reduced space between steps */
+    padding: 1.5rem !important; /* Reduced inner space */
+}
+
+.cart-scrollable-content {
+    padding: 2rem 1.5rem !important; /* More space at the very top and bottom of the scrolling area */
+}
+
+.form-group {
+    margin-bottom: 1.25rem !important; /* Increased space between input fields */
+}
+
+.form-row-2 {
+    gap: 1.25rem !important; /* Increased horizontal space between side-by-side inputs */
+}
+
+.checkout-section-header {
+    margin-bottom: 2rem !important; /* More space below the step title */
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* Space between multiple items in cart */
+}
+
+.cart-item {
+    margin-bottom: 0 !important;
+}
+
+/* Fix for overlapping labels on small screens */
+.floating-label-group .label-text {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 90% !important;
+}
+
+/* =========================================
+   APPLE-STYLE PREMIUM LIQUID GLASS OVERHAUL
+   ========================================= */
+
+/* Liquid Glass Sidebar Background */
+.cart-sidebar {
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(40px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Translucent Floating Cards */
+.checkout-section {
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255,255,255,1) !important;
+}
+
+/* Gradient Text Effect for Headers */
+.cart-header h3, .cart-header h2 {
+    background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+}
+
+/* Premium Button Glass Reflection */
+.btn-checkout {
+    background: linear-gradient(145deg, #1e293b, #0f172a) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-checkout::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    animation: premium-shimmer 3s infinite;
+}
+
+@keyframes premium-shimmer {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+
+/* Glassy Sticky Footer */
+.cart-footer-sticky {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(30px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(150%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
