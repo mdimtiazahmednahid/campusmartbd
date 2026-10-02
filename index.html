@@ -37,18 +37,16 @@
         <section id="home" class="promo-hero">
             <div class="container promo-container">
                 <div class="promo-content">
-                    <h1 class="promo-title">CAMPUS MART<br>LAUNCH OFFER</h1>
+                    <p class="promo-subtitle" style="font-size: 1.2rem; font-weight: 600; letter-spacing: 2px; color: rgba(255,255,255,0.8); margin-bottom: 0.5rem;">CAMPUS MART</p>
+                    <h1 class="promo-title">LAUNCH OFFER</h1>
                     
                     <div class="promo-pricing">
-                        <p class="regular-price">REGULAR PRICE <del>৳650</del></p>
-                        <p class="sale-price">৳550</p>
+                        <p class="sale-price">৳550 <del style="font-size: 1.2rem; color: rgba(255,255,255,0.6); font-weight: 500; margin-left: 0.5rem;">৳650</del></p>
                     </div>
                     
                     <div class="promo-early-bird">
-                        <h2>⚡ EARLY BIRD OFFER</h2>
-                        <p class="limit-text">FIRST 50 ORDERS</p>
-                        <p class="early-bird-price">৳499</p>
-                        <p class="early-bird-date">Limited Early Bird • October Only</p>
+                        <p class="early-bird-price">⚡ ৳499</p>
+                        <p class="limit-text">First 50 Orders • October Only</p>
                     </div>
                     
                     <a href="#collection" class="btn btn-white">Shop Now</a>
@@ -344,6 +342,22 @@
                 <div class="form-group">
                     <input type="tel" name="phone" placeholder="Phone Number" required>
                 </div>
+                
+                <div class="form-group delivery-options-group" style="background: var(--section-bg); padding: 1rem; border-radius: 8px;">
+                    <p style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem;">Delivery Option</p>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+                            <input type="radio" name="delivery_option" value="Inside Campus" checked>
+                            Inside Campus (Free)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+                            <input type="radio" name="delivery_option" value="Outside Campus">
+                            Outside Campus
+                        </label>
+                    </div>
+                    <p id="outside-campus-msg" style="display: none; color: #dc2626; font-size: 0.85rem; margin-top: 0.75rem; font-weight: 600;">* Subject to delivery partner charges</p>
+                </div>
+
                 <div class="form-group" style="display: flex; gap: 1rem;">
                     <select name="division" id="division" required style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: inherit;">
                         <option value="">Select Division</option>

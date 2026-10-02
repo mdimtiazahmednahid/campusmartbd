@@ -21,6 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Delivery Option Toggle
+    const deliveryOptions = document.querySelectorAll('input[name="delivery_option"]');
+    const outsideCampusMsg = document.getElementById('outside-campus-msg');
+    
+    deliveryOptions.forEach(option => {
+        option.addEventListener('change', (e) => {
+            if (e.target.value === 'Outside Campus') {
+                outsideCampusMsg.style.display = 'block';
+            } else {
+                outsideCampusMsg.style.display = 'none';
+            }
+        });
+    });
+
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const navMenu = document.getElementById('nav-menu');
