@@ -380,6 +380,48 @@ document.addEventListener('DOMContentLoaded', () => {
             body: new URLSearchParams(formData).toString()
         })
         .then(() => {
+            // Generate Order Receipt Download
+            const orderDetails = formData.get('order_details');
+            const total = formData.get('total_amount');
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const delivery = formData.get('delivery_option');
+            const address = `${formData.get('address')}, ${formData.get('upazila')}, ${formData.get('district')}, ${formData.get('division')}`;
+            
+            let receiptContent = `======================================\n`;
+            receiptContent += `       CAMPUSMART ORDER RECEIPT       \n`;
+            receiptContent += `======================================\n\n`;
+            receiptContent += `CUSTOMER DETAILS:\n`;
+            receiptContent += `Name: ${name}\n`;
+            receiptContent += `Phone: ${phone}\n`;
+            receiptContent += `Delivery Option: ${delivery}\n`;
+            receiptContent += `Address: ${address}\n\n`;
+            receiptContent += `ORDER ITEMS:\n`;
+            receiptContent += `${orderDetails}\n`;
+            receiptContent += `Total Amount: ৳${total}\n`;
+            
+            if (formData.get('is_customized') === 'on') {
+                receiptContent += `\nCUSTOMIZATION DETAILS:\n`;
+                receiptContent += `Name on Jersey: ${formData.get('custom_name')}\n`;
+                receiptContent += `Number on Jersey: ${formData.get('custom_number')}\n`;
+                receiptContent += `Advance Paid via bKash/Nagad\n`;
+                receiptContent += `Sender Number: ${formData.get('sender_number')}\n`;
+                receiptContent += `TrxID: ${formData.get('trx_id') || 'N/A'}\n`;
+            }
+            
+            receiptContent += `\n======================================\n`;
+            receiptContent += `Thank you for shopping with CampusMart!\n`;
+
+            const blob = new Blob([receiptContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `CampusMart_Order_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
             // Show toast
             const toast = document.getElementById('toast');
             toast.classList.add('show');
