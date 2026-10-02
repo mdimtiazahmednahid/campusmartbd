@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusMart | Elevate Your Campus Style</title>
-    <meta name="description" content="Discover the exclusive collection of campus apparel at CampusMart. Shop premium quality t-shirts and more.">
+    <meta name="description"
+        content="Discover the exclusive collection of campus apparel at CampusMart. Shop premium quality t-shirts and more.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <header class="header">
@@ -23,11 +26,19 @@
             </nav>
             <div class="header-actions">
                 <div class="cart-icon" id="cart-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
                     <span class="cart-count">0</span>
                 </div>
                 <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M3 12h18M3 6h18M3 18h18"></path>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -37,16 +48,18 @@
         <section id="home" class="promo-hero">
             <div class="promo-container">
                 <div class="promo-info">
+                    <h1 class="promo-title">Campus<span style="color: rgb(26, 134, 248);">Mart</span></h1>
                     <h1 class="promo-title">LAUNCH OFFER</h1>
                     <div class="promo-pricing">
-                        <p class="early-bird-price">⚡ ৳499 <del>৳650</del></p>
+                        <p class="early-bird-price">৳499 <del>৳650</del></p>
                         <p class="limit-text">First 50 Orders</p>
                     </div>
                     <a href="#collection" class="btn btn-shop-now">Shop Now</a>
                 </div>
-                
+
                 <div class="promo-image-wrapper" id="hero-slideshow">
-                    <img src="assets/kiloroad-black.png" alt="Premium Edition" class="hero-image active-slide" id="hero-image">
+                    <img src="assets/kiloroad-black.png" alt="Premium Edition" class="hero-image active-slide"
+                        id="hero-image">
                 </div>
             </div>
         </section>
@@ -57,16 +70,18 @@
                     <h2>Latest Collection</h2>
                     <p>Explore our highly anticipated releases.</p>
                 </div>
-                
+
                 <div class="product-grid">
                     <!-- Product 1 -->
                     <div class="product-card">
                         <div class="product-image-container">
                             <img src="assets/kiloroad-black.png" alt="KILOROAD 01 Black Edition" class="product-image">
                             <div class="product-overlay">
-                                <div class="options-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
                                     <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="size-1" class="size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Size">
+                                        <select id="size-1" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
                                             <option value="" disabled selected>Size</option>
                                             <option value="M">M (Chest-38, Length-27)</option>
                                             <option value="L">L (Chest-40, Length-28)</option>
@@ -75,31 +90,31 @@
                                             <option value="3XL">3XL (Chest-46, Length-31)</option>
                                         </select>
                                     </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="collar-1" class="collar-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Collar">
-                                            <option value="" disabled selected>Collar</option>
-                                            <option value="Polo">Polo</option>
-                                            <option value="Round">Round</option>
-                                        </select>
-                                    </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="sleeve-1" class="sleeve-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Sleeve">
-                                            <option value="" disabled selected>Sleeve</option>
-                                            <option value="Half">Half</option>
-                                            <option value="Full">Full</option>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-1" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="T-shirt Type">
+                                            <option value="" disabled selected>Type</option>
+                                            <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
+                                            <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-add-cart" data-id="1" data-title="KILOROAD 01 - Black Edition" data-price="550" data-image="assets/kiloroad-black.png">Add to Cart</button>
-                                    <button class="btn btn-buy-now" data-id="1" data-title="KILOROAD 01 - Black Edition" data-price="550" data-image="assets/kiloroad-black.png">Buy Now</button>
+                                    <button class="btn btn-add-cart" data-id="1"
+                                        data-title="KILOROAD 01 - Black Edition" data-price="550"
+                                        data-image="assets/kiloroad-black.png">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="1" data-title="KILOROAD 01 - Black Edition"
+                                        data-price="550" data-image="assets/kiloroad-black.png">Buy Now</button>
                                 </div>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">KILOROAD 01 - Black Edition</h3>
                             <p class="product-category">Polo Jersey T-Shirt</p>
-                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳ 550</span></p>
+                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳
+                                    550</span></p>
                         </div>
                     </div>
 
@@ -108,9 +123,11 @@
                         <div class="product-image-container">
                             <img src="assets/kiloroad-navy.png" alt="KILOROAD 01 Navy Edition" class="product-image">
                             <div class="product-overlay">
-                                <div class="options-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
                                     <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="size-2" class="size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Size">
+                                        <select id="size-2" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
                                             <option value="" disabled selected>Size</option>
                                             <option value="M">M (Chest-38, Length-27)</option>
                                             <option value="L">L (Chest-40, Length-28)</option>
@@ -119,31 +136,30 @@
                                             <option value="3XL">3XL (Chest-46, Length-31)</option>
                                         </select>
                                     </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="collar-2" class="collar-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Collar">
-                                            <option value="" disabled selected>Collar</option>
-                                            <option value="Polo">Polo</option>
-                                            <option value="Round">Round</option>
-                                        </select>
-                                    </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="sleeve-2" class="sleeve-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Sleeve">
-                                            <option value="" disabled selected>Sleeve</option>
-                                            <option value="Half">Half</option>
-                                            <option value="Full">Full</option>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-2" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="T-shirt Type">
+                                            <option value="" disabled selected>Type</option>
+                                            <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
+                                            <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-add-cart" data-id="2" data-title="KILOROAD 01 - Navy Edition" data-price="550" data-image="assets/kiloroad-navy.png">Add to Cart</button>
-                                    <button class="btn btn-buy-now" data-id="2" data-title="KILOROAD 01 - Navy Edition" data-price="550" data-image="assets/kiloroad-navy.png">Buy Now</button>
+                                    <button class="btn btn-add-cart" data-id="2" data-title="KILOROAD 01 - Navy Edition"
+                                        data-price="550" data-image="assets/kiloroad-navy.png">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="2" data-title="KILOROAD 01 - Navy Edition"
+                                        data-price="550" data-image="assets/kiloroad-navy.png">Buy Now</button>
                                 </div>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">KILOROAD 01 - Navy Edition</h3>
                             <p class="product-category">Polo Jersey T-Shirt</p>
-                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳ 550</span></p>
+                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳
+                                    550</span></p>
                         </div>
                     </div>
 
@@ -152,9 +168,11 @@
                         <div class="product-image-container">
                             <img src="assets/kiloroad-white.png" alt="KILOROAD 01 White Edition" class="product-image">
                             <div class="product-overlay">
-                                <div class="options-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
                                     <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="size-3" class="size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Size">
+                                        <select id="size-3" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
                                             <option value="" disabled selected>Size</option>
                                             <option value="M">M (Chest-38, Length-27)</option>
                                             <option value="L">L (Chest-40, Length-28)</option>
@@ -163,31 +181,31 @@
                                             <option value="3XL">3XL (Chest-46, Length-31)</option>
                                         </select>
                                     </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="collar-3" class="collar-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Collar">
-                                            <option value="" disabled selected>Collar</option>
-                                            <option value="Polo">Polo</option>
-                                            <option value="Round">Round</option>
-                                        </select>
-                                    </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="sleeve-3" class="sleeve-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Sleeve">
-                                            <option value="" disabled selected>Sleeve</option>
-                                            <option value="Half">Half</option>
-                                            <option value="Full">Full</option>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-3" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="T-shirt Type">
+                                            <option value="" disabled selected>Type</option>
+                                            <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
+                                            <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-add-cart" data-id="3" data-title="KILOROAD 01 - White Edition" data-price="550" data-image="assets/kiloroad-white.png">Add to Cart</button>
-                                    <button class="btn btn-buy-now" data-id="3" data-title="KILOROAD 01 - White Edition" data-price="550" data-image="assets/kiloroad-white.png">Buy Now</button>
+                                    <button class="btn btn-add-cart" data-id="3"
+                                        data-title="KILOROAD 01 - White Edition" data-price="550"
+                                        data-image="assets/kiloroad-white.png">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="3" data-title="KILOROAD 01 - White Edition"
+                                        data-price="550" data-image="assets/kiloroad-white.png">Buy Now</button>
                                 </div>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">KILOROAD 01 - White Edition</h3>
                             <p class="product-category">Polo Jersey T-Shirt</p>
-                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳ 550</span></p>
+                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳
+                                    550</span></p>
                         </div>
                     </div>
 
@@ -196,9 +214,11 @@
                         <div class="product-image-container">
                             <img src="assets/sust-blue.png" alt="SUST 320 Blue Edition" class="product-image">
                             <div class="product-overlay">
-                                <div class="options-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
                                     <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="size-4" class="size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Size">
+                                        <select id="size-4" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
                                             <option value="" disabled selected>Size</option>
                                             <option value="M">M (Chest-38, Length-27)</option>
                                             <option value="L">L (Chest-40, Length-28)</option>
@@ -207,31 +227,30 @@
                                             <option value="3XL">3XL (Chest-46, Length-31)</option>
                                         </select>
                                     </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="collar-4" class="collar-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Collar">
-                                            <option value="" disabled selected>Collar</option>
-                                            <option value="Polo">Polo</option>
-                                            <option value="Round">Round</option>
-                                        </select>
-                                    </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="sleeve-4" class="sleeve-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Sleeve">
-                                            <option value="" disabled selected>Sleeve</option>
-                                            <option value="Half">Half</option>
-                                            <option value="Full">Full</option>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-4" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="T-shirt Type">
+                                            <option value="" disabled selected>Type</option>
+                                            <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
+                                            <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-add-cart" data-id="4" data-title="SUST 320 - Blue Edition" data-price="550" data-image="assets/sust-blue.png">Add to Cart</button>
-                                    <button class="btn btn-buy-now" data-id="4" data-title="SUST 320 - Blue Edition" data-price="550" data-image="assets/sust-blue.png">Buy Now</button>
+                                    <button class="btn btn-add-cart" data-id="4" data-title="SUST 320 - Blue Edition"
+                                        data-price="550" data-image="assets/sust-blue.png">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="4" data-title="SUST 320 - Blue Edition"
+                                        data-price="550" data-image="assets/sust-blue.png">Buy Now</button>
                                 </div>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">SUST 320 - Blue Edition</h3>
                             <p class="product-category">Polo Jersey T-Shirt</p>
-                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳ 550</span></p>
+                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳
+                                    550</span></p>
                         </div>
                     </div>
 
@@ -240,9 +259,11 @@
                         <div class="product-image-container">
                             <img src="assets/sustverse-red.png" alt="SUSTVERSE Red Edition" class="product-image">
                             <div class="product-overlay">
-                                <div class="options-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
                                     <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="size-5" class="size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Size">
+                                        <select id="size-5" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
                                             <option value="" disabled selected>Size</option>
                                             <option value="M">M (Chest-38, Length-27)</option>
                                             <option value="L">L (Chest-40, Length-28)</option>
@@ -251,31 +272,30 @@
                                             <option value="3XL">3XL (Chest-46, Length-31)</option>
                                         </select>
                                     </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="collar-5" class="collar-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Collar">
-                                            <option value="" disabled selected>Collar</option>
-                                            <option value="Polo">Polo</option>
-                                            <option value="Round">Round</option>
-                                        </select>
-                                    </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="sleeve-5" class="sleeve-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Sleeve">
-                                            <option value="" disabled selected>Sleeve</option>
-                                            <option value="Half">Half</option>
-                                            <option value="Full">Full</option>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-5" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="T-shirt Type">
+                                            <option value="" disabled selected>Type</option>
+                                            <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
+                                            <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-add-cart" data-id="5" data-title="SUSTVERSE - Red Edition" data-price="550" data-image="assets/sustverse-red.png">Add to Cart</button>
-                                    <button class="btn btn-buy-now" data-id="5" data-title="SUSTVERSE - Red Edition" data-price="550" data-image="assets/sustverse-red.png">Buy Now</button>
+                                    <button class="btn btn-add-cart" data-id="5" data-title="SUSTVERSE - Red Edition"
+                                        data-price="550" data-image="assets/sustverse-red.png">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="5" data-title="SUSTVERSE - Red Edition"
+                                        data-price="550" data-image="assets/sustverse-red.png">Buy Now</button>
                                 </div>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">SUSTVERSE - Red Edition</h3>
                             <p class="product-category">Crew-neck Jersey T-Shirt</p>
-                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳ 550</span></p>
+                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳
+                                    550</span></p>
                         </div>
                     </div>
 
@@ -284,9 +304,11 @@
                         <div class="product-image-container">
                             <img src="assets/sustverse-grey.png" alt="SUSTVERSE Grey Edition" class="product-image">
                             <div class="product-overlay">
-                                <div class="options-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
                                     <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="size-6" class="size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Size">
+                                        <select id="size-6" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
                                             <option value="" disabled selected>Size</option>
                                             <option value="M">M (Chest-38, Length-27)</option>
                                             <option value="L">L (Chest-40, Length-28)</option>
@@ -295,31 +317,30 @@
                                             <option value="3XL">3XL (Chest-46, Length-31)</option>
                                         </select>
                                     </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="collar-6" class="collar-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Collar">
-                                            <option value="" disabled selected>Collar</option>
-                                            <option value="Polo">Polo</option>
-                                            <option value="Round">Round</option>
-                                        </select>
-                                    </div>
-                                    <div class="size-selector" style="flex: 1; min-width: 0;">
-                                        <select id="sleeve-6" class="sleeve-select size-select" style="width: 100%; font-size: 0.85rem;" aria-label="Sleeve">
-                                            <option value="" disabled selected>Sleeve</option>
-                                            <option value="Half">Half</option>
-                                            <option value="Full">Full</option>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-6" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="T-shirt Type">
+                                            <option value="" disabled selected>Type</option>
+                                            <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
+                                            <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-add-cart" data-id="6" data-title="SUSTVERSE - Grey Edition" data-price="550" data-image="assets/sustverse-grey.png">Add to Cart</button>
-                                    <button class="btn btn-buy-now" data-id="6" data-title="SUSTVERSE - Grey Edition" data-price="550" data-image="assets/sustverse-grey.png">Buy Now</button>
+                                    <button class="btn btn-add-cart" data-id="6" data-title="SUSTVERSE - Grey Edition"
+                                        data-price="550" data-image="assets/sustverse-grey.png">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="6" data-title="SUSTVERSE - Grey Edition"
+                                        data-price="550" data-image="assets/sustverse-grey.png">Buy Now</button>
                                 </div>
                             </div>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">SUSTVERSE - Grey Edition</h3>
                             <p class="product-category">Polo Jersey T-Shirt</p>
-                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳ 550</span></p>
+                            <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳
+                                    550</span></p>
                         </div>
                     </div>
                 </div>
@@ -343,11 +364,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>M</td><td>38"</td><td>27"</td></tr>
-                                <tr><td>L</td><td>40"</td><td>28"</td></tr>
-                                <tr><td>XL</td><td>42"</td><td>29"</td></tr>
-                                <tr><td>XXL</td><td>44"</td><td>30"</td></tr>
-                                <tr><td>3XL</td><td>46"</td><td>31"</td></tr>
+                                <tr>
+                                    <td>M</td>
+                                    <td>38"</td>
+                                    <td>27"</td>
+                                </tr>
+                                <tr>
+                                    <td>L</td>
+                                    <td>40"</td>
+                                    <td>28"</td>
+                                </tr>
+                                <tr>
+                                    <td>XL</td>
+                                    <td>42"</td>
+                                    <td>29"</td>
+                                </tr>
+                                <tr>
+                                    <td>XXL</td>
+                                    <td>44"</td>
+                                    <td>30"</td>
+                                </tr>
+                                <tr>
+                                    <td>3XL</td>
+                                    <td>46"</td>
+                                    <td>31"</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -370,20 +411,27 @@
             </div>
             <div class="footer-contact">
                 <h3>Contact Us</h3>
-                <p><a href="tel:+8801600265376" style="color: #9ca3af; transition: color 0.3s ease;">📞 +880 1600-265376</a></p>
-                <p><a href="mailto:campusmartbd@gmail.com" style="color: #9ca3af; transition: color 0.3s ease;">✉️ campusmartbd@gmail.com</a></p>
+                <p><a href="tel:+8801600265376" style="color: #9ca3af; transition: color 0.3s ease;">📞 +880
+                        1600-265376</a></p>
+                <p><a href="mailto:campusmartbd@gmail.com" style="color: #9ca3af; transition: color 0.3s ease;">✉️
+                        campusmartbd@gmail.com</a></p>
             </div>
             <div class="footer-social">
                 <h3>Follow Us</h3>
                 <div class="social-icons">
                     <a href="https://www.facebook.com/campusmart" target="_blank" aria-label="Facebook">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
                     </a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 CampusMart. All rights reserved. | Developed by <a href="https://www.neurasoft.top" target="_blank" style="color: var(--accent-color); font-weight: 500; text-decoration: none;">@NeuraSoft</a></p>
+            <p>&copy; 2026 CampusMart. All rights reserved. | Developed by <a href="https://www.neurasoft.top"
+                    target="_blank"
+                    style="color: var(--accent-color); font-weight: 500; text-decoration: none;">@NeuraSoft</a></p>
         </div>
     </footer>
 
@@ -394,24 +442,25 @@
             <h3>Your Cart</h3>
             <button class="close-cart" id="close-cart">&times;</button>
         </div>
-        
+
         <div class="cart-items" id="cart-items">
             <!-- Items injected by JS -->
         </div>
-        
+
         <div class="cart-footer">
             <div class="coupon-section">
                 <input type="text" id="coupon-code" placeholder="Coupon Code (e.g. EARLYBIRDS)">
                 <button type="button" id="apply-coupon" class="btn btn-apply">Apply</button>
             </div>
             <div id="coupon-message" class="coupon-message"></div>
-            
+
             <div class="cart-total">
                 <span>Total:</span>
                 <span id="cart-total-price">৳ 0</span>
             </div>
-            
-            <form name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form" id="checkout-form">
+
+            <form name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form"
+                id="checkout-form">
                 <h4>Checkout Details</h4>
                 <!-- Netlify hidden input -->
                 <input type="hidden" name="form-name" value="checkout">
@@ -422,7 +471,7 @@
                 <input type="hidden" name="order_details" id="order_details">
                 <input type="hidden" name="total_amount" id="total_amount">
                 <input type="hidden" name="coupon_code" id="hidden_coupon_code">
-                
+
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Full Name" required>
                 </div>
@@ -432,27 +481,34 @@
                 <div class="form-group">
                     <input type="tel" name="phone" placeholder="Phone Number" required>
                 </div>
-                
-                <div class="form-group delivery-options-group" style="background: var(--section-bg); padding: 1rem; border-radius: 8px;">
+
+                <div class="form-group delivery-options-group"
+                    style="background: var(--section-bg); padding: 1rem; border-radius: 8px;">
                     <p style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem;">Delivery Option</p>
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+                        <label
+                            style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
                             <input type="radio" name="delivery_option" value="Inside Campus" checked>
                             Inside Campus (Free)
                         </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+                        <label
+                            style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
                             <input type="radio" name="delivery_option" value="Outside Campus">
                             Outside Campus
                         </label>
                     </div>
-                    <p id="outside-campus-msg" style="display: none; color: #dc2626; font-size: 0.85rem; margin-top: 0.75rem; font-weight: 600;">* Subject to delivery partner charges</p>
+                    <p id="outside-campus-msg"
+                        style="display: none; color: #dc2626; font-size: 0.85rem; margin-top: 0.75rem; font-weight: 600;">
+                        * Subject to delivery partner charges</p>
                 </div>
 
                 <div class="form-group" style="display: flex; gap: 1rem;">
-                    <select name="division" id="division" required style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: inherit;">
+                    <select name="division" id="division" required
+                        style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: inherit;">
                         <option value="">Select Division</option>
                     </select>
-                    <select name="district" id="district" required disabled style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: inherit;">
+                    <select name="district" id="district" required disabled
+                        style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: inherit;">
                         <option value="">Select District</option>
                     </select>
                 </div>
@@ -460,33 +516,48 @@
                     <input type="text" name="upazila" placeholder="Upazila / Thana" required>
                 </div>
                 <div class="form-group">
-                    <textarea name="address" placeholder="Full Delivery Address (Street, House, etc.)" required rows="3"></textarea>
+                    <textarea name="address" placeholder="Full Delivery Address (Street, House, etc.)" required
+                        rows="3"></textarea>
                 </div>
-                
-                <div class="form-group customization-group" style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; color: var(--primary-color);">
-                        <input type="checkbox" id="is_customized" name="is_customized" style="width: auto; margin: 0; cursor: pointer; accent-color: var(--primary-color);">
+
+                <div class="form-group customization-group"
+                    style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <label
+                        style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; color: var(--primary-color);">
+                        <input type="checkbox" id="is_customized" name="is_customized"
+                            style="width: auto; margin: 0; cursor: pointer; accent-color: var(--primary-color);">
                         Yes, I want a customized jersey (Name & Number on back)
                     </label>
-                    
-                    <div id="customization-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(16, 185, 129, 0.3);">
+
+                    <div id="customization-details"
+                        style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(16, 185, 129, 0.3);">
                         <div style="margin-bottom: 1rem;">
                             <input type="text" name="custom_name" placeholder="Customized name">
                         </div>
                         <div style="margin-bottom: 1rem;">
                             <input type="text" name="custom_number" placeholder="Customized number">
                         </div>
-                        
-                        <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; text-align: center;">
-                            <p style="font-size: 0.95rem; margin-bottom: 0.5rem; font-weight: 700;">50% amount: <span id="advance-amount" style="color: #dc2626;">৳ 0</span></p>
-                            <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">Pay to- number (bKash/Nagad):</p>
-                            <button type="button" id="copy-number-btn" style="background: #f1f5f9; border: 1px dashed var(--border-color); padding: 0.5rem 1rem; border-radius: 4px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 1.1rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+
+                        <div
+                            style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; text-align: center;">
+                            <p style="font-size: 0.95rem; margin-bottom: 0.5rem; font-weight: 700;">50% amount: <span
+                                    id="advance-amount" style="color: #dc2626;">৳ 0</span></p>
+                            <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">Pay to-
+                                number (bKash/Nagad):</p>
+                            <button type="button" id="copy-number-btn"
+                                style="background: #f1f5f9; border: 1px dashed var(--border-color); padding: 0.5rem 1rem; border-radius: 4px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 1.1rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
                                 +880 1600-265376
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
                             </button>
-                            <p id="copy-toast" style="display: none; color: var(--primary-color); font-size: 0.8rem; margin-top: 0.5rem;">Copied!</p>
+                            <p id="copy-toast"
+                                style="display: none; color: var(--primary-color); font-size: 0.8rem; margin-top: 0.5rem;">
+                                Copied!</p>
                         </div>
-                        
+
                         <div style="margin-bottom: 1rem;">
                             <input type="tel" name="sender_number" placeholder="Sender number">
                         </div>
@@ -495,7 +566,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary btn-checkout">Confirm Order</button>
             </form>
         </div>
@@ -504,7 +575,9 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-content">
-            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
             <div class="toast-message">Order placed successfully!</div>
         </div>
     </div>
@@ -512,11 +585,14 @@
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/8801600265376" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 1.33334C7.90667 1.33334 1.33333 7.90668 1.33333 16C1.33333 19.1867 2.34667 22.12 4.05333 24.6267L2 32L9.58667 29.9867C11.96 31.2933 13.9067 31.9867 16 31.9867C24.0933 31.9867 30.6667 25.4133 30.6667 17.32C30.6667 9.22668 24.0933 1.33334 16 1.33334ZM24.4933 22.84C24.12 23.9067 22.6133 24.8 21.4667 25.0267C20.6133 25.2 19.4667 25.3333 15.6533 23.7467C10.7733 21.7333 7.6 16.7467 7.36 16.4267C7.12 16.1067 5.38667 13.8133 5.38667 11.4267C5.38667 9.04 6.58667 7.88 7.05333 7.37334C7.42667 6.96 8.01333 6.78668 8.58667 6.78668C8.77333 6.78668 8.93333 6.8 9.08 6.81334C9.53333 6.84 9.76 6.89334 10.0533 7.6C10.4267 8.50668 11.3467 10.76 11.4533 10.9867C11.5733 11.2267 11.6667 11.5333 11.5067 11.8533C11.3467 12.16 11.2133 12.3067 10.9867 12.5733C10.76 12.8267 10.5467 13.0267 10.32 13.3067C10.12 13.52 9.89333 13.76 10.1467 14.2C10.4 14.6267 11.32 16.12 12.6667 17.32C14.3867 18.8667 15.8267 19.36 16.2933 19.56C16.76 19.76 17.0667 19.72 17.3867 19.3867C17.76 18.9867 18.2533 18.2667 18.7733 17.5333C19.1467 17.0267 19.5733 16.96 20.0267 17.12C20.5067 17.28 23.0133 18.52 23.5067 18.7733C24.0133 19.0267 24.3467 19.1467 24.4667 19.36C24.5867 19.56 24.5867 20.5867 24.4933 22.84Z" fill="white"/>
+            <path
+                d="M16 1.33334C7.90667 1.33334 1.33333 7.90668 1.33333 16C1.33333 19.1867 2.34667 22.12 4.05333 24.6267L2 32L9.58667 29.9867C11.96 31.2933 13.9067 31.9867 16 31.9867C24.0933 31.9867 30.6667 25.4133 30.6667 17.32C30.6667 9.22668 24.0933 1.33334 16 1.33334ZM24.4933 22.84C24.12 23.9067 22.6133 24.8 21.4667 25.0267C20.6133 25.2 19.4667 25.3333 15.6533 23.7467C10.7733 21.7333 7.6 16.7467 7.36 16.4267C7.12 16.1067 5.38667 13.8133 5.38667 11.4267C5.38667 9.04 6.58667 7.88 7.05333 7.37334C7.42667 6.96 8.01333 6.78668 8.58667 6.78668C8.77333 6.78668 8.93333 6.8 9.08 6.81334C9.53333 6.84 9.76 6.89334 10.0533 7.6C10.4267 8.50668 11.3467 10.76 11.4533 10.9867C11.5733 11.2267 11.6667 11.5333 11.5067 11.8533C11.3467 12.16 11.2133 12.3067 10.9867 12.5733C10.76 12.8267 10.5467 13.0267 10.32 13.3067C10.12 13.52 9.89333 13.76 10.1467 14.2C10.4 14.6267 11.32 16.12 12.6667 17.32C14.3867 18.8667 15.8267 19.36 16.2933 19.56C16.76 19.76 17.0667 19.72 17.3867 19.3867C17.76 18.9867 18.2533 18.2667 18.7733 17.5333C19.1467 17.0267 19.5733 16.96 20.0267 17.12C20.5067 17.28 23.0133 18.52 23.5067 18.7733C24.0133 19.0267 24.3467 19.1467 24.4667 19.36C24.5867 19.56 24.5867 20.5867 24.4933 22.84Z"
+                fill="white" />
         </svg>
     </a>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
