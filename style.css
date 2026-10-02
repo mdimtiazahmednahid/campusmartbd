@@ -383,9 +383,9 @@ h1, h2, h3, h4 {
 }
 
 .product-card:hover {
-    border-color: var(--border-color);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-    transform: translateY(-5px);
+    border-color: #ff8c00;
+    box-shadow: 0 20px 40px rgba(255, 140, 0, 0.12), 0 0 0 1px #ff8c00;
+    transform: translateY(-6px);
 }
 
 .product-image-container {
@@ -669,6 +669,7 @@ h1, h2, h3, h4 {
     padding: 1.5rem 1.5rem 3rem 1.5rem;
     border-top: 1px solid var(--border-color);
     background: var(--section-bg);
+    flex-shrink: 0;
 }
 
 .coupon-section {
@@ -909,29 +910,35 @@ h1, h2, h3, h4 {
         padding: 80px 1rem 1rem 1rem;
     }
     .promo-container {
-        padding: 1.5rem 1rem;
-        flex-direction: row;
+        padding: 2rem 1.5rem;
+        flex-direction: column;
         align-items: center;
-        gap: 0.5rem;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .promo-info {
+        align-items: center;
     }
     .promo-title {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         letter-spacing: 0;
     }
     .early-bird-price {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
     .promo-pricing {
-        padding: 0.4rem 0.6rem;
-        margin-bottom: 1rem;
+        padding: 0.5rem 1rem;
+        margin-bottom: 1.2rem;
     }
     .btn-shop-now {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
     }
     .promo-image-wrapper {
-        height: 180px;
-        flex: 1;
+        height: 200px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     .container {
         padding: 0 1rem;
@@ -1053,4 +1060,217 @@ h1, h2, h3, h4 {
 .whatsapp-float svg {
     width: 35px;
     height: 35px;
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toast {
+    background-color: #ef4444; /* red-500 for error */
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.toast.toast-success {
+    background-color: #10b981; /* emerald-500 */
+}
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Footer Contact Form */
+.footer-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+.footer-contact-form input,
+.footer-contact-form textarea {
+    padding: 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+.footer-contact-form input:focus,
+.footer-contact-form textarea:focus {
+    border-color: #f97316;
+}
+.footer-contact-form input::placeholder,
+.footer-contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+.footer-contact-form .btn-submit-contact {
+    background: linear-gradient(to right, #ea580c, #f97316);
+    color: white;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+.footer-contact-form .btn-submit-contact:hover {
+    box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+}
+
+/* Main Contact Section */
+.contact-section {
+    padding: 5rem 0;
+    background-color: var(--section-bg);
+}
+.contact-form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+.main-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+.main-contact-form .form-row {
+    display: flex;
+    gap: 1.25rem;
+}
+.main-contact-form input,
+.main-contact-form textarea {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+.main-contact-form input:focus,
+.main-contact-form textarea:focus {
+    border-color: #f97316;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+}
+.main-contact-form .btn-submit-contact {
+    background: linear-gradient(to right, #ea580c, #f97316);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.main-contact-form .btn-submit-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(234, 88, 12, 0.4);
+}
+@media (max-width: 768px) {
+    .main-contact-form .form-row {
+        flex-direction: column;
+    }
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
+}
+
+/* Order History */
+.history-item {
+    background: #f9fafb;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.history-date {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+.history-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+.history-total {
+    font-weight: 700;
+    color: #ea580c;
+    margin-top: 0.5rem;
+}
+
+/* Checkout Form Structure */
+.checkout-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.checkout-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.checkout-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+.checkout-section-header .step-num {
+    background: var(--text-color);
+    color: white;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.checkout-section-header h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-color);
+}
+.form-row-2 {
+    display: flex;
+    gap: 1rem;
+}
+@media (max-width: 480px) {
+    .form-row-2 {
+        flex-direction: column;
+        gap: 0;
+    }
 }

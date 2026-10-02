@@ -1,3 +1,37 @@
+// Toast Notification System
+function showToast(message, type = 'error') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    const icon = type === 'error' ? '⚠️' : '✅';
+    toast.innerHTML = `<span style="font-size: 1.2rem;">${icon}</span> <span>${message}</span>`;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// Error Reporting to Netlify Forms
+function reportError(message, actionContext) {
+    const formData = new URLSearchParams();
+    formData.append('form-name', 'error-report');
+    formData.append('error_message', message);
+    formData.append('user_action', actionContext);
+    
+    fetch('/', {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString()
+    }).catch(err => console.error('Error reporting failed', err));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // BD Location Data
     const bdLocations = {
@@ -32,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 outsideCampusMsg.style.display = 'none';
             }
+            updateCart();
         });
     });
 
@@ -181,11 +216,20 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItemsContainer.innerHTML = '';
         
         if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p style="text-align:center; color:#6b7280; margin-top:2rem;">Your cart is empty.</p>';
+            cartItemsContainer.innerHTML = '<p style="text-align:center; color:#6b7280; margin-top:2rem; margin-bottom:2rem;">Your cart is empty.</p>';
             cartTotalPrice.textContent = '৳ 0';
+            const subtotalElement = document.getElementById('cart-subtotal-price');
+            const deliveryChargeElement = document.getElementById('cart-delivery-price');
+            if (subtotalElement) subtotalElement.textContent = '৳ 0';
+            if (deliveryChargeElement) deliveryChargeElement.textContent = '৳ 0';
             orderDetailsInput.value = '';
             totalAmountInput.value = '0';
+            checkoutForm.style.display = 'none'; // Hide checkout form if cart is empty
+            document.querySelector('.coupon-section').style.display = 'none';
             return;
+        } else {
+            checkoutForm.style.display = 'block';
+            document.querySelector('.coupon-section').style.display = 'flex';
         }
 
         let total = 0;
@@ -201,9 +245,25 @@ document.addEventListener('DOMContentLoaded', () => {
             couponMessage.textContent = '';
         }
 
+        // Calculate Delivery Charge
+        let deliveryCharge = 0;
+        const isInsideCampus = document.querySelector('input[name="delivery_option"]:checked')?.value === 'Inside Campus';
+        if (!isInsideCampus) {
+            const district = document.getElementById('district').value;
+            if (district === 'Dhaka' || district === 'Sylhet') {
+                deliveryCharge = 80;
+            } else if (district) {
+                deliveryCharge = 130;
+            } else {
+                deliveryCharge = 130; // Default to 130 if not selected yet but outside campus
+            }
+        }
+        
+        let subtotal = 0;
+
         cart.forEach((item, index) => {
             const effectivePrice = item.price - discountPerItem;
-            total += effectivePrice * item.quantity;
+            subtotal += effectivePrice * item.quantity;
             const tShirtType = item.tShirtType || 'Not Selected';
             const sizeMap = {
                 'M': 'M (Chest-38, Length-27)',
@@ -218,12 +278,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const itemEl = document.createElement('div');
             itemEl.className = 'cart-item';
+            
             itemEl.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
                 <div class="cart-item-details">
                     <div class="cart-item-title">${item.title}</div>
-                    <div class="cart-item-meta">${item.tShirtType || "Not Selected"}, Size: ${item.size}</div>
-                    <div class="cart-item-price">৳ ${effectivePrice} ${isEarlyBirds ? '<del style="font-size:0.75rem;color:#9ca3af;margin-left:0.25rem;">৳ '+item.price+'</del>' : ''}</div>
+                    <div class="cart-item-options" style="display:flex; gap:0.5rem; margin-top:0.25rem;">
+                        <select class="cart-size-select" data-index="${index}" style="padding:0.25rem; font-size:0.8rem; border-radius:4px; border:1px solid var(--border-color); width:48%; background:white; cursor:pointer; outline:none; ${(item.size === '' && document.getElementById('checkout-form').classList.contains('submitted')) ? 'border-color: #dc2626; box-shadow: 0 0 0 1px #dc2626;' : ''}">
+                            <option value="">Size</option>
+                            <option value="M" ${item.size === 'M' ? 'selected' : ''}>M</option>
+                            <option value="L" ${item.size === 'L' ? 'selected' : ''}>L</option>
+                            <option value="XL" ${item.size === 'XL' ? 'selected' : ''}>XL</option>
+                            <option value="XXL" ${item.size === 'XXL' ? 'selected' : ''}>XXL</option>
+                            <option value="3XL" ${item.size === '3XL' ? 'selected' : ''}>3XL</option>
+                        </select>
+                        <select class="cart-type-select" data-index="${index}" style="padding:0.25rem; font-size:0.8rem; border-radius:4px; border:1px solid var(--border-color); width:48%; background:white; cursor:pointer; outline:none; ${(item.tShirtType === '' && document.getElementById('checkout-form').classList.contains('submitted')) ? 'border-color: #dc2626; box-shadow: 0 0 0 1px #dc2626;' : ''}">
+                            <option value="">Type</option>
+                            <option value="Polo Collar + half sleeve" ${item.tShirtType === 'Polo Collar + half sleeve' ? 'selected' : ''}>Polo + Half</option>
+                            <option value="Polo Collar + full sleeve" ${item.tShirtType === 'Polo Collar + full sleeve' ? 'selected' : ''}>Polo + Full</option>
+                            <option value="Round Collar + half sleeve" ${item.tShirtType === 'Round Collar + half sleeve' ? 'selected' : ''}>Round + Half</option>
+                            <option value="Round Collar + full sleeve" ${item.tShirtType === 'Round Collar + full sleeve' ? 'selected' : ''}>Round + Full</option>
+                        </select>
+                    </div>
+                    <div class="cart-item-price" style="margin-top:0.5rem;">৳ ${effectivePrice} ${isEarlyBirds ? '<del style="font-size:0.75rem;color:#9ca3af;margin-left:0.25rem;">৳ '+item.price+'</del>' : ''}</div>
                     <div class="cart-item-actions">
                         <button class="qty-btn minus" data-index="${index}">-</button>
                         <span>${item.quantity}</span>
@@ -235,20 +312,54 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsContainer.appendChild(itemEl);
         });
 
-        cartTotalPrice.textContent = `৳ ${total}`;
+        const finalTotal = subtotal + deliveryCharge;
+        
+        const subtotalElement = document.getElementById('cart-subtotal-price');
+        const deliveryChargeElement = document.getElementById('cart-delivery-price');
+        
+        if (subtotalElement) subtotalElement.textContent = `৳ ${subtotal}`;
+        if (deliveryChargeElement) deliveryChargeElement.textContent = `৳ ${deliveryCharge}`;
+        
+        cartTotalPrice.textContent = `৳ ${finalTotal}`;
+        
+        // Add delivery info to order details
+        if (deliveryCharge > 0) {
+            orderDetailsStr += `\nDelivery Charge: ৳${deliveryCharge}`;
+        } else {
+            orderDetailsStr += `\nDelivery Charge: Free`;
+        }
         
         // Update Netlify Form hidden inputs
         orderDetailsInput.value = orderDetailsStr;
-        totalAmountInput.value = total;
+        totalAmountInput.value = finalTotal;
         
-        // Update advance amount for customization
+        // Update advance amount for customization (50% of total including delivery)
         const advanceAmountSpan = document.getElementById('advance-amount');
         if (advanceAmountSpan) {
-            advanceAmountSpan.textContent = `৳ ${Math.ceil(total / 2)}`;
+            advanceAmountSpan.textContent = `৳ ${Math.ceil(finalTotal / 2)}`;
         }
         if (hiddenCouponCodeInput) {
             hiddenCouponCodeInput.value = isEarlyBirds ? 'EARLYBIRDS' : '';
         }
+
+        // Add event listeners to the variant selectors
+        document.querySelectorAll('.cart-size-select').forEach(select => {
+            select.addEventListener('change', (e) => {
+                const idx = e.target.getAttribute('data-index');
+                cart[idx].size = e.target.value;
+                document.getElementById('checkout-form').classList.remove('submitted');
+                updateCart();
+            });
+        });
+        
+        document.querySelectorAll('.cart-type-select').forEach(select => {
+            select.addEventListener('change', (e) => {
+                const idx = e.target.getAttribute('data-index');
+                cart[idx].tShirtType = e.target.value;
+                document.getElementById('checkout-form').classList.remove('submitted');
+                updateCart();
+            });
+        });
 
         // Add event listeners to newly created buttons
         document.querySelectorAll('.qty-btn.minus').forEach(btn => {
@@ -339,16 +450,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const price = parseInt(btn.getAttribute('data-price'));
         const image = btn.getAttribute('data-image');
         
-        const sizeSelect = document.getElementById(`size-${id}`);
-        const typeSelect = document.getElementById(`type-${id}`);
-        
-        const size = sizeSelect ? sizeSelect.value : '';
-        const tShirtType = typeSelect ? typeSelect.value : '';
-
-        if (!size || !tShirtType) {
-            alert('Please select a Size and T-shirt Type before adding to cart.');
-            return;
-        }
+        // Now, items are added directly to the cart without initial size/type.
+        // If an identical item (same id, same empty size/type) exists, increment qty.
+        const size = '';
+        const tShirtType = '';
 
         const existingItemIndex = cart.findIndex(item => item.id === id && item.size === size && item.tShirtType === tShirtType);
         
@@ -401,8 +506,19 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
+        checkoutForm.classList.add('submitted'); // Add class to trigger red borders on missing selects
+        
         if (cart.length === 0) {
-            alert('Your cart is empty. Please add items before checking out.');
+            showToast('Your cart is empty. Please add items before checking out.'); reportError('Attempted checkout with empty cart', 'checkout');
+            return;
+        }
+        
+        // Validate that all items have a size and type selected
+        const unselectedItem = cart.find(item => !item.size || !item.tShirtType);
+        if (unselectedItem) {
+            showToast('Please select a Size and Type for all items in your cart.');
+            reportError('Missing size/type at checkout', 'checkout');
+            updateCart(); // Re-render to show red borders
             return;
         }
 
@@ -486,6 +602,16 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.text("Thank you for shopping with CampusMart!", 105, currentY, null, null, "center");
             
             doc.save(`CampusMart_Order_${Date.now()}.pdf`);
+            
+            // Save to Order History
+            const orderInfo = {
+                date: new Date().toLocaleString(),
+                items: cart.map(item => `${item.title} (${item.quantity}x)`).join(', '),
+                total: document.getElementById('cart-total-price').textContent
+            };
+            const history = JSON.parse(localStorage.getItem('campusMartHistory')) || [];
+            history.push(orderInfo);
+            localStorage.setItem('campusMartHistory', JSON.stringify(history));
 
             // Show toast
             const toast = document.getElementById('toast');
@@ -504,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
             closeCart();
         })
         .catch((error) => {
-            alert('There was an issue submitting your order. Please try again.');
+            showToast('There was an issue submitting your order. Please try again.'); reportError('Order submission failed', 'form_submit');
         })
         .finally(() => {
             submitBtn.textContent = originalBtnText;
@@ -548,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle Division Change
     divisionSelect.addEventListener('change', (e) => {
         const selectedDiv = e.target.value;
-        districtSelect.innerHTML = '<option value="">Select District</option>';
+        districtSelect.innerHTML = '<option value="">Select District *</option>';
         
         if (selectedDiv && bdLocations[selectedDiv]) {
             districtSelect.disabled = false;
@@ -561,6 +687,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             districtSelect.disabled = true;
         }
+    });
+    
+    districtSelect.addEventListener('change', () => {
+        updateCart();
     });
 
     // Persist Checkout Form Data
@@ -589,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle District dropdown initialization on page load if Division was saved
     const savedDivision = divisionSelect.value;
     if (savedDivision && bdLocations[savedDivision]) {
-        districtSelect.innerHTML = '<option value="">Select District</option>';
+        districtSelect.innerHTML = '<option value="">Select District *</option>';
         districtSelect.disabled = false;
         bdLocations[savedDivision].forEach(dist => {
             const option = document.createElement('option');
@@ -607,3 +737,82 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial render
     updateCart();
 });
+
+
+// Contact Form AJAX Handler
+const contactForm = document.querySelector('.main-contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new URLSearchParams(new FormData(contactForm));
+        
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        
+        fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: formData.toString()
+        }).then(() => {
+            showToast('Thanks for contacting us!', 'success');
+            contactForm.reset();
+        }).catch((error) => {
+            showToast('Something went wrong. Please try again.', 'error');
+        }).finally(() => {
+            btn.textContent = originalText;
+            btn.disabled = false;
+        });
+    });
+}
+
+// Order History Logic
+const navHistory = document.getElementById('nav-history');
+const historySidebar = document.getElementById('history-sidebar');
+const historyOverlay = document.getElementById('history-overlay');
+const closeHistory = document.getElementById('close-history');
+const historyItems = document.getElementById('history-items');
+
+function loadOrderHistory() {
+    const history = JSON.parse(localStorage.getItem('campusMartHistory')) || [];
+    historyItems.innerHTML = '';
+    
+    if (history.length === 0) {
+        historyItems.innerHTML = '<div class="empty-cart"><p>You have no past orders.</p></div>';
+        return;
+    }
+    
+    history.slice().reverse().forEach(order => {
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.innerHTML = `
+            <div class="history-date">${order.date}</div>
+            <div class="history-title">${order.items}</div>
+            <div class="history-total">Total: ${order.total}</div>
+        `;
+        historyItems.appendChild(item);
+    });
+}
+
+function openHistory() {
+    loadOrderHistory();
+    historySidebar.classList.add('open');
+    historyOverlay.classList.add('open');
+}
+
+function closeHistoryFn() {
+    historySidebar.classList.remove('open');
+    historyOverlay.classList.remove('open');
+}
+
+if (navHistory) {
+    navHistory.addEventListener('click', (e) => {
+        e.preventDefault();
+        openHistory();
+    });
+}
+if (closeHistory) closeHistory.addEventListener('click', closeHistoryFn);
+if (historyOverlay) historyOverlay.addEventListener('click', closeHistoryFn);
+
