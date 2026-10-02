@@ -12,19 +12,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Netlify Form for bots to discover -->
-    <form name="checkout" netlify netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="tel" name="phone" />
-        <input type="text" name="division" />
-        <input type="text" name="district" />
-        <input type="text" name="upazila" />
-        <textarea name="address"></textarea>
-        <input type="text" name="order_details" />
-        <input type="text" name="total_amount" />
-        <input type="text" name="coupon_code" />
-    </form>
 
     <header class="header">
         <div class="container header-content">
@@ -47,16 +34,26 @@
     </header>
 
     <main>
-        <section id="home" class="hero">
-            <div class="container hero-container">
-                <div class="hero-text">
-                    <span class="badge">New Arrival</span>
-                    <h1>Redefine Your<br>Campus Style</h1>
-                    <p>Discover our exclusive premium collection. Designed for comfort, styled for everyday campus life.</p>
-                    <a href="#collection" class="btn btn-primary">Shop Collection</a>
+        <section id="home" class="promo-hero">
+            <div class="container promo-container">
+                <div class="promo-content">
+                    <h1 class="promo-title">CAMPUS MART<br>LAUNCH OFFER</h1>
+                    
+                    <div class="promo-pricing">
+                        <p class="regular-price">REGULAR PRICE <del>৳650</del></p>
+                        <p class="sale-price">৳550</p>
+                    </div>
+                    
+                    <div class="promo-early-bird">
+                        <h2>⚡ EARLY BIRD OFFER</h2>
+                        <p class="limit-text">FIRST 50 ORDERS</p>
+                        <p class="early-bird-price">৳499</p>
+                        <p class="early-bird-date">Limited Early Bird • October Only</p>
+                    </div>
+                    
+                    <a href="#collection" class="btn btn-white">Shop Now</a>
                 </div>
-                <div class="hero-image-wrapper">
-                    <div class="hero-blob"></div>
+                <div class="promo-image-wrapper">
                     <img src="assets/kiloroad-white.png" alt="Featured Edition Polo" class="hero-image" id="hero-image">
                 </div>
             </div>
@@ -78,11 +75,11 @@
                                 <div class="size-selector">
                                     <label for="size-1">Size:</label>
                                     <select id="size-1" class="size-select">
-                                        <option value="S">S</option>
                                         <option value="M">M</option>
                                         <option value="L">L</option>
                                         <option value="XL">XL</option>
                                         <option value="XXL">XXL</option>
+                                        <option value="3XL">3XL</option>
                                     </select>
                                 </div>
                                 <div class="action-buttons">
@@ -106,11 +103,11 @@
                                 <div class="size-selector">
                                     <label for="size-2">Size:</label>
                                     <select id="size-2" class="size-select">
-                                        <option value="S">S</option>
                                         <option value="M">M</option>
                                         <option value="L">L</option>
                                         <option value="XL">XL</option>
                                         <option value="XXL">XXL</option>
+                                        <option value="3XL">3XL</option>
                                     </select>
                                 </div>
                                 <div class="action-buttons">
@@ -134,11 +131,11 @@
                                 <div class="size-selector">
                                     <label for="size-3">Size:</label>
                                     <select id="size-3" class="size-select">
-                                        <option value="S">S</option>
                                         <option value="M">M</option>
                                         <option value="L">L</option>
                                         <option value="XL">XL</option>
                                         <option value="XXL">XXL</option>
+                                        <option value="3XL">3XL</option>
                                     </select>
                                 </div>
                                 <div class="action-buttons">
@@ -162,11 +159,11 @@
                                 <div class="size-selector">
                                     <label for="size-4">Size:</label>
                                     <select id="size-4" class="size-select">
-                                        <option value="S">S</option>
                                         <option value="M">M</option>
                                         <option value="L">L</option>
                                         <option value="XL">XL</option>
                                         <option value="XXL">XXL</option>
+                                        <option value="3XL">3XL</option>
                                     </select>
                                 </div>
                                 <div class="action-buttons">
@@ -190,11 +187,11 @@
                                 <div class="size-selector">
                                     <label for="size-5">Size:</label>
                                     <select id="size-5" class="size-select">
-                                        <option value="S">S</option>
                                         <option value="M">M</option>
                                         <option value="L">L</option>
                                         <option value="XL">XL</option>
                                         <option value="XXL">XXL</option>
+                                        <option value="3XL">3XL</option>
                                     </select>
                                 </div>
                                 <div class="action-buttons">
@@ -218,11 +215,11 @@
                                 <div class="size-selector">
                                     <label for="size-6">Size:</label>
                                     <select id="size-6" class="size-select">
-                                        <option value="S">S</option>
                                         <option value="M">M</option>
                                         <option value="L">L</option>
                                         <option value="XL">XL</option>
                                         <option value="XXL">XXL</option>
+                                        <option value="3XL">3XL</option>
                                     </select>
                                 </div>
                                 <div class="action-buttons">
@@ -244,11 +241,28 @@
         <section id="size-guide" class="size-guide">
             <div class="container">
                 <div class="section-header">
-                    <h2>Pricing & Size Guide</h2>
+                    <h2>Size Guide</h2>
                     <p>Find the perfect fit for you.</p>
                 </div>
                 <div class="size-guide-content">
-                    <img src="assets/price-size.png" alt="Price and Size Guide" class="size-guide-image">
+                    <div class="size-table-container">
+                        <table class="size-table">
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Chest</th>
+                                    <th>Length</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>M</td><td>38"</td><td>27"</td></tr>
+                                <tr><td>L</td><td>40"</td><td>28"</td></tr>
+                                <tr><td>XL</td><td>42"</td><td>29"</td></tr>
+                                <tr><td>XXL</td><td>44"</td><td>30"</td></tr>
+                                <tr><td>3XL</td><td>46"</td><td>31"</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -309,10 +323,13 @@
                 <span id="cart-total-price">৳ 0</span>
             </div>
             
-            <form name="checkout" method="POST" data-netlify="true" class="checkout-form" id="checkout-form">
+            <form name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form" id="checkout-form">
                 <h4>Checkout Details</h4>
                 <!-- Netlify hidden input -->
                 <input type="hidden" name="form-name" value="checkout">
+                <p style="display: none;">
+                    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                </p>
                 <!-- Hidden inputs to store order data -->
                 <input type="hidden" name="order_details" id="order_details">
                 <input type="hidden" name="total_amount" id="total_amount">

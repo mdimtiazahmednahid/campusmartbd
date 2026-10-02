@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Get size
         const sizeSelect = document.getElementById(`size-${id}`);
-        const size = sizeSelect ? sizeSelect.value : 'S';
+        const size = sizeSelect ? sizeSelect.value : 'M';
 
         // Check if item already exists in cart with same size
         const existingItemIndex = cart.findIndex(item => item.id === id && item.size === size);
