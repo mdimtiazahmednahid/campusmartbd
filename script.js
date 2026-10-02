@@ -238,7 +238,18 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItemsContainer.innerHTML = '';
         
         if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p style="text-align:center; color:#6b7280; margin-top:2rem; margin-bottom:2rem;">Your cart is empty.</p>';
+            cartItemsContainer.innerHTML = `
+                <div style="text-align:center; padding: 3rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" style="margin-bottom: 1.5rem;">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <h4 style="font-size: 1.3rem; color: #1e293b; margin-bottom: 0.5rem; font-weight: 700;">Your Cart is Empty</h4>
+                    <p style="color: #64748b; margin-bottom: 2rem; font-size: 0.95rem;">Looks like you haven't added any jerseys yet.</p>
+                    <button onclick="document.getElementById('close-cart').click()" style="background: #3b82f6; color: white; border: none; padding: 0.8rem 1.8rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59,130,246,0.3);" onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">Browse Collection</button>
+                </div>
+            `;
             cartTotalPrice.textContent = '৳ 0';
             const subtotalElement = document.getElementById('cart-subtotal-price');
             const deliveryChargeElement = document.getElementById('cart-delivery-price');
@@ -660,12 +671,109 @@ document.addEventListener('DOMContentLoaded', () => {
             isEarlyBirds = false;
             localStorage.removeItem('campusmart_coupon');
             if (couponInput) couponInput.value = '';
+            // Build WhatsApp Message
+            let waMsg = `*NEW ORDER - CAMPUSMART*\n---------------------\n`;
+            waMsg += `*Customer Details:*\nName: ${name}\nPhone: ${phone}\n`;
+            if (formData.get('alt_phone')) waMsg += `Alt Phone: ${formData.get('alt_phone')}\n`;
+            
+            waMsg += `\n*Delivery:*\nOption: ${delivery}\n`;
+            if (address.replace(/,/g, '').trim()) waMsg += `Address: ${address}\n`;
+            
+            waMsg += `\n*Order Summary:*\n`;
+            let tempCart = JSON.parse(localStorage.getItem('campusmart_cart')) || []; // use saved cart since we just cleared it above
+            tempCart.forEach(item => {
+                waMsg += `- ${item.title} (${item.tShirtType || 'N/A'}, Size: ${item.size || 'N/A'}) x${item.quantity}\n`;
+            });
+            
+            if (formData.get('is_customized') === 'on') {
+                waMsg += `\n*Customization:*\nName: ${formData.get('custom_name')}\nNumber: ${formData.get('custom_number')}\n`;
+                waMsg += `Advance: Paid\n`;
+                waMsg += `bKash/Nagad No: ${formData.get('sender_number')}\nTrxID: ${formData.get('trx_id')}\n`;
+            }
+            
+            waMsg += `\n*Total Bill:* ${orderInfo.total}\n`;
+            
+            const encodedWaMsg = encodeURIComponent(waMsg);
+            const whatsappUrl = `https://wa.me/8801600265376?text=${encodedWaMsg}`;
+            
             updateCart();
             // We intentionally don't clear the form inputs so the address stays for next time
             closeCart();
+            
+            // Show WhatsApp Prompt Modal
+            const waModal = document.createElement('div');
+            waModal.style.cssText = "position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.8); backdrop-filter:blur(10px); z-index:99999; display:flex; justify-content:center; align-items:center; opacity:0; transition:opacity 0.3s ease;";
+            
+            waModal.innerHTML = `
+                <div style="background:#ffffff; padding:2.5rem; border-radius:24px; text-align:center; max-width:400px; width:90%; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); transform:scale(0.9); transition:transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);">
+                    <div style="width:64px; height:64px; background:#10b981; border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto 1.5rem auto;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <h2 style="font-size:1.5rem; color:#0f172a; margin-bottom:0.5rem; font-weight:800;">Order Placed!</h2>
+                    <p style="color:#64748b; font-size:0.95rem; margin-bottom:2rem; line-height:1.5;">Your receipt has been generated. For faster processing and immediate response, please forward your order details to our WhatsApp.</p>
+                    <a href="${whatsappUrl}" target="_blank" style="display:flex; justify-content:center; align-items:center; gap:0.5rem; background:#25D366; color:white; text-decoration:none; padding:1rem; border-radius:14px; font-weight:700; font-size:1.1rem; margin-bottom:1rem; box-shadow:0 4px 15px rgba(37,211,102,0.3); transition:transform 0.2s;" onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform='scale(1)'">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Send to WhatsApp
+                    </a>
+                    <button id="close-wa-modal" style="background:transparent; color:#94a3b8; border:none; font-weight:600; font-size:0.9rem; cursor:pointer; padding:0.5rem;">Maybe later</button>
+                </div>
+            `;
+            document.body.appendChild(waModal);
+            
+            setTimeout(() => {
+                waModal.style.opacity = '1';
+                waModal.children[0].style.transform = 'scale(1)';
+            }, 10);
+            
+            document.getElementById('close-wa-modal').addEventListener('click', () => {
+                waModal.style.opacity = '0';
+                waModal.children[0].style.transform = 'scale(0.9)';
+                setTimeout(() => waModal.remove(), 300);
+            });
+            
+            // Auto close if they click the whatsapp link
+            waModal.querySelector('a').addEventListener('click', () => {
+                setTimeout(() => {
+                    waModal.style.opacity = '0';
+                    waModal.children[0].style.transform = 'scale(0.9)';
+                    setTimeout(() => waModal.remove(), 300);
+                }, 500);
+            });
         })
         .catch((error) => {
-            showToast('There was an issue submitting your order. Please try again.'); reportError('Order submission failed', 'form_submit');
+            const container = document.getElementById('toast-container');
+            if (container) {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-error`;
+                const toastId = 'toast-' + Date.now();
+                toast.innerHTML = `<span style="font-size: 1.2rem;">⚠️</span> 
+                                   <span style="display:flex; flex-direction:column; gap:0.5rem; width:100%;">
+                                       <span>Order submission failed. Please try again.</span>
+                                       <button id="btn-${toastId}" style="background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.4); padding:0.4rem 0.8rem; border-radius:6px; cursor:pointer; font-weight:600; font-size:0.8rem; transition:all 0.2s; align-self:flex-start;">Send Error Report</button>
+                                   </span>`;
+                container.appendChild(toast);
+                setTimeout(() => toast.classList.add('show'), 10);
+                
+                const btn = document.getElementById(`btn-${toastId}`);
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.target.textContent = 'Sending...';
+                        e.target.style.opacity = '0.7';
+                        reportError('Order submission failed', 'form_submit');
+                        setTimeout(() => { 
+                            e.target.textContent = 'Report Sent!'; 
+                            e.target.style.background = 'rgba(16, 185, 129, 0.3)'; 
+                            e.target.style.borderColor = 'rgba(16, 185, 129, 0.8)';
+                            e.target.style.opacity = '1';
+                        }, 800);
+                    });
+                }
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 6000);
+            }
         })
         .finally(() => {
             submitBtn.textContent = originalBtnText;

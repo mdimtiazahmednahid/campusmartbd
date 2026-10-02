@@ -1742,3 +1742,64 @@ h1, h2, h3, h4 {
     -webkit-backdrop-filter: blur(30px) saturate(150%) !important;
     border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
 }
+
+/* =========================================
+   PREMIUM MICRO-INTERACTIONS & FEEDBACK
+   ========================================= */
+
+/* 1. Button Squish (Active state) */
+.btn-checkout:active, 
+.btn-add-cart:active, 
+.btn-buy-now:active, 
+button:active {
+    transform: scale(0.96) translateY(0) !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+    transition: transform 0.05s ease !important; /* Instant squish */
+}
+
+/* 2. Fluid Input Focus */
+.floating-label-group input:focus,
+.floating-label-group select:focus,
+.floating-label-group textarea:focus {
+    transform: scale(1.01);
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+/* 3. Delivery Card Hover Lift */
+.delivery-card-label {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    cursor: pointer;
+}
+
+.delivery-card-label:hover:not(:has(input:disabled)) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04) !important;
+}
+
+.delivery-card-label:active:not(:has(input:disabled)) {
+    transform: scale(0.97) !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important;
+    transition: transform 0.05s ease !important;
+}
+
+/* 4. Section Card Floating */
+.checkout-section {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.checkout-section:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255,255,255,1) !important;
+}
+
+/* 5. Plus/Minus Button Snappiness */
+.qty-btn {
+    transition: all 0.2s ease !important;
+}
+.qty-btn:hover {
+    background: #e2e8f0 !important;
+    transform: scale(1.1);
+}
+.qty-btn:active {
+    transform: scale(0.9) !important;
+}
