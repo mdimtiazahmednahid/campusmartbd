@@ -89,6 +89,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    
+    // Hero Slideshow
+    const heroImage = document.getElementById('hero-image');
+    if (heroImage) {
+        const slideImages = [
+            'assets/kiloroad-black.png',
+            'assets/kiloroad-navy.png',
+            'assets/kiloroad-white.png',
+            'assets/sustverse-white.png',
+            'assets/sustverse-red.png',
+            'assets/sustverse-grey.png'
+        ];
+        let currentSlide = 0;
+        
+        setInterval(() => {
+            heroImage.classList.add('fade-out');
+            setTimeout(() => {
+                currentSlide = (currentSlide + 1) % slideImages.length;
+                heroImage.src = slideImages[currentSlide];
+                heroImage.classList.remove('fade-out');
+            }, 500); // Wait for fade out to complete
+        }, 3000); // Change image every 3 seconds
+    }
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -180,7 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
         cart.forEach((item, index) => {
             const effectivePrice = item.price - discountPerItem;
             total += effectivePrice * item.quantity;
-            orderDetailsStr += `${item.title} (${item.collar}, ${item.sleeve}, Size: ${item.size}) x${item.quantity} - ৳${effectivePrice * item.quantity}\n`;
+            const collar = item.collar || 'Not Selected';
+            const sleeve = item.sleeve || 'Not Selected';
+            orderDetailsStr += `${item.title} (${collar}, ${sleeve}, Size: ${item.size}) x${item.quantity} - ৳${effectivePrice * item.quantity}
+`;
 
             const itemEl = document.createElement('div');
             itemEl.className = 'cart-item';
@@ -188,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${item.image}" alt="${item.title}">
                 <div class="cart-item-details">
                     <div class="cart-item-title">${item.title}</div>
-                    <div class="cart-item-meta">${item.collar}, ${item.sleeve}, Size: ${item.size}</div>
+                    <div class="cart-item-meta">${item.collar || "Not Selected"}, ${item.sleeve || "Not Selected"}, Size: ${item.size}</div>
                     <div class="cart-item-price">৳ ${effectivePrice} ${isEarlyBirds ? '<del style="font-size:0.75rem;color:#9ca3af;margin-left:0.25rem;">৳ '+item.price+'</del>' : ''}</div>
                     <div class="cart-item-actions">
                         <button class="qty-btn minus" data-index="${index}">-</button>
@@ -396,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = formData.get('name');
             const phone = formData.get('phone');
             const delivery = formData.get('delivery_option');
-            const address = `${formData.get('address')}, ${formData.get('upazila')}, ${formData.get('district')}, ${formData.get('division')}`;
+            const address = `${formData.get('address') || ''}, ${formData.get('upazila') || ''}, ${formData.get('district') || ''}, ${formData.get('division') || ''}`;
             
             doc.setFontSize(20);
             doc.setFont(undefined, 'bold');
@@ -536,8 +563,10 @@ document.addEventListener('DOMContentLoaded', () => {
     formInputs.forEach(input => {
         // Load existing data if available
         const savedVal = localStorage.getItem(`campusmart_user_${input.name}`);
-        if (savedVal) {
+        if (savedVal && savedVal !== 'undefined' && savedVal !== 'null') {
             input.value = savedVal;
+        } else {
+            input.value = '';
         }
 
         // Save on input/change
