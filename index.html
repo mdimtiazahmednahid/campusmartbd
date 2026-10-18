@@ -4,9 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusMart | Elevate Your Campus Style</title>
+    <title>CampusMart | Everything Students Need</title>
     <meta name="description"
-        content="Discover the exclusive collection of campus apparel at CampusMart. Shop premium quality t-shirts and more.">
+        content="CampusMart is a student-focused marketplace for campus wear, student essentials, accessories and campus culture. Everything students need, all in one place.">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CampusMart | Everything Students Need">
+    <meta property="og:description"
+        content="CampusMart is a student-focused marketplace for campus wear, student essentials, accessories and campus culture. Everything students need, all in one place.">
+    <meta property="og:image" content="assets/brand-banner.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CampusMart | Everything Students Need">
+    <meta name="twitter:description"
+        content="CampusMart is a student-focused marketplace for campus wear, student essentials, accessories and campus culture. Everything students need, all in one place.">
+    <meta name="twitter:image" content="assets/brand-banner.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,13 +31,14 @@
 </head>
 
 <body>
-    
+
 
     <header class="header">
         <div class="container header-content">
             <a href="#" class="logo"><img src="assets/logo.png" alt="CampusMart Logo"></a>
             <nav class="nav" id="nav-menu">
                 <a href="#home" class="nav-link">Home</a>
+                <a href="#categories" class="nav-link">Categories</a>
                 <a href="#collection" class="nav-link">Collection</a>
                 <a href="#size-guide" class="nav-link">Size Guide</a>
                 <a href="#" class="nav-link" id="nav-history">Order History</a>
@@ -49,20 +65,129 @@
 
     <main>
         <section id="home" class="promo-hero">
-            <div class="promo-container">
-                <div class="promo-info">
-                    <h1 class="promo-title">Campus <span style="color: rgb(26, 134, 248);">Mart</span></h1>
-                    <h1 class="promo-title">LAUNCH OFFER</h1>
-                    <div class="promo-pricing">
-                        <p class="early-bird-price">৳499 <del>৳650</del></p>
-                        <p class="limit-text">First 50 Orders</p>
+            <div class="hero-banner-card" tabindex="0" aria-label="CampusMart - Everything Students Need">
+                <img src="assets/brand-banner.png" alt="CampusMart - Everything Students Need" class="hero-banner-img">
+                <a href="#collection" class="banner-cta-btn">Explore Now &rarr;</a>
+            </div>
+        </section>
+
+        <!-- Core Categories Section -->
+        <section id="categories" class="categories-section">
+            <div class="container">
+                <!-- Smart Minimalist Red Launch Offer Card (Identical Size: 950px x 350px) -->
+                <div class="promo-card-wrapper">
+                    <div class="promo-container-minimal">
+                        <div class="promo-info-minimal">
+                            <div class="hero-tagline-badge">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                                Launch Offer • First 50 Orders
+                            </div>
+                            <h2 class="promo-title-minimal">Special Launch Edition</h2>
+                            <p class="promo-subtitle-minimal">Designed for Campus. Made for Students. Save ৳151 on your
+                                first order.</p>
+
+                            <div class="promo-pricing-row">
+                                <div class="promo-price-tag">
+                                    <span class="promo-price-val">৳499</span>
+                                    <del class="promo-price-del">৳650</del>
+                                </div>
+                                <div class="promo-coupon-tag">
+                                    <span>Coupon:</span> <strong>EARLYBIRDS</strong>
+                                </div>
+                            </div>
+
+                            <a href="#collection" class="btn-promo-cta">
+                                <span>Shop Now</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="promo-image-wrapper-minimal" id="hero-slideshow">
+                            <img src="assets/kiloroad-black.png" alt="CampusMart Jersey Collection"
+                                class="promo-image-minimal" id="hero-image">
+                        </div>
                     </div>
-                    <a href="#collection" class="btn btn-shop-now">Shop Now</a>
                 </div>
 
-                <div class="promo-image-wrapper" id="hero-slideshow">
-                    <img src="assets/kiloroad-black.png" alt="Premium Edition" class="hero-image active-slide"
-                        id="hero-image">
+                <div class="categories-section-header">
+                    <h2>Core Categories</h2>
+                    <p>Designed for Campus • Built around Campus Life</p>
+                </div>
+
+                <div class="categories-grid">
+                    <a href="#collection" class="category-card active">
+                        <div class="category-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="category-title">Campus Wear</h3>
+                        <span class="category-badge">Now Available</span>
+                    </a>
+
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-9z">
+                                </path>
+                                <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path>
+                                <path d="M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5"></path>
+                                <path d="M10 10h4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="category-title">Student Essentials</h3>
+                        <span class="category-badge upcoming">Coming Soon</span>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="category-title">Campus Culture</h3>
+                        <span class="category-badge upcoming">Coming Soon</span>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M8 2h8v2H8zM10 4v3h4V4M6 9h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z">
+                                </path>
+                                <circle cx="12" cy="15" r="2"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="category-title">Campus Accessories</h3>
+                        <span class="category-badge upcoming">Coming Soon</span>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M12 2a3 3 0 0 0-3 3c0 .8.4 1.5 1 2l-8 5a2 2 0 0 0-1 1.7v1.3c0 .6.4 1 1 1h22c.6 0 1-.4 1-1v-1.3c0-.7-.4-1.4-1-1.7l-8-5c.6-.5 1-1.2 1-2a3 3 0 0 0-3-3z">
+                                </path>
+                                <path d="M4 16v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="category-title">Everyday Wear</h3>
+                        <span class="category-badge upcoming">Coming Soon</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -99,8 +224,10 @@
                                             <option value="" disabled selected>Type</option>
                                             <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
                                             <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
-                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
-                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve
+                                            </option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -109,7 +236,7 @@
                                         data-title="KILOROAD 01 - Black Edition" data-price="550"
                                         data-image="assets/kiloroad-black.png">Add to Cart</button>
                                     <button class="btn btn-buy-now" data-id="1" data-title="KILOROAD 01 - Black Edition"
-                                        data-price="550" data-image="assets/kiloroad-black.png">Buy Now</button>
+                                        data-price="550" data-image="assets/kiloroad-black.png">Order Request</button>
                                 </div>
                             </div>
                         </div>
@@ -145,8 +272,10 @@
                                             <option value="" disabled selected>Type</option>
                                             <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
                                             <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
-                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
-                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve
+                                            </option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -154,7 +283,7 @@
                                     <button class="btn btn-add-cart" data-id="2" data-title="KILOROAD 01 - Navy Edition"
                                         data-price="550" data-image="assets/kiloroad-navy.png">Add to Cart</button>
                                     <button class="btn btn-buy-now" data-id="2" data-title="KILOROAD 01 - Navy Edition"
-                                        data-price="550" data-image="assets/kiloroad-navy.png">Buy Now</button>
+                                        data-price="550" data-image="assets/kiloroad-navy.png">Order Request</button>
                                 </div>
                             </div>
                         </div>
@@ -190,8 +319,10 @@
                                             <option value="" disabled selected>Type</option>
                                             <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
                                             <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
-                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
-                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve
+                                            </option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -200,7 +331,7 @@
                                         data-title="KILOROAD 01 - White Edition" data-price="550"
                                         data-image="assets/kiloroad-white.png">Add to Cart</button>
                                     <button class="btn btn-buy-now" data-id="3" data-title="KILOROAD 01 - White Edition"
-                                        data-price="550" data-image="assets/kiloroad-white.png">Buy Now</button>
+                                        data-price="550" data-image="assets/kiloroad-white.png">Order Request</button>
                                 </div>
                             </div>
                         </div>
@@ -236,8 +367,10 @@
                                             <option value="" disabled selected>Type</option>
                                             <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
                                             <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
-                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
-                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve
+                                            </option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -245,7 +378,7 @@
                                     <button class="btn btn-add-cart" data-id="4" data-title="SUST 320 - Blue Edition"
                                         data-price="550" data-image="assets/sust-blue.png">Add to Cart</button>
                                     <button class="btn btn-buy-now" data-id="4" data-title="SUST 320 - Blue Edition"
-                                        data-price="550" data-image="assets/sust-blue.png">Buy Now</button>
+                                        data-price="550" data-image="assets/sust-blue.png">Order Request</button>
                                 </div>
                             </div>
                         </div>
@@ -281,8 +414,10 @@
                                             <option value="" disabled selected>Type</option>
                                             <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
                                             <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
-                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
-                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve
+                                            </option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -290,7 +425,7 @@
                                     <button class="btn btn-add-cart" data-id="5" data-title="SUSTVERSE - Red Edition"
                                         data-price="550" data-image="assets/sustverse-red.png">Add to Cart</button>
                                     <button class="btn btn-buy-now" data-id="5" data-title="SUSTVERSE - Red Edition"
-                                        data-price="550" data-image="assets/sustverse-red.png">Buy Now</button>
+                                        data-price="550" data-image="assets/sustverse-red.png">Order Request</button>
                                 </div>
                             </div>
                         </div>
@@ -326,8 +461,10 @@
                                             <option value="" disabled selected>Type</option>
                                             <option value="Polo Collar + half sleeve">Polo Collar + half sleeve</option>
                                             <option value="Polo Collar + full sleeve">Polo Collar + full sleeve</option>
-                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve</option>
-                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve</option>
+                                            <option value="Round Collar + half sleeve">Round Collar + half sleeve
+                                            </option>
+                                            <option value="Round Collar + full sleeve">Round Collar + full sleeve
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -335,7 +472,7 @@
                                     <button class="btn btn-add-cart" data-id="6" data-title="SUSTVERSE - Grey Edition"
                                         data-price="550" data-image="assets/sustverse-grey.png">Add to Cart</button>
                                     <button class="btn btn-buy-now" data-id="6" data-title="SUSTVERSE - Grey Edition"
-                                        data-price="550" data-image="assets/sustverse-grey.png">Buy Now</button>
+                                        data-price="550" data-image="assets/sustverse-grey.png">Order Request</button>
                                 </div>
                             </div>
                         </div>
@@ -406,7 +543,8 @@
                     <p>Have any questions? Send us a message.</p>
                 </div>
                 <div class="contact-form-wrapper">
-                    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="main-contact-form">
+                    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+                        class="main-contact-form">
                         <input type="hidden" name="form-name" value="contact">
                         <div class="form-row">
                             <input type="text" name="name" placeholder="Your Name *" required>
@@ -424,11 +562,16 @@
         <div class="container footer-content">
             <div class="footer-brand">
                 <a href="#" class="logo"><img src="assets/logo.png" alt="CampusMart Logo"></a>
-                <p>Elevating campus fashion with premium, comfortable, and affordable apparel.</p>
+                <p style="margin-top: 0.5rem; font-weight: 700; color: #fff; font-size: 1rem;">Everything Students Need.
+                </p>
+                <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #9ca3af; line-height: 1.6;">A student-first
+                    marketplace built around campus life, bringing campus wear, student essentials, accessories, campus
+                    culture and everyday products together in one place.</p>
             </div>
             <div class="footer-links">
                 <h3>Quick Links</h3>
                 <a href="#home">Home</a>
+                <a href="#categories">Categories</a>
                 <a href="#collection">Collection</a>
                 <a href="#size-guide">Size Guide</a>
             </div>
@@ -447,6 +590,12 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/campusmart" target="_blank" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                         </svg>
                     </a>
                 </div>
@@ -478,15 +627,18 @@
             <h3>Your Cart</h3>
             <button class="close-cart" id="close-cart">&times;</button>
         </div>
-    <form name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form" id="checkout-form" style="display: flex; flex-direction: column; flex: 1; min-height: 0; margin: 0; padding: 0;">
-        <div class="cart-scrollable-content" style="flex: 1; overflow-y: auto; padding: 1.5rem; -webkit-overflow-scrolling: touch;">
-            <!-- Netlify hidden input -->
+        <form name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form"
+            id="checkout-form"
+            style="display: flex; flex-direction: column; flex: 1; min-height: 0; margin: 0; padding: 0;">
+            <div class="cart-scrollable-content"
+                style="flex: 1; overflow-y: auto; padding: 1.5rem; -webkit-overflow-scrolling: touch;">
+                <!-- Netlify hidden input -->
                 <input type="hidden" name="form-name" value="checkout">
                 <p style="display: none;">
                     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                 </p>
-            
-            <div class="checkout-section">
+
+                <div class="checkout-section">
                     <div class="checkout-section-header">
                         <span class="step-num">1</span>
                         <h5>Contact Information</h5>
@@ -511,73 +663,74 @@
                             </label>
                         </div>
                     </div>
-            
-            </div>
-            <div class="checkout-section">
-                <div class="checkout-section-header">
-                    <span class="step-num">2</span>
-                    <h5>Delivery Details</h5>
+
                 </div>
-                
-                <div class="form-row-2" style="margin-bottom: 1rem;">
-                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                <div class="checkout-section">
+                    <div class="checkout-section-header">
+                        <span class="step-num">2</span>
+                        <h5>Delivery Details</h5>
+                    </div>
+
+                    <div class="form-row-2" style="margin-bottom: 1rem;">
+                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                            <label class="floating-label-group">
+                                <span class="label-text">Division *</span>
+                                <select name="division" id="division" required>
+                                    <option value="">Select Division</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                            <label class="floating-label-group">
+                                <span class="label-text">District *</span>
+                                <select name="district" id="district" required disabled>
+                                    <option value="">Select District</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1rem;">
                         <label class="floating-label-group">
-                            <span class="label-text">Division *</span>
-                            <select name="division" id="division" required>
-                                <option value="">Select Division</option>
-                            </select>
+                            <span class="label-text">Upazila / Thana *</span>
+                            <input type="text" name="upazila" placeholder="e.g. Mirpur" required>
                         </label>
                     </div>
-                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
                         <label class="floating-label-group">
-                            <span class="label-text">District *</span>
-                            <select name="district" id="district" required disabled>
-                                <option value="">Select District</option>
-                            </select>
+                            <span class="label-text">Full Delivery Address *</span>
+                            <textarea name="address" placeholder="Street, House/Apt No." required rows="2"
+                                style="padding-top:1.5rem;"></textarea>
                         </label>
                     </div>
-                </div>
-                
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <label class="floating-label-group">
-                        <span class="label-text">Upazila / Thana *</span>
-                        <input type="text" name="upazila" placeholder="e.g. Mirpur" required>
-                    </label>
-                </div>
-                
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label class="floating-label-group">
-                        <span class="label-text">Full Delivery Address *</span>
-                        <textarea name="address" placeholder="Street, House/Apt No." required rows="2" style="padding-top:1.5rem;"></textarea>
-                    </label>
+
+                    <div class="form-group delivery-options-group">
+                        <p>Delivery Method *</p>
+                        <div class="delivery-cards-wrapper">
+                            <label class="delivery-card-label">
+                                <input type="radio" name="delivery_option" value="Inside Campus" disabled>
+                                <span class="delivery-card-title">Inside Campus</span>
+                                <span class="delivery-card-subtitle">Free</span>
+                            </label>
+                            <label class="delivery-card-label">
+                                <input type="radio" name="delivery_option" value="Outside Campus" checked>
+                                <span class="delivery-card-title">Outside Campus</span>
+                                <span class="delivery-card-subtitle" id="dynamic-outside-charge">৳80 - ৳130</span>
+                            </label>
+                        </div>
+                        <p id="outside-campus-msg"
+                            style="display: none; color: #4b5563; font-size: 0.85rem; margin-top: 0.75rem; font-weight: 500; background: rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 4px; border-left: 3px solid #ff8c00;">
+                            ℹ️ Subject to delivery partner. We'll call you to confirm.</p>
+                    </div>
                 </div>
 
-                <div class="form-group delivery-options-group">
-                    <p>Delivery Method *</p>
-                    <div class="delivery-cards-wrapper">
-                        <label class="delivery-card-label">
-                            <input type="radio" name="delivery_option" value="Inside Campus" disabled>
-                            <span class="delivery-card-title">Inside Campus</span>
-                            <span class="delivery-card-subtitle">Free</span>
-                        </label>
-                        <label class="delivery-card-label">
-                            <input type="radio" name="delivery_option" value="Outside Campus" checked>
-                            <span class="delivery-card-title">Outside Campus</span>
-                            <span class="delivery-card-subtitle" id="dynamic-outside-charge">৳80 - ৳130</span>
-                        </label>
-                    </div>
-                    <p id="outside-campus-msg"
-                        style="display: none; color: #4b5563; font-size: 0.85rem; margin-top: 0.75rem; font-weight: 500; background: rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 4px; border-left: 3px solid #ff8c00;">
-                        ℹ️ Subject to delivery partner. We'll call you to confirm.</p>
-                </div>
-            </div>
-            
-            <div class="checkout-section">
+                <div class="checkout-section">
                     <div class="checkout-section-header">
                         <span class="step-num">3</span>
                         <h5>Customization</h5>
                     </div>
-                    
+
                     <div class="form-group customization-group"
                         style="background: rgba(16, 185, 129, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.2);">
                         <label
@@ -586,10 +739,14 @@
                                 style="width: auto; margin: 0; cursor: pointer; accent-color: var(--primary-color);">
                             Yes, customize my jersey (Name & Number)
                         </label>
+                        <p
+                            style="font-size: 0.82rem; color: #047857; margin-top: 0.35rem; padding-left: 1.6rem; font-weight: 500;">
+                            Note: Customization (May take 7-15 working days to prepare)
+                        </p>
 
                         <div id="customization-details"
                             style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(16, 185, 129, 0.3);">
-                            
+
                             <div class="form-row-2">
                                 <div class="form-group" style="flex: 2; margin-bottom: 1rem;">
                                     <label class="floating-label-group">
@@ -607,9 +764,10 @@
 
                             <div
                                 style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; text-align: center; border: 1px solid var(--border-color);">
-                                <p style="font-size: 0.95rem; margin-bottom: 0.5rem; font-weight: 700;">50% Advance Required: <span
-                                        id="advance-amount" style="color: #dc2626;">৳ 0</span></p>
-                                <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">Pay via bKash/Nagad:</p>
+                                <p style="font-size: 0.95rem; margin-bottom: 0.5rem; font-weight: 700;">50% Advance
+                                    Required: <span id="advance-amount" style="color: #dc2626;">৳ 0</span></p>
+                                <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">Pay via
+                                    bKash/Nagad:</p>
                                 <button type="button" id="copy-number-btn"
                                     style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 0.5rem 1rem; border-radius: 4px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 1.1rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem; color: var(--text-color);">
                                     +880 1600-265376
@@ -641,59 +799,65 @@
                         </div>
                     </div>
                 </div>
-            
-            <div class="checkout-section order-summary-section" style="margin-top: 2rem;">
-                <div class="checkout-section-header">
-                    <span class="step-num">4</span>
-                    <h5>Order Summary</h5>
-                </div>
-                
-                <div class="cart-items" id="cart-items">
-            <!-- Items injected by JS -->
-        </div>
-                
-                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 1rem;">
-                    <div class="coupon-section">
-                <input type="text" id="coupon-code" placeholder="Coupon Code (e.g. EARLYBIRDS)">
-                <button type="button" id="apply-coupon" class="btn btn-apply">Apply</button>
-            </div>
-            <div id="coupon-message" class="coupon-message"></div>
-                    
-                    <div style="margin-top: 1rem;">
-                        <div class="cart-subtotal" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
-                <span>Subtotal:</span>
-                <span id="cart-subtotal-price">৳ 0</span>
-            </div>
-                        <div class="cart-delivery-charge" style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
-                <span>Delivery Charge:</span>
-                <span id="cart-delivery-price">৳ 0</span>
-            </div>
-                        <div class="cart-total" style="border-top: 1px dashed var(--border-color); padding-top: 1rem;">
-                <span>Total:</span>
-                <span id="cart-total-price">৳ 0</span>
-            </div>
+
+                <div class="checkout-section order-summary-section" style="margin-top: 2rem;">
+                    <div class="checkout-section-header">
+                        <span class="step-num">4</span>
+                        <h5>Order Summary</h5>
+                    </div>
+
+                    <div class="cart-items" id="cart-items">
+                        <!-- Items injected by JS -->
+                    </div>
+
+                    <div
+                        style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 1rem;">
+                        <div class="coupon-section">
+                            <input type="text" id="coupon-code" placeholder="Coupon Code (e.g. EARLYBIRDS)">
+                            <button type="button" id="apply-coupon" class="btn btn-apply">Apply</button>
+                        </div>
+                        <div id="coupon-message" class="coupon-message"></div>
+
+                        <div style="margin-top: 1rem;">
+                            <div class="cart-subtotal"
+                                style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
+                                <span>Subtotal:</span>
+                                <span id="cart-subtotal-price">৳ 0</span>
+                            </div>
+                            <div class="cart-delivery-charge"
+                                style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
+                                <span>Delivery Charge:</span>
+                                <span id="cart-delivery-price">৳ 0</span>
+                            </div>
+                            <div class="cart-total"
+                                style="border-top: 1px dashed var(--border-color); padding-top: 1rem;">
+                                <span>Total:</span>
+                                <span id="cart-total-price">৳ 0</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="cart-footer-sticky" style="padding: 1.5rem; background: white; border-top: 1px solid var(--border-color); flex-shrink: 0; box-shadow: 0 -4px 10px rgba(0,0,0,0.02);">
-            <!-- Hidden inputs to store order data -->
+
+            <div class="cart-footer-sticky"
+                style="padding: 1.5rem; background: white; border-top: 1px solid var(--border-color); flex-shrink: 0; box-shadow: 0 -4px 10px rgba(0,0,0,0.02);">
+                <!-- Hidden inputs to store order data -->
                 <input type="hidden" name="order_details" id="order_details">
                 <input type="hidden" name="total_amount" id="total_amount">
                 <input type="hidden" name="coupon_code" id="hidden_coupon_code">
 
-                <button type="submit" class="btn btn-primary btn-checkout" style="margin-top: 1rem;">Confirm Order & Pay</button>
-        </div>
-    </form>
+                <button type="submit" class="btn btn-primary btn-checkout" style="margin-top: 1rem;">Confirm Order &
+                    Pay</button>
+            </div>
+        </form>
     </div>
-<!-- Toast Notification -->
+    <!-- Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-content">
             <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
-            <div class="toast-message">Order placed successfully!</div>
+            <div class="toast-message">Order request received!</div>
         </div>
     </div>
 
@@ -710,7 +874,7 @@
     <script src="script.js"></script>
     <!-- Toaster Container -->
     <div id="toast-container" class="toast-container"></div>
-    
+
     <!-- Hidden Error Report Form for Netlify -->
     <form name="error-report" netlify netlify-honeypot="bot-field" hidden>
         <input type="text" name="error_message">
