@@ -63,6 +63,38 @@
         </div>
     </header>
 
+    <!-- Sticky Category Filter Bar -->
+    <nav class="sticky-category-bar" id="sticky-category-bar" aria-label="Quick Category Filter">
+        <div class="container sticky-category-inner">
+            <button class="sticky-cat-btn active" data-category="all" aria-label="All Categories">
+                <span class="cat-btn-icon">⚡</span>
+                <span class="cat-btn-text">All</span>
+            </button>
+            <button class="sticky-cat-btn" data-category="campus-wear" aria-label="Campus Wear Category">
+                <span class="cat-btn-icon">👕</span>
+                <span class="cat-btn-text">Campus Wear</span>
+                <span class="sticky-badge-live">Live</span>
+            </button>
+            <button class="sticky-cat-btn" data-category="essentials" aria-label="Student Essentials Category">
+                <span class="cat-btn-icon">🎒</span>
+                <span class="cat-btn-text">Student Essentials</span>
+            </button>
+            <button class="sticky-cat-btn" data-category="culture" aria-label="Campus Culture Category">
+                <span class="cat-btn-icon">🎓</span>
+                <span class="cat-btn-text">Campus Culture</span>
+            </button>
+            <button class="sticky-cat-btn" data-category="accessories" aria-label="Campus Gear Category">
+                <span class="cat-btn-icon">⌚</span>
+                <span class="cat-btn-text">Campus Gear</span>
+            </button>
+            <button class="sticky-cat-btn" data-category="everyday" aria-label="Everyday Wear Category">
+                <span class="cat-btn-icon">🧥</span>
+                <span class="cat-btn-text">Everyday Wear</span>
+                <span class="sticky-badge-live">Live</span>
+            </button>
+        </div>
+    </nav>
+
     <main>
         <section id="home" class="promo-hero">
             <div class="hero-banner-card" tabindex="0" aria-label="CampusMart - Everything Students Need">
@@ -74,33 +106,36 @@
         <!-- Core Categories Section -->
         <section id="categories" class="categories-section">
             <div class="container">
-                <!-- Smart Minimalist Red Launch Offer Card (Identical Size: 950px x 350px) -->
+                <!-- Smart Minimalist Red Launch Offer Card (Exact 950px x 350px dimensions matching hero banner) -->
                 <div class="promo-card-wrapper">
                     <div class="promo-container-minimal">
                         <div class="promo-info-minimal">
-                            <div class="hero-tagline-badge">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                                </svg>
-                                Launch Offer • First 50 Orders
+                            <div class="smart-offer-badge">
+                                <span class="badge-pulse-dot"></span>
+                                <span>Launch Offer &bull; First 50 Orders</span>
                             </div>
                             <h2 class="promo-title-minimal">Special Launch Edition</h2>
-                            <p class="promo-subtitle-minimal">Designed for Campus. Made for Students. Save ৳151 on your
-                                first order.</p>
+                            <p class="promo-subtitle-minimal">Designed for Campus. Made for Students. Save ৳151 on your first order.</p>
 
-                            <div class="promo-pricing-row">
-                                <div class="promo-price-tag">
-                                    <span class="promo-price-val">৳499</span>
-                                    <del class="promo-price-del">৳650</del>
+                            <div class="smart-deal-row">
+                                <div class="smart-price-box">
+                                    <span class="smart-current-price">৳499</span>
+                                    <del class="smart-old-price">৳650</del>
+                                    <span class="smart-discount-tag">Save ৳151</span>
                                 </div>
-                                <div class="promo-coupon-tag">
-                                    <span>Coupon:</span> <strong>EARLYBIRDS</strong>
+                                <div class="smart-coupon-pill" id="coupon-copy-pill" title="Click to copy coupon code" role="button" tabindex="0">
+                                    <span class="coupon-lbl">Coupon:</span>
+                                    <strong class="coupon-code">EARLYBIRDS</strong>
+                                    <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                    <span class="copy-tooltip">Click to copy</span>
                                 </div>
                             </div>
 
-                            <a href="#collection" class="btn-promo-cta">
-                                <span>Shop Now</span>
+                            <a href="#collection" class="btn-promo-cta" id="btn-promo-explore" data-category="campus-wear">
+                                <span>Explore Launch Wear</span>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M5 12h14M12 5l7 7-7 7" />
@@ -109,6 +144,7 @@
                         </div>
 
                         <div class="promo-image-wrapper-minimal" id="hero-slideshow">
+                            <div class="promo-ambient-glow"></div>
                             <img src="assets/kiloroad-black.png" alt="CampusMart Jersey Collection"
                                 class="promo-image-minimal" id="hero-image">
                         </div>
@@ -117,11 +153,11 @@
 
                 <div class="categories-section-header">
                     <h2>Core Categories</h2>
-                    <p>Designed for Campus • Built around Campus Life</p>
+                    <p>Designed for Campus &bull; Built around Campus Life</p>
                 </div>
 
                 <div class="categories-grid">
-                    <a href="#collection" class="category-card active">
+                    <div class="category-card active" data-category="campus-wear" role="button" tabindex="0">
                         <div class="category-icon">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -132,9 +168,9 @@
                         </div>
                         <h3 class="category-title">Campus Wear</h3>
                         <span class="category-badge">Now Available</span>
-                    </a>
+                    </div>
 
-                    <div class="category-card">
+                    <div class="category-card" data-category="essentials" role="button" tabindex="0">
                         <div class="category-icon">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -149,7 +185,7 @@
                         <span class="category-badge upcoming">Coming Soon</span>
                     </div>
 
-                    <div class="category-card">
+                    <div class="category-card" data-category="culture" role="button" tabindex="0">
                         <div class="category-icon">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -161,7 +197,7 @@
                         <span class="category-badge upcoming">Coming Soon</span>
                     </div>
 
-                    <div class="category-card">
+                    <div class="category-card" data-category="accessories" role="button" tabindex="0">
                         <div class="category-icon">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -171,11 +207,11 @@
                                 <circle cx="12" cy="15" r="2"></circle>
                             </svg>
                         </div>
-                        <h3 class="category-title">Campus Accessories</h3>
+                        <h3 class="category-title">Campus Gear</h3>
                         <span class="category-badge upcoming">Coming Soon</span>
                     </div>
 
-                    <div class="category-card">
+                    <div class="category-card" data-category="everyday" role="button" tabindex="0">
                         <div class="category-icon">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -186,7 +222,7 @@
                             </svg>
                         </div>
                         <h3 class="category-title">Everyday Wear</h3>
-                        <span class="category-badge upcoming">Coming Soon</span>
+                        <span class="category-badge">Now Available</span>
                     </div>
                 </div>
             </div>
@@ -195,13 +231,13 @@
         <section id="collection" class="collection">
             <div class="container">
                 <div class="section-header">
-                    <h2>Latest Collection</h2>
-                    <p>Explore our highly anticipated releases.</p>
+                    <h2 id="collection-heading">Latest Collection</h2>
+                    <p id="collection-subheading">Explore our highly anticipated releases.</p>
                 </div>
 
                 <div class="product-grid">
                     <!-- Product 1 -->
-                    <div class="product-card">
+                    <div class="product-card" data-category="campus-wear">
                         <div class="product-image-container">
                             <img src="assets/kiloroad-black.png" alt="KILOROAD 01 Black Edition" class="product-image">
                             <div class="product-overlay">
@@ -249,7 +285,7 @@
                     </div>
 
                     <!-- Product 2 -->
-                    <div class="product-card">
+                    <div class="product-card" data-category="campus-wear">
                         <div class="product-image-container">
                             <img src="assets/kiloroad-navy.png" alt="KILOROAD 01 Navy Edition" class="product-image">
                             <div class="product-overlay">
@@ -296,7 +332,7 @@
                     </div>
 
                     <!-- Product 3 -->
-                    <div class="product-card">
+                    <div class="product-card" data-category="campus-wear">
                         <div class="product-image-container">
                             <img src="assets/kiloroad-white.png" alt="KILOROAD 01 White Edition" class="product-image">
                             <div class="product-overlay">
@@ -344,7 +380,7 @@
                     </div>
 
                     <!-- Product 4 -->
-                    <div class="product-card">
+                    <div class="product-card" data-category="campus-wear">
                         <div class="product-image-container">
                             <img src="assets/sust-blue.png" alt="SUST 320 Blue Edition" class="product-image">
                             <div class="product-overlay">
@@ -391,7 +427,7 @@
                     </div>
 
                     <!-- Product 5 -->
-                    <div class="product-card">
+                    <div class="product-card" data-category="campus-wear">
                         <div class="product-image-container">
                             <img src="assets/sustverse-red.png" alt="SUSTVERSE Red Edition" class="product-image">
                             <div class="product-overlay">
@@ -438,7 +474,7 @@
                     </div>
 
                     <!-- Product 6 -->
-                    <div class="product-card">
+                    <div class="product-card" data-category="campus-wear">
                         <div class="product-image-container">
                             <img src="assets/sustverse-grey.png" alt="SUSTVERSE Grey Edition" class="product-image">
                             <div class="product-overlay">
@@ -481,6 +517,206 @@
                             <p class="product-category">Polo Jersey T-Shirt</p>
                             <p class="product-price"><del class="old-price">৳ 650</del> <span class="current-price">৳
                                     550</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Product 7: SUST Quarter-Zip Sweatshirt Coffee -->
+                    <div class="product-card" data-category="everyday campus-wear">
+                        <div class="product-image-container">
+                            <img src="assets/sust-sweatshirt-coffee.jpg" alt="SUST Exclusive Quarter-Zip Sweatshirt - Coffee Edition" class="product-image">
+                            <div class="product-overlay">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                    <div class="size-selector" style="flex: 1; min-width: 0;">
+                                        <select id="size-7" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
+                                            <option value="" disabled selected>Size</option>
+                                            <option value="M">M (Chest-38, Length-27)</option>
+                                            <option value="L">L (Chest-40, Length-28)</option>
+                                            <option value="XL">XL (Chest-42, Length-29)</option>
+                                            <option value="XXL">XXL (Chest-44, Length-30)</option>
+                                            <option value="3XL">3XL (Chest-46, Length-31)</option>
+                                        </select>
+                                    </div>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-7" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="Sweatshirt Style">
+                                            <option value="" disabled selected>Style</option>
+                                            <option value="Quarter-Zip Pullover">Quarter-Zip Pullover</option>
+                                            <option value="Fleece Winter Edition">Fleece Winter Edition</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-add-cart" data-id="7" data-title="SUST Quarter-Zip - Coffee Edition"
+                                        data-price="650" data-image="assets/sust-sweatshirt-coffee.jpg">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="7" data-title="SUST Quarter-Zip - Coffee Edition"
+                                        data-price="650" data-image="assets/sust-sweatshirt-coffee.jpg">Order Request</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">SUST Quarter-Zip - Coffee Edition</h3>
+                            <p class="product-category">Quarter-Zip Fleece Sweatshirt</p>
+                            <p class="product-price"><del class="old-price">৳ 699</del> <span class="current-price">৳ 650</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Product 8: SUST Quarter-Zip Sweatshirt Biscuit -->
+                    <div class="product-card" data-category="everyday campus-wear">
+                        <div class="product-image-container">
+                            <img src="assets/sust-sweatshirt-biscuit.jpg" alt="SUST Exclusive Quarter-Zip Sweatshirt - Biscuit Edition" class="product-image">
+                            <div class="product-overlay">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                    <div class="size-selector" style="flex: 1; min-width: 0;">
+                                        <select id="size-8" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
+                                            <option value="" disabled selected>Size</option>
+                                            <option value="M">M (Chest-38, Length-27)</option>
+                                            <option value="L">L (Chest-40, Length-28)</option>
+                                            <option value="XL">XL (Chest-42, Length-29)</option>
+                                            <option value="XXL">XXL (Chest-44, Length-30)</option>
+                                            <option value="3XL">3XL (Chest-46, Length-31)</option>
+                                        </select>
+                                    </div>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-8" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="Sweatshirt Style">
+                                            <option value="" disabled selected>Style</option>
+                                            <option value="Quarter-Zip Pullover">Quarter-Zip Pullover</option>
+                                            <option value="Fleece Winter Edition">Fleece Winter Edition</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-add-cart" data-id="8" data-title="SUST Quarter-Zip - Biscuit Edition"
+                                        data-price="650" data-image="assets/sust-sweatshirt-biscuit.jpg">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="8" data-title="SUST Quarter-Zip - Biscuit Edition"
+                                        data-price="650" data-image="assets/sust-sweatshirt-biscuit.jpg">Order Request</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">SUST Quarter-Zip - Biscuit Edition</h3>
+                            <p class="product-category">Quarter-Zip Fleece Sweatshirt</p>
+                            <p class="product-price"><del class="old-price">৳ 699</del> <span class="current-price">৳ 650</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Product 9: SUST Quarter-Zip Sweatshirt Grey Melange -->
+                    <div class="product-card" data-category="everyday campus-wear">
+                        <div class="product-image-container">
+                            <img src="assets/sust-sweatshirt-grey.jpg" alt="SUST Exclusive Quarter-Zip Sweatshirt - Grey Melange Edition" class="product-image">
+                            <div class="product-overlay">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                    <div class="size-selector" style="flex: 1; min-width: 0;">
+                                        <select id="size-9" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
+                                            <option value="" disabled selected>Size</option>
+                                            <option value="M">M (Chest-38, Length-27)</option>
+                                            <option value="L">L (Chest-40, Length-28)</option>
+                                            <option value="XL">XL (Chest-42, Length-29)</option>
+                                            <option value="XXL">XXL (Chest-44, Length-30)</option>
+                                            <option value="3XL">3XL (Chest-46, Length-31)</option>
+                                        </select>
+                                    </div>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-9" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="Sweatshirt Style">
+                                            <option value="" disabled selected>Style</option>
+                                            <option value="Quarter-Zip Pullover">Quarter-Zip Pullover</option>
+                                            <option value="Fleece Winter Edition">Fleece Winter Edition</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-add-cart" data-id="9" data-title="SUST Quarter-Zip - Grey Melange"
+                                        data-price="650" data-image="assets/sust-sweatshirt-grey.jpg">Add to Cart</button>
+                                    <button class="btn btn-buy-now" data-id="9" data-title="SUST Quarter-Zip - Grey Melange"
+                                        data-price="650" data-image="assets/sust-sweatshirt-grey.jpg">Order Request</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">SUST Quarter-Zip - Grey Melange</h3>
+                            <p class="product-category">Quarter-Zip Fleece Sweatshirt</p>
+                            <p class="product-price"><del class="old-price">৳ 699</del> <span class="current-price">৳ 650</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Product 10: SUST Winter Bonded Jacket -->
+                    <div class="product-card" data-category="everyday campus-wear accessories">
+                        <div class="product-image-container">
+                            <span class="product-card-badge" style="position: absolute; top: 12px; left: 12px; background: #0f172a; color: #fff; font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 20px; z-index: 3;">Pre-Order</span>
+                            <img src="assets/sust-jacket-bonded.jpg" alt="SUST Exclusive Winter Bonded Jacket" class="product-image">
+                            <div class="product-overlay">
+                                <div class="options-row"
+                                    style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; width: 100%;">
+                                    <div class="size-selector" style="flex: 1; min-width: 0;">
+                                        <select id="size-10" class="size-select" style="width: 100%; font-size: 0.85rem;"
+                                            aria-label="Size">
+                                            <option value="" disabled selected>Size</option>
+                                            <option value="M">M (Chest-38, Length-27)</option>
+                                            <option value="L">L (Chest-40, Length-28)</option>
+                                            <option value="XL">XL (Chest-42, Length-29)</option>
+                                            <option value="XXL">XXL (Chest-44, Length-30)</option>
+                                            <option value="3XL">3XL (Chest-46, Length-31)</option>
+                                        </select>
+                                    </div>
+                                    <div class="size-selector" style="flex: 2; min-width: 0;">
+                                        <select id="type-10" class="type-select size-select"
+                                            style="width: 100%; font-size: 0.85rem;" aria-label="Jacket Style">
+                                            <option value="" disabled selected>Style</option>
+                                            <option value="Bonded Windproof Edition">Bonded Windproof Edition</option>
+                                            <option value="Thermal Winter Edition">Thermal Winter Edition</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-add-cart" data-id="10" data-title="SUST Exclusive Winter Bonded Jacket"
+                                        data-price="799" data-image="assets/sust-jacket-bonded.jpg">Pre-Order</button>
+                                    <button class="btn btn-buy-now" data-id="10" data-title="SUST Exclusive Winter Bonded Jacket"
+                                        data-price="799" data-image="assets/sust-jacket-bonded.jpg">Order Request</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">SUST Exclusive Winter Bonded Jacket</h3>
+                            <p class="product-category">Windproof Thermal Bonded Jacket</p>
+                            <p class="product-price"><del class="old-price">৳ 950</del> <span class="current-price">৳ 799</span> <small style="display:inline-block; font-size:0.75rem; color:#10b981; font-weight:700; margin-left:0.35rem;">Pre-Order</small></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State for Upcoming Categories -->
+                <div class="category-empty-state" id="category-empty-state" style="display: none;">
+                    <div class="empty-state-card">
+                        <div class="empty-state-badge" id="empty-state-badge">Dropping Next</div>
+                        <div class="empty-state-icon" id="empty-state-icon">🎒</div>
+                        <h3 class="empty-state-title" id="empty-state-title">Student Essentials</h3>
+                        <p class="empty-state-subtitle" id="empty-state-subtitle">We're curating student essentials built around campus life. First batch drops soon!</p>
+                        
+                        <div class="empty-state-features">
+                            <span class="empty-pill">⚡ Student-Friendly Price</span>
+                            <span class="empty-pill">🎓 Direct Campus Delivery</span>
+                            <span class="empty-pill">✨ Verified Quality</span>
+                        </div>
+
+                        <div class="empty-state-actions">
+                            <a href="https://wa.me/8801600265376?text=Hi%20CampusMart%2C%20I'm%20interested%20in%20pre-ordering%20upcoming%20items!" target="_blank" rel="noopener noreferrer" class="btn-wa-preorder" id="empty-state-wa-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.871.884 2.801.885h.005c3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.772-5.778-5.772zm3.385 8.163c-.144.405-.838.774-1.17.822-.312.043-.733.063-2.332-.596-1.92-1.074-3.167-3.033-3.264-3.161-.096-.128-.776-1.031-.776-1.966 0-.936.491-1.397.666-1.589.175-.192.384-.24.512-.24.128 0 .256 0 .368.006.12.006.28.02.434.39.16.384.545 1.332.593 1.428.048.096.08.208.016.336-.064.128-.096.208-.192.32-.096.112-.202.25-.288.336-.096.096-.197.2-.085.392.112.192.496.819 1.066 1.327.734.654 1.353.856 1.545.952.192.096.304.08.416-.048.112-.128.48-1.08.608-1.256.128-.176.256-.144.432-.08.176.064 1.12.528 1.312.624.192.096.32.144.368.224.048.08.048.464-.096.869z"/>
+                                </svg>
+                                <span>Pre-Order via WhatsApp</span>
+                            </a>
+                            <button type="button" class="btn-browse-wear" id="btn-show-campus-wear">
+                                <span>View Available Campus Wear</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </div>
