@@ -1,4 +1,26 @@
+// Suppress / Dismiss "Powered by Netlify" Badge & Injected Drawer
+try {
+    localStorage.setItem('nl-hud:public:v1', JSON.stringify({ dismissed: true, hidden: true, state: 'hidden' }));
+} catch (e) {}
+
+if (typeof MutationObserver !== 'undefined') {
+    const netlifyBadgeObserver = new MutationObserver((mutations) => {
+        const netlifyWidgets = document.querySelectorAll('iframe[src*="netlify"], [data-netlify-badge], netlify-drawer, #netlify-drawer, div[id*="netlify-hud"]');
+        if (netlifyWidgets.length > 0) {
+            netlifyWidgets.forEach(el => el.remove());
+        }
+    });
+    if (document.body) {
+        netlifyBadgeObserver.observe(document.body, { childList: true, subtree: true });
+    } else {
+        document.addEventListener('DOMContentLoaded', () => {
+            netlifyBadgeObserver.observe(document.body, { childList: true, subtree: true });
+        });
+    }
+}
+
 // Toast Notification System
+
 function showToast(message, type = 'error') {
     const container = document.getElementById('toast-container');
     if (!container) return;
