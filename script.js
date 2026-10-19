@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             header.classList.remove('scrolled');
         }
-    });
+    }, { passive: true });
 
     // Delivery Option Toggle
     const deliveryOptions = document.querySelectorAll('input[name="delivery_option"]');
@@ -210,17 +210,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetElement) {
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+                const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                 window.scrollTo({
                     top: targetPosition,
-                    behavior: 'smooth'
+                    behavior: prefersReducedMotion ? 'auto' : 'smooth'
                 });
             }
         });
     });
 
     // Cart State
-    let cart = JSON.parse(localStorage.getItem('campusmart_cart')) || [];
-    let isEarlyBirds = localStorage.getItem('campusmart_coupon') === 'EARLYBIRDS';
+    // A corrupted/blocked localStorage entry must never break the whole page
+    let cart = [];
+    try {
+        const storedCart = JSON.parse(localStorage.getItem('campusmart_cart'));
+        if (Array.isArray(storedCart)) cart = storedCart;
+    } catch (e) {
+        cart = [];
+    }
+    let isEarlyBirds = false;
+    try {
+        isEarlyBirds = localStorage.getItem('campusmart_coupon') === 'EARLYBIRDS';
+    } catch (e) {}
 
     // DOM Elements
     const cartIcon = document.getElementById('cart-icon');
@@ -255,10 +266,23 @@ document.addEventListener('DOMContentLoaded', () => {
     closeCartBtn.addEventListener('click', closeCart);
     cartOverlay.addEventListener('click', closeCart);
 
+    // Keyboard accessibility: Enter/Space opens the cart, Escape closes it
+    cartIcon.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openCart();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && cartSidebar.classList.contains('active')) closeCart();
+    });
+
     // Update Cart UI & Data
     const updateCart = () => {
         // Save to LocalStorage immediately so empty arrays are saved before any early returns
-        localStorage.setItem('campusmart_cart', JSON.stringify(cart));
+        try {
+            localStorage.setItem('campusmart_cart', JSON.stringify(cart));
+        } catch (e) {}
 
         // Update count
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -532,7 +556,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const newPrice = basePrice + additionalCost;
 
-            priceElement.textContent = `৳ ${newPrice}`;
+            // Products with a not-yet-finalized price show a range (data-price-max)
+            const maxPrice = parseInt(addBtn.getAttribute('data-price-max'));
+            priceElement.textContent = maxPrice
+                ? `৳ ${newPrice} – ${maxPrice + additionalCost}`
+                : `৳ ${newPrice}`;
             addBtn.setAttribute('data-price', newPrice);
             buyBtn.setAttribute('data-price', newPrice);
         });
@@ -1086,6 +1114,9 @@ if (navHistory) {
 }
 if (closeHistory) closeHistory.addEventListener('click', closeHistoryFn);
 if (historyOverlay) historyOverlay.addEventListener('click', closeHistoryFn);
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && historySidebar && historySidebar.classList.contains('active')) closeHistoryFn();
+});
 
 
 // =========================================
