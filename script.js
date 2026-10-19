@@ -19,6 +19,18 @@ if (typeof MutationObserver !== 'undefined') {
     }
 }
 
+// Sweatshirts are only offered in M, L, XL (measurements in inches, laid flat)
+const sweatshirtSizeMap = {
+    'M': 'M (Chest-22, Length-28)',
+    'L': 'L (Chest-24, Length-29)',
+    'XL': 'XL (Chest-26, Length-30)',
+    '2XL': '2XL (Chest-28, Length-31)'
+};
+function isSweatshirtTitle(title) {
+    const t = (title || '').toLowerCase();
+    return t.includes('sweatshirt') || t.includes('quarter-zip');
+}
+
 // Toast Notification System
 
 function showToast(message, type = 'error') {
@@ -365,7 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const effectivePrice = item.price - discountPerItem;
             subtotal += effectivePrice * item.quantity;
             const tShirtType = item.tShirtType || 'Not Selected';
-            const sizeMap = {
+            const isSweatshirt = isSweatshirtTitle(item.title);
+            const sizeMap = isSweatshirt ? sweatshirtSizeMap : {
                 'M': 'M (Chest-38, Length-27)',
                 'L': 'L (Chest-40, Length-28)',
                 'XL': 'XL (Chest-42, Length-29)',
@@ -386,15 +399,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="cart-item-options" style="display:flex; gap:0.5rem; margin-top:0.25rem;">
                         <select class="cart-size-select" data-index="${index}" style="padding:0.25rem; font-size:0.8rem; border-radius:4px; border:1px solid var(--border-color); width:48%; background:white; cursor:pointer; outline:none; ${(item.size === '' && document.getElementById('checkout-form').classList.contains('submitted')) ? 'border-color: #dc2626; box-shadow: 0 0 0 1px #dc2626;' : ''}">
                             <option value="">Size</option>
+                            ${isSweatshirt ? `
+                            <option value="M" ${item.size === 'M' ? 'selected' : ''}>${sweatshirtSizeMap['M']}</option>
+                            <option value="L" ${item.size === 'L' ? 'selected' : ''}>${sweatshirtSizeMap['L']}</option>
+                            <option value="XL" ${item.size === 'XL' ? 'selected' : ''}>${sweatshirtSizeMap['XL']}</option>
+                            <option value=\"2XL\" ${item.size === '2XL' ? 'selected' : ''}>${sweatshirtSizeMap['2XL']}</option>
+                            ` : `
                             <option value="M" ${item.size === 'M' ? 'selected' : ''}>M (Chest-38, Length-27)</option>
                             <option value="L" ${item.size === 'L' ? 'selected' : ''}>L (Chest-40, Length-28)</option>
                             <option value="XL" ${item.size === 'XL' ? 'selected' : ''}>XL (Chest-42, Length-29)</option>
                             <option value="XXL" ${item.size === 'XXL' ? 'selected' : ''}>XXL (Chest-44, Length-30)</option>
                             <option value="3XL" ${item.size === '3XL' ? 'selected' : ''}>3XL (Chest-46, Length-31)</option>
+                            `}
                         </select>
                         <select class="cart-type-select" data-index="${index}" style="padding:0.25rem; font-size:0.8rem; border-radius:4px; border:1px solid var(--border-color); width:48%; background:white; cursor:pointer; outline:none; ${(item.tShirtType === '' && document.getElementById('checkout-form').classList.contains('submitted')) ? 'border-color: #dc2626; box-shadow: 0 0 0 1px #dc2626;' : ''}">
-                            <option value="">${(item.title || '').toLowerCase().includes('sweatshirt') || (item.title || '').toLowerCase().includes('jacket') ? 'Style' : 'Type'}</option>
-                            ${(item.title || '').toLowerCase().includes('sweatshirt') || (item.title || '').toLowerCase().includes('jacket') ? `
+                            <option value="">${isSweatshirt || (item.title || '').toLowerCase().includes('jacket') ? 'Style' : 'Type'}</option>
+                            ${isSweatshirt || (item.title || '').toLowerCase().includes('jacket') ? `
                                 <option value="Quarter-Zip Pullover" ${item.tShirtType === 'Quarter-Zip Pullover' ? 'selected' : ''}>Quarter-Zip</option>
                                 <option value="Fleece Winter Edition" ${item.tShirtType === 'Fleece Winter Edition' ? 'selected' : ''}>Fleece Winter</option>
                                 <option value="Bonded Windproof Edition" ${item.tShirtType === 'Bonded Windproof Edition' ? 'selected' : ''}>Bonded Windproof</option>
@@ -751,7 +771,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 waMsg += `\n*Order Summary:*\n`;
                 let imageUrls = [];
                 cart.forEach(item => {
-                    const sizeMap = {
+                    const sizeMap = isSweatshirtTitle(item.title) ? sweatshirtSizeMap : {
                         'M': 'M (Chest-38, Length-27)',
                         'L': 'L (Chest-40, Length-28)',
                         'XL': 'XL (Chest-42, Length-29)',
