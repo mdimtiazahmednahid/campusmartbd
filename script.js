@@ -251,14 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // OCG Department Coupon State (5% discount)
+    // OCG Department Coupon State (5% discount — only active when explicitly applied in current session)
     let isOcgCoupon = false;
     try {
-        if (localStorage.getItem('campusmart_coupon') === 'OCG') {
-            isOcgCoupon = true;
-        } else {
-            localStorage.removeItem('campusmart_coupon');
-        }
+        localStorage.removeItem('campusmart_coupon');
+        localStorage.removeItem('campusmart_user_');
     } catch (e) {}
 
     // Cart State
@@ -362,8 +359,16 @@ document.addEventListener('DOMContentLoaded', () => {
             cartTotalPrice.textContent = '৳ 0';
             const subtotalElement = document.getElementById('cart-subtotal-price');
             const deliveryChargeElement = document.getElementById('cart-delivery-price');
+            const discountRowElement = document.getElementById('cart-discount-row');
             if (subtotalElement) subtotalElement.textContent = '৳ 0';
             if (deliveryChargeElement) deliveryChargeElement.textContent = '৳ 0';
+            if (discountRowElement) discountRowElement.style.display = 'none';
+            if (couponMessage) {
+                couponMessage.textContent = '';
+                couponMessage.style.display = 'none';
+            }
+            if (couponInput) couponInput.value = '';
+            isOcgCoupon = false;
             orderDetailsInput.value = '';
             totalAmountInput.value = '0';
             checkoutForm.style.display = 'none'; // Hide checkout form if cart is empty
@@ -506,13 +511,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 discountRowElement.style.display = 'none';
             }
         }
-        if (couponInput && couponMessage) {
+        if (couponMessage) {
             if (isOcgCoupon) {
-                couponInput.value = 'OCG';
-                couponMessage.textContent = `OCG applied! 5% discount (-৳${discountAmount}) added.`;
+                couponMessage.textContent = `Coupon applied! 5% discount (-৳${discountAmount}) added.`;
                 couponMessage.className = 'coupon-message success';
+                couponMessage.style.display = 'block';
             } else {
                 couponMessage.textContent = '';
+                couponMessage.style.display = 'none';
             }
         }
         if (deliveryChargeElement) deliveryChargeElement.textContent = `৳ ${deliveryCharge}`;
@@ -596,31 +602,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Coupon Logic (OCG -> 5% discount)
+    // Coupon Logic (OCG -> 5% discount, only when user types and clicks Apply)
     if (applyCouponBtn && couponInput) {
+        couponInput.value = '';
         const handleApplyCoupon = () => {
             const code = couponInput.value.trim().toUpperCase();
             if (code === 'OCG') {
                 isOcgCoupon = true;
-                try {
-                    localStorage.setItem('campusmart_coupon', 'OCG');
-                } catch (e) {}
                 updateCart();
             } else if (code === '') {
                 isOcgCoupon = false;
-                try {
-                    localStorage.removeItem('campusmart_coupon');
-                } catch (e) {}
                 updateCart();
             } else {
                 isOcgCoupon = false;
-                try {
-                    localStorage.removeItem('campusmart_coupon');
-                } catch (e) {}
                 updateCart();
                 if (couponMessage) {
                     couponMessage.textContent = 'Invalid coupon code';
                     couponMessage.className = 'coupon-message error';
+                    couponMessage.style.display = 'block';
                 }
             }
         };

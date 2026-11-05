@@ -1505,10 +1505,10 @@
                     <div
                         style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 1rem;">
                         <div class="coupon-section" style="margin-bottom: 0.5rem;">
-                            <input type="text" id="coupon-code" placeholder="Enter coupon code">
+                            <input type="text" id="coupon-code" placeholder="Enter coupon code" autocomplete="off">
                             <button type="button" id="apply-coupon" class="btn btn-apply">Apply</button>
                         </div>
-                        <p id="coupon-message" class="coupon-message"></p>
+                        <p id="coupon-message" class="coupon-message" style="display: none;"></p>
                         <div>
                             <div class="cart-subtotal"
                                 style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
@@ -1517,7 +1517,7 @@
                             </div>
                             <div id="cart-discount-row"
                                 style="display: none; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: #10b981; font-weight: 600;">
-                                <span>Discount (OCG - 5%):</span>
+                                <span>Discount (5%):</span>
                                 <span id="cart-discount-price">- ৳ 0</span>
                             </div>
                             <div class="cart-delivery-charge"
