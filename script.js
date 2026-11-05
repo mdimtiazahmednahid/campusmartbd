@@ -251,9 +251,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Clear retired coupon from localStorage
+    // OCG Department Coupon State (5% discount)
+    let isOcgCoupon = false;
     try {
-        localStorage.removeItem('campusmart_coupon');
+        if (localStorage.getItem('campusmart_coupon') === 'OCG') {
+            isOcgCoupon = true;
+        } else {
+            localStorage.removeItem('campusmart_coupon');
+        }
     } catch (e) {}
 
     // Cart State
@@ -293,7 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartTotalPrice = document.getElementById('cart-total-price');
     const orderDetailsInput = document.getElementById('order_details');
     const totalAmountInput = document.getElementById('total_amount');
+    const hiddenCouponCodeInput = document.getElementById('hidden_coupon_code');
     const checkoutForm = document.getElementById('checkout-form');
+
+    // Coupon Elements
+    const couponInput = document.getElementById('coupon-code');
+    const applyCouponBtn = document.getElementById('apply-coupon');
+    const couponMessage = document.getElementById('coupon-message');
 
     // Toggle Cart Sidebar
     const openCart = () => {
@@ -477,15 +488,40 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsContainer.appendChild(itemEl);
         });
 
-        const finalTotal = subtotal + deliveryCharge;
+        const discountAmount = isOcgCoupon ? Math.round(subtotal * 0.05) : 0;
+        const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+        const finalTotal = discountedSubtotal + deliveryCharge;
 
         const subtotalElement = document.getElementById('cart-subtotal-price');
+        const discountRowElement = document.getElementById('cart-discount-row');
+        const discountPriceElement = document.getElementById('cart-discount-price');
         const deliveryChargeElement = document.getElementById('cart-delivery-price');
 
         if (subtotalElement) subtotalElement.textContent = `৳ ${subtotal}`;
+        if (discountRowElement && discountPriceElement) {
+            if (isOcgCoupon && discountAmount > 0) {
+                discountRowElement.style.display = 'flex';
+                discountPriceElement.textContent = `- ৳ ${discountAmount}`;
+            } else {
+                discountRowElement.style.display = 'none';
+            }
+        }
+        if (couponInput && couponMessage) {
+            if (isOcgCoupon) {
+                couponInput.value = 'OCG';
+                couponMessage.textContent = `OCG applied! 5% discount (-৳${discountAmount}) added.`;
+                couponMessage.className = 'coupon-message success';
+            } else {
+                couponMessage.textContent = '';
+            }
+        }
         if (deliveryChargeElement) deliveryChargeElement.textContent = `৳ ${deliveryCharge}`;
 
         cartTotalPrice.textContent = `৳ ${finalTotal}`;
+
+        if (isOcgCoupon && discountAmount > 0) {
+            orderDetailsStr += `\nCoupon Discount (OCG - 5%): -৳${discountAmount}`;
+        }
 
         // Add delivery info to order details
         if (deliveryCharge > 0) {
@@ -497,6 +533,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Netlify Form hidden inputs
         orderDetailsInput.value = orderDetailsStr;
         totalAmountInput.value = finalTotal;
+        if (hiddenCouponCodeInput) {
+            hiddenCouponCodeInput.value = isOcgCoupon ? 'OCG' : '';
+        }
 
         // Update advance amount for customization (50% of total including delivery)
         const advanceAmountSpan = document.getElementById('advance-amount');
@@ -556,6 +595,44 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     };
+
+    // Coupon Logic (OCG -> 5% discount)
+    if (applyCouponBtn && couponInput) {
+        const handleApplyCoupon = () => {
+            const code = couponInput.value.trim().toUpperCase();
+            if (code === 'OCG') {
+                isOcgCoupon = true;
+                try {
+                    localStorage.setItem('campusmart_coupon', 'OCG');
+                } catch (e) {}
+                updateCart();
+            } else if (code === '') {
+                isOcgCoupon = false;
+                try {
+                    localStorage.removeItem('campusmart_coupon');
+                } catch (e) {}
+                updateCart();
+            } else {
+                isOcgCoupon = false;
+                try {
+                    localStorage.removeItem('campusmart_coupon');
+                } catch (e) {}
+                updateCart();
+                if (couponMessage) {
+                    couponMessage.textContent = 'Invalid coupon code';
+                    couponMessage.className = 'coupon-message error';
+                }
+            }
+        };
+
+        applyCouponBtn.addEventListener('click', handleApplyCoupon);
+        couponInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleApplyCoupon();
+            }
+        });
+    }
 
     // Dynamic Pricing based on Jersey Type (Polo Collar + full sleeve -> ৳530, others -> ৳499)
     document.querySelectorAll('.type-select').forEach(select => {
@@ -814,6 +891,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const totalStr = document.getElementById('cart-total-price').textContent;
+                if (formData.get('coupon_code')) {
+                    waMsg += `\n*Coupon Applied:* ${formData.get('coupon_code')} (5% Discount)\n`;
+                }
                 waMsg += `\n*Total Bill:* ${totalStr}\n`;
 
                 // Append product image link so WhatsApp automatically generates an image preview thumbnail
@@ -844,7 +924,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Reset UI and state
                 cart = [];
+                isOcgCoupon = false;
                 localStorage.removeItem('campusmart_coupon');
+                if (couponInput) couponInput.value = '';
 
                 updateCart();
                 // We intentionally don't clear the form inputs so the address stays for next time
@@ -970,7 +1052,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Persist Checkout Form Data
-    const formInputs = checkoutForm.querySelectorAll('input:not([type="hidden"]), textarea, select');
+    const formInputs = checkoutForm.querySelectorAll('input:not([type="hidden"]):not(#coupon-code), textarea, select');
     formInputs.forEach(input => {
         // Load existing data if available
         const savedVal = localStorage.getItem(`campusmart_user_${input.name}`);

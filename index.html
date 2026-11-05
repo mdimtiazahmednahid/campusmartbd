@@ -1504,11 +1504,21 @@
 
                     <div
                         style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 1rem;">
+                        <div class="coupon-section" style="margin-bottom: 0.5rem;">
+                            <input type="text" id="coupon-code" placeholder="Enter coupon code">
+                            <button type="button" id="apply-coupon" class="btn btn-apply">Apply</button>
+                        </div>
+                        <p id="coupon-message" class="coupon-message"></p>
                         <div>
                             <div class="cart-subtotal"
                                 style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
                                 <span>Subtotal:</span>
                                 <span id="cart-subtotal-price">৳ 0</span>
+                            </div>
+                            <div id="cart-discount-row"
+                                style="display: none; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; color: #10b981; font-weight: 600;">
+                                <span>Discount (OCG - 5%):</span>
+                                <span id="cart-discount-price">- ৳ 0</span>
                             </div>
                             <div class="cart-delivery-charge"
                                 style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-light); font-weight: 500;">
@@ -1530,6 +1540,7 @@
                 <!-- Hidden inputs to store order data -->
                 <input type="hidden" name="order_details" id="order_details">
                 <input type="hidden" name="total_amount" id="total_amount">
+                <input type="hidden" name="coupon_code" id="hidden_coupon_code">
 
                 <button type="submit" class="btn btn-primary btn-checkout" style="margin-top: 1rem;">Confirm Order &
                     Pay</button>
