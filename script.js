@@ -19,16 +19,34 @@ if (typeof MutationObserver !== 'undefined') {
     }
 }
 
-// Sweatshirts are only offered in M, L, XL (measurements in inches, laid flat)
+// Sweatshirts are offered in M, L, XL, 2XL (measurements in inches)
 const sweatshirtSizeMap = {
-    'M': 'M (Chest-22, Length-28)',
-    'L': 'L (Chest-24, Length-29)',
-    'XL': 'XL (Chest-26, Length-30)',
-    '2XL': '2XL (Chest-28, Length-31)'
+    'M': 'M (Chest-39, Length-28)',
+    'L': 'L (Chest-41, Length-29)',
+    'XL': 'XL (Chest-43, Length-30)',
+    '2XL': '2XL (Chest-45, Length-31)'
+};
+const jerseyPoloSizeMap = {
+    'M': 'M (Chest-38, Length-27)',
+    'L': 'L (Chest-40, Length-28)',
+    'XL': 'XL (Chest-42, Length-29)',
+    'XXL': 'XXL (Chest-44, Length-30)',
+    '3XL': '3XL (Chest-46, Length-31)'
 };
 function isSweatshirtTitle(title) {
     const t = (title || '').toLowerCase();
     return t.includes('sweatshirt') || t.includes('quarter-zip');
+}
+function isPoloTitle(title) {
+    const t = (title || '').toLowerCase();
+    return t.includes('exclusive polo');
+}
+function isJacketTitle(title) {
+    const t = (title || '').toLowerCase();
+    return t.includes('jacket');
+}
+function isJerseyTitle(title) {
+    return !isSweatshirtTitle(title) && !isPoloTitle(title) && !isJacketTitle(title);
 }
 
 // Toast Notification System
@@ -193,12 +211,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroImage = document.getElementById('hero-image');
     if (heroImage) {
         const slideImages = [
-            'assets/kiloroad-black.png',
-            'assets/kiloroad-navy.png',
-            'assets/kiloroad-white.png',
-            'assets/sust-blue.png',
-            'assets/sustverse-red.png',
-            'assets/sustverse-grey.png'
+            'assets/kiloroad-black.webp',
+            'assets/kiloroad-navy.webp',
+            'assets/kiloroad-white.webp',
+            'assets/sust-blue.webp',
+            'assets/sustverse-red.webp',
+            'assets/sustverse-grey.webp',
+            'assets/sust-polo-black.webp',
+            'assets/sust-sweatshirt-coffee.webp'
         ];
         let currentSlide = 0;
 
@@ -208,8 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSlide = (currentSlide + 1) % slideImages.length;
                 heroImage.src = slideImages[currentSlide];
                 heroImage.classList.remove('fade-out');
-            }, 500); // Wait for fade out to complete
-        }, 3000); // Change image every 3 seconds
+            }, 500);
+        }, 3500);
     }
 
     // Smooth scrolling for anchor links
@@ -231,19 +251,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Clear retired coupon from localStorage
+    try {
+        localStorage.removeItem('campusmart_coupon');
+    } catch (e) {}
+
     // Cart State
     // A corrupted/blocked localStorage entry must never break the whole page
     let cart = [];
     try {
         const storedCart = JSON.parse(localStorage.getItem('campusmart_cart'));
-        if (Array.isArray(storedCart)) cart = storedCart;
+        if (Array.isArray(storedCart)) {
+            cart = storedCart.map(item => {
+                // Migrate legacy .png image paths and legacy prices if any exist in localStorage
+                if (item.image && item.image.endsWith('.png')) {
+                    item.image = item.image.replace(/\.png$/, '.webp');
+                }
+                if (isSweatshirtTitle(item.title)) {
+                    item.price = 630;
+                } else if (isPoloTitle(item.title)) {
+                    item.price = 550;
+                } else if (isJerseyTitle(item.title)) {
+                    item.price = item.tShirtType === 'Polo Collar + full sleeve' ? 530 : 499;
+                }
+                return item;
+            });
+        }
     } catch (e) {
         cart = [];
     }
-    let isEarlyBirds = false;
-    try {
-        isEarlyBirds = localStorage.getItem('campusmart_coupon') === 'EARLYBIRDS';
-    } catch (e) {}
 
     // DOM Elements
     const cartIcon = document.getElementById('cart-icon');
@@ -255,13 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartTotalPrice = document.getElementById('cart-total-price');
     const orderDetailsInput = document.getElementById('order_details');
     const totalAmountInput = document.getElementById('total_amount');
-    const hiddenCouponCodeInput = document.getElementById('hidden_coupon_code');
     const checkoutForm = document.getElementById('checkout-form');
-
-    // Coupon Elements
-    const couponInput = document.getElementById('coupon-code');
-    const applyCouponBtn = document.getElementById('apply-coupon');
-    const couponMessage = document.getElementById('coupon-message');
 
     // Toggle Cart Sidebar
     const openCart = () => {
@@ -312,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
                     <h4 style="font-size: 1.3rem; color: #1e293b; margin-bottom: 0.5rem; font-weight: 700;">Your Cart is Empty</h4>
-                    <p style="color: #64748b; margin-bottom: 2rem; font-size: 0.95rem;">Looks like you haven't added any jerseys yet.</p>
+                    <p style="color: #64748b; margin-bottom: 2rem; font-size: 0.95rem;">Looks like you haven't added any items yet.</p>
                     <button onclick="document.getElementById('close-cart').click()" style="background: #3b82f6; color: white; border: none; padding: 0.8rem 1.8rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(59,130,246,0.3);" onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">Browse Collection</button>
                 </div>
             `;
@@ -324,25 +354,12 @@ document.addEventListener('DOMContentLoaded', () => {
             orderDetailsInput.value = '';
             totalAmountInput.value = '0';
             checkoutForm.style.display = 'none'; // Hide checkout form if cart is empty
-            document.querySelector('.coupon-section').style.display = 'none';
             return;
         } else {
             checkoutForm.style.display = 'block';
-            document.querySelector('.coupon-section').style.display = 'flex';
         }
 
-        let total = 0;
         let orderDetailsStr = '';
-
-        let discountPerItem = isEarlyBirds ? 51 : 0; // Reduces 550 to 499
-
-        if (isEarlyBirds) {
-            couponInput.value = 'EARLYBIRDS';
-            couponMessage.textContent = 'EARLYBIRDS applied! ৳ 51 off per item.';
-            couponMessage.className = 'coupon-message success';
-        } else {
-            couponMessage.textContent = '';
-        }
 
         // Calculate Delivery Charge
         let deliveryCharge = 0;
@@ -374,20 +391,50 @@ document.addEventListener('DOMContentLoaded', () => {
         let subtotal = 0;
 
         cart.forEach((item, index) => {
-            const effectivePrice = item.price - discountPerItem;
+            const isSweatshirt = isSweatshirtTitle(item.title);
+            const isPolo = isPoloTitle(item.title);
+            const isJacket = isJacketTitle(item.title);
+
+            // Ensure Jersey price reflects Polo Collar + full sleeve (530) vs others (499)
+            if (!isSweatshirt && !isPolo && !isJacket) {
+                item.price = item.tShirtType === 'Polo Collar + full sleeve' ? 530 : 499;
+            }
+
+            const effectivePrice = item.price;
             subtotal += effectivePrice * item.quantity;
             const tShirtType = item.tShirtType || 'Not Selected';
-            const isSweatshirt = isSweatshirtTitle(item.title);
-            const sizeMap = isSweatshirt ? sweatshirtSizeMap : {
-                'M': 'M (Chest-38, Length-27)',
-                'L': 'L (Chest-40, Length-28)',
-                'XL': 'XL (Chest-42, Length-29)',
-                'XXL': 'XXL (Chest-44, Length-30)',
-                '3XL': '3XL (Chest-46, Length-31)'
-            };
+            const sizeMap = isSweatshirt ? sweatshirtSizeMap : jerseyPoloSizeMap;
             const detailedSize = sizeMap[item.size] || item.size;
             orderDetailsStr += `${item.title} (${tShirtType}, Size: ${detailedSize}) x${item.quantity} - ৳${effectivePrice * item.quantity}
 `;
+
+            let typeOptionsHtml = '';
+            if (isPolo) {
+                typeOptionsHtml = `
+                    <option value="">Type</option>
+                    <option value="Lacoste Polo (Half Sleeve)" ${item.tShirtType === 'Lacoste Polo (Half Sleeve)' ? 'selected' : ''}>Lacoste Polo (Half)</option>
+                `;
+            } else if (isSweatshirt) {
+                typeOptionsHtml = `
+                    <option value="">Style</option>
+                    <option value="High Neck Quarter-Zip" ${(item.tShirtType === 'High Neck Quarter-Zip' || item.tShirtType === 'Quarter-Zip Pullover') ? 'selected' : ''}>High Neck Quarter-Zip</option>
+                `;
+            } else if (isJacket) {
+                typeOptionsHtml = `
+                    <option value="">Style</option>
+                    <option value="Fleece Winter Edition" ${item.tShirtType === 'Fleece Winter Edition' ? 'selected' : ''}>Fleece Winter</option>
+                    <option value="Bonded Windproof Edition" ${item.tShirtType === 'Bonded Windproof Edition' ? 'selected' : ''}>Bonded Windproof</option>
+                    <option value="Thermal Winter Edition" ${item.tShirtType === 'Thermal Winter Edition' ? 'selected' : ''}>Thermal Winter</option>
+                `;
+            } else {
+                typeOptionsHtml = `
+                    <option value="">Type</option>
+                    <option value="Polo Collar + half sleeve" ${item.tShirtType === 'Polo Collar + half sleeve' ? 'selected' : ''}>Polo + Half (৳499)</option>
+                    <option value="Polo Collar + full sleeve" ${item.tShirtType === 'Polo Collar + full sleeve' ? 'selected' : ''}>Polo + Full (৳530)</option>
+                    <option value="Round Collar + half sleeve" ${item.tShirtType === 'Round Collar + half sleeve' ? 'selected' : ''}>Round + Half (৳499)</option>
+                    <option value="Round Collar + full sleeve" ${item.tShirtType === 'Round Collar + full sleeve' ? 'selected' : ''}>Round + Full (৳499)</option>
+                `;
+            }
 
             const itemEl = document.createElement('div');
             itemEl.className = 'cart-item';
@@ -403,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <option value="M" ${item.size === 'M' ? 'selected' : ''}>${sweatshirtSizeMap['M']}</option>
                             <option value="L" ${item.size === 'L' ? 'selected' : ''}>${sweatshirtSizeMap['L']}</option>
                             <option value="XL" ${item.size === 'XL' ? 'selected' : ''}>${sweatshirtSizeMap['XL']}</option>
-                            <option value=\"2XL\" ${item.size === '2XL' ? 'selected' : ''}>${sweatshirtSizeMap['2XL']}</option>
+                            <option value="2XL" ${item.size === '2XL' ? 'selected' : ''}>${sweatshirtSizeMap['2XL']}</option>
                             ` : `
                             <option value="M" ${item.size === 'M' ? 'selected' : ''}>M (Chest-38, Length-27)</option>
                             <option value="L" ${item.size === 'L' ? 'selected' : ''}>L (Chest-40, Length-28)</option>
@@ -413,21 +460,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             `}
                         </select>
                         <select class="cart-type-select" data-index="${index}" style="padding:0.25rem; font-size:0.8rem; border-radius:4px; border:1px solid var(--border-color); width:48%; background:white; cursor:pointer; outline:none; ${(item.tShirtType === '' && document.getElementById('checkout-form').classList.contains('submitted')) ? 'border-color: #dc2626; box-shadow: 0 0 0 1px #dc2626;' : ''}">
-                            <option value="">${isSweatshirt || (item.title || '').toLowerCase().includes('jacket') ? 'Style' : 'Type'}</option>
-                            ${isSweatshirt || (item.title || '').toLowerCase().includes('jacket') ? `
-                                <option value="Quarter-Zip Pullover" ${item.tShirtType === 'Quarter-Zip Pullover' ? 'selected' : ''}>Quarter-Zip</option>
-                                <option value="Fleece Winter Edition" ${item.tShirtType === 'Fleece Winter Edition' ? 'selected' : ''}>Fleece Winter</option>
-                                <option value="Bonded Windproof Edition" ${item.tShirtType === 'Bonded Windproof Edition' ? 'selected' : ''}>Bonded Windproof</option>
-                                <option value="Thermal Winter Edition" ${item.tShirtType === 'Thermal Winter Edition' ? 'selected' : ''}>Thermal Winter</option>
-                            ` : `
-                                <option value="Polo Collar + half sleeve" ${item.tShirtType === 'Polo Collar + half sleeve' ? 'selected' : ''}>Polo + Half</option>
-                                <option value="Polo Collar + full sleeve" ${item.tShirtType === 'Polo Collar + full sleeve' ? 'selected' : ''}>Polo + Full</option>
-                                <option value="Round Collar + half sleeve" ${item.tShirtType === 'Round Collar + half sleeve' ? 'selected' : ''}>Round + Half</option>
-                                <option value="Round Collar + full sleeve" ${item.tShirtType === 'Round Collar + full sleeve' ? 'selected' : ''}>Round + Full</option>
-                            `}
+                            ${typeOptionsHtml}
                         </select>
                     </div>
-                    <div class="cart-item-price" style="margin-top:0.5rem;">৳ ${effectivePrice} ${isEarlyBirds ? '<del style="font-size:0.75rem;color:#9ca3af;margin-left:0.25rem;">৳ ' + item.price + '</del>' : ''}</div>
+                    <div class="cart-item-price" style="margin-top:0.5rem;">৳ ${effectivePrice}</div>
                     <div class="cart-item-actions">
                         <button class="qty-btn minus" data-index="${index}">-</button>
                         <span>${item.quantity}</span>
@@ -465,27 +501,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (advanceAmountSpan) {
             advanceAmountSpan.textContent = `৳ ${Math.ceil(finalTotal / 2)}`;
         }
-        if (hiddenCouponCodeInput) {
-            hiddenCouponCodeInput.value = isEarlyBirds ? 'EARLYBIRDS' : '';
-        }
 
         // Add event listeners to the variant selectors
         document.querySelectorAll('.cart-size-select').forEach(select => {
             select.addEventListener('change', (e) => {
                 const idx = e.target.getAttribute('data-index');
-                const oldSize = cart[idx].size;
-                const newSize = e.target.value;
-
-                const wasPlus = (oldSize === 'XXL' || oldSize === '3XL');
-                const isPlus = (newSize === 'XXL' || newSize === '3XL');
-
-                if (!wasPlus && isPlus) {
-                    cart[idx].price += 50;
-                } else if (wasPlus && !isPlus) {
-                    cart[idx].price -= 50;
-                }
-
-                cart[idx].size = newSize;
+                cart[idx].size = e.target.value;
                 document.getElementById('checkout-form').classList.remove('submitted');
                 updateCart();
             });
@@ -494,7 +515,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.cart-type-select').forEach(select => {
             select.addEventListener('change', (e) => {
                 const idx = e.target.getAttribute('data-index');
-                cart[idx].tShirtType = e.target.value;
+                const newType = e.target.value;
+                cart[idx].tShirtType = newType;
+                if (isJerseyTitle(cart[idx].title)) {
+                    cart[idx].price = newType === 'Polo Collar + full sleeve' ? 530 : 499;
+                }
                 document.getElementById('checkout-form').classList.remove('submitted');
                 updateCart();
             });
@@ -530,59 +555,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Coupon Logic
-    applyCouponBtn.addEventListener('click', () => {
-        const code = couponInput.value.trim().toUpperCase();
-        if (code === 'EARLYBIRDS') {
-            isEarlyBirds = true;
-            localStorage.setItem('campusmart_coupon', 'EARLYBIRDS');
-            updateCart();
-        } else if (code === '') {
-            isEarlyBirds = false;
-            localStorage.removeItem('campusmart_coupon');
-            updateCart();
-        } else {
-            isEarlyBirds = false;
-            localStorage.removeItem('campusmart_coupon');
-            updateCart();
-            // set error message after updateCart clears it
-            couponMessage.textContent = 'Invalid coupon code';
-            couponMessage.className = 'coupon-message error';
-        }
-    });
-
-    // Dynamic Pricing based on Size
-    // E.g. XXL size adds 50 BDT to the base price
-    document.querySelectorAll('.size-select').forEach(select => {
+    // Dynamic Pricing based on Jersey Type (Polo Collar + full sleeve -> ৳530, others -> ৳499)
+    document.querySelectorAll('.type-select').forEach(select => {
         select.addEventListener('change', (e) => {
             const card = e.target.closest('.product-card');
+            if (!card || card.dataset.productType !== 'jersey') return;
+
             const priceElement = card.querySelector('.current-price');
             const addBtn = card.querySelector('.btn-add-cart');
             const buyBtn = card.querySelector('.btn-buy-now');
 
-            const id = addBtn.getAttribute('data-id');
-            const sizeSelect = document.getElementById(`size-${id}`);
+            const newPrice = e.target.value === 'Polo Collar + full sleeve' ? 530 : 499;
 
-            if (!card.dataset.basePrice) {
-                card.dataset.basePrice = addBtn.getAttribute('data-price');
+            if (priceElement) priceElement.textContent = `৳ ${newPrice}`;
+            if (addBtn) addBtn.setAttribute('data-price', newPrice);
+            if (buyBtn) buyBtn.setAttribute('data-price', newPrice);
+        });
+    });
+
+    // Multi-Image Gallery Pills on Product Cards (Design / Front / Back)
+    document.querySelectorAll('.gallery-pill').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const card = pill.closest('.product-card');
+            if (!card) return;
+            const img = card.querySelector('.product-image');
+            const targetSrc = pill.getAttribute('data-img');
+            if (img && targetSrc) {
+                img.src = targetSrc;
             }
-
-            let basePrice = parseInt(card.dataset.basePrice);
-            let additionalCost = 0;
-
-            if (sizeSelect && (sizeSelect.value === 'XXL' || sizeSelect.value === '3XL')) {
-                additionalCost = 50;
-            }
-
-            const newPrice = basePrice + additionalCost;
-
-            // Products with a not-yet-finalized price show a range (data-price-max)
-            const maxPrice = parseInt(addBtn.getAttribute('data-price-max'));
-            priceElement.textContent = maxPrice
-                ? `৳ ${newPrice} – ${maxPrice + additionalCost}`
-                : `৳ ${newPrice}`;
-            addBtn.setAttribute('data-price', newPrice);
-            buyBtn.setAttribute('data-price', newPrice);
+            card.querySelectorAll('.gallery-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
         });
     });
 
@@ -682,9 +686,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameInput = checkoutForm.querySelector('[name="name"]');
         const phoneInput = checkoutForm.querySelector('[name="phone"]');
         const emailInput = checkoutForm.querySelector('[name="email"]');
+        const institutionInput = checkoutForm.querySelector('[name="institution"]');
+        const departmentInput = checkoutForm.querySelector('[name="department"]');
+        const sessionInput = checkoutForm.querySelector('[name="session"]');
+
         if (nameInput) formData.set('name', nameInput.value);
         if (phoneInput) formData.set('phone', phoneInput.value);
         if (emailInput) formData.set('email', emailInput.value);
+        if (institutionInput) formData.set('institution', institutionInput.value);
+        if (departmentInput) formData.set('department', departmentInput.value);
+        if (sessionInput) formData.set('session', sessionInput.value);
+
+        const institutionVal = (institutionInput && institutionInput.value) ? institutionInput.value : 'N/A';
+        const departmentVal = (departmentInput && departmentInput.value) ? departmentInput.value : 'N/A';
+        const sessionVal = (sessionInput && sessionInput.value) ? sessionInput.value : 'N/A';
+
+        // Include Academic Info inside order_details as well for complete Netlify visibility
+        const baseOrderDetails = orderDetailsInput ? orderDetailsInput.value : '';
+        const fullOrderDetails = `${baseOrderDetails}\nAcademic Info: Institution: ${institutionVal} | Dept: ${departmentVal} | Session: ${sessionVal}`;
+        formData.set('order_details', fullOrderDetails);
 
         fetch('/', {
             method: 'POST',
@@ -696,7 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
 
-                const orderDetails = formData.get('order_details');
+                const orderDetails = baseOrderDetails;
                 const total = formData.get('total_amount');
                 const name = formData.get('name');
                 const phone = formData.get('phone');
@@ -709,18 +729,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 doc.setFontSize(12);
                 doc.setFont(undefined, 'bold');
-                doc.text("CUSTOMER DETAILS", 20, 40);
+                doc.text("CUSTOMER & ACADEMIC DETAILS", 20, 40);
 
                 doc.setFontSize(11);
                 doc.setFont(undefined, 'normal');
                 doc.text(`Name: ${name}`, 20, 50);
-                doc.text(`Phone: ${phone}`, 20, 58);
-                doc.text(`Delivery Option: ${delivery}`, 20, 66);
+                doc.text(`Phone: ${phone}`, 20, 57);
+                doc.text(`Institution: ${institutionVal}  |  Dept: ${departmentVal}  |  Session: ${sessionVal}`, 20, 64);
+                doc.text(`Delivery Option: ${delivery}`, 20, 71);
 
                 const splitAddress = doc.splitTextToSize(`Address: ${address}`, 170);
-                doc.text(splitAddress, 20, 74);
+                doc.text(splitAddress, 20, 78);
 
-                let currentY = 74 + (splitAddress.length * 7) + 5;
+                let currentY = 78 + (splitAddress.length * 7) + 5;
 
                 doc.setFontSize(12);
                 doc.setFont(undefined, 'bold');
@@ -765,21 +786,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 waMsg += `*Customer Details:*\nName: ${name}\nPhone: ${phone}\n`;
                 if (formData.get('email')) waMsg += `Email: ${formData.get('email')}\n`;
 
+                waMsg += `\n*Academic Info:*\nInstitution: ${institutionVal}\nDepartment: ${departmentVal}\nSession: ${sessionVal}\n`;
+
                 waMsg += `\n*Delivery:*\nOption: ${delivery}\n`;
                 if (address.replace(/,/g, '').trim()) waMsg += `Address: ${address}\n`;
 
                 waMsg += `\n*Order Summary:*\n`;
                 let imageUrls = [];
                 cart.forEach(item => {
-                    const sizeMap = isSweatshirtTitle(item.title) ? sweatshirtSizeMap : {
-                        'M': 'M (Chest-38, Length-27)',
-                        'L': 'L (Chest-40, Length-28)',
-                        'XL': 'XL (Chest-42, Length-29)',
-                        'XXL': 'XXL (Chest-44, Length-30)',
-                        '3XL': '3XL (Chest-46, Length-31)'
-                    };
+                    const sizeMap = isSweatshirtTitle(item.title) ? sweatshirtSizeMap : jerseyPoloSizeMap;
                     const fullSize = sizeMap[item.size] || item.size || 'N/A';
-                    waMsg += `- ${item.title} (${item.tShirtType || 'N/A'}, Size: ${fullSize}) x${item.quantity}\n`;
+                    waMsg += `- ${item.title} (${item.tShirtType || 'N/A'}, Size: ${fullSize}) x${item.quantity} (৳${item.price * item.quantity})\n`;
                     if (item.image) {
                         try {
                             imageUrls.push(new URL(item.image, window.location.href).href);
@@ -795,9 +812,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const totalStr = document.getElementById('cart-total-price').textContent;
-                if (formData.get('coupon_code')) {
-                    waMsg += `\n*Coupon Applied:* ${formData.get('coupon_code')}\n`;
-                }
                 waMsg += `\n*Total Bill:* ${totalStr}\n`;
 
                 // Append product image link so WhatsApp automatically generates an image preview thumbnail
@@ -828,9 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Reset UI and state
                 cart = [];
-                isEarlyBirds = false;
                 localStorage.removeItem('campusmart_coupon');
-                if (couponInput) couponInput.value = '';
 
                 updateCart();
                 // We intentionally don't clear the form inputs so the address stays for next time
@@ -917,27 +929,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.disabled = false;
             });
     });
-
-    // Hero Image Slider
-    const heroImages = [
-        'assets/kiloroad-white.png',
-        'assets/sust-blue.png',
-        'assets/kiloroad-black.png'
-    ];
-    let currentHeroIndex = 0;
-    const heroImageEl = document.getElementById('hero-image');
-
-    if (heroImageEl) {
-        setInterval(() => {
-            heroImageEl.classList.add('fade-out');
-
-            setTimeout(() => {
-                currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
-                heroImageEl.src = heroImages[currentHeroIndex];
-                heroImageEl.classList.remove('fade-out');
-            }, 500); // Wait for transition duration
-        }, 4000); // Change image every 4 seconds
-    }
 
     // Division and District Logic
     const divisionSelect = document.getElementById('division');
@@ -1140,17 +1131,27 @@ document.addEventListener('keydown', (e) => {
 
 
 // =========================================
-// Product Image Lightbox (Click to Zoom)
+// Product Image Lightbox & Product Details Modal
 // =========================================
 document.addEventListener('DOMContentLoaded', () => {
+    function parseGalleryAttr(card, fallbackSrc) {
+        const raw = card ? card.getAttribute('data-gallery') : '';
+        if (!raw) return [{ label: 'Photo', src: fallbackSrc }];
+        return raw.split(',').map(pair => {
+            const [label, src] = pair.split('|');
+            return { label: (label || 'Photo').trim(), src: (src || fallbackSrc).trim() };
+        }).filter(item => item.src);
+    }
+
     document.querySelectorAll('.product-image-container img').forEach(img => {
         img.style.cursor = 'zoom-in';
         img.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
             const buyBtn = card.querySelector('.btn-buy-now');
-            const imgSrc = e.target.src;
+            const imgSrc = e.target.getAttribute('src') || e.target.src;
             const title = buyBtn.getAttribute('data-title');
             const price = buyBtn.getAttribute('data-price');
+            const galleryItems = parseGalleryAttr(card, imgSrc);
 
             // Create Lightbox overlay
             const overlay = document.createElement('div');
@@ -1194,24 +1195,45 @@ document.addEventListener('DOMContentLoaded', () => {
             const bigImg = document.createElement('img');
             bigImg.src = imgSrc;
             bigImg.style.maxWidth = '90%';
-            bigImg.style.maxHeight = '70vh';
+            bigImg.style.maxHeight = '64vh';
             bigImg.style.objectFit = 'contain';
             bigImg.style.borderRadius = '16px';
             bigImg.style.filter = 'drop-shadow(0 25px 35px rgba(0,0,0,0.6))';
             bigImg.style.transform = 'scale(0.9)';
             bigImg.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)';
-
-            // Add float animation keyframes via a class if possible, or directly via inline animation if defined in CSS.
-            // float is defined in style.css!
             bigImg.style.animation = 'float 6s ease-in-out infinite';
-            bigImg.style.animationPlayState = 'paused'; // pause until scaled in
+            bigImg.style.animationPlayState = 'paused';
+
+            // Gallery Switcher Pills inside Lightbox (if multiple images)
+            let switcherBar = null;
+            if (galleryItems.length > 1) {
+                switcherBar = document.createElement('div');
+                switcherBar.style.cssText = 'display:flex; gap:0.5rem; margin-top:14px; background:rgba(255,255,255,0.12); padding:0.35rem; border-radius:999px;';
+                galleryItems.forEach(item => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.textContent = item.label;
+                    const isActive = imgSrc.endsWith(item.src);
+                    btn.style.cssText = `border:none; padding:0.38rem 0.9rem; border-radius:999px; font-weight:700; font-size:0.82rem; cursor:pointer; transition:all 0.2s; background:${isActive ? '#ffffff' : 'transparent'}; color:${isActive ? '#9b1122' : '#ffffff'};`;
+                    btn.onclick = () => {
+                        bigImg.src = item.src;
+                        Array.from(switcherBar.children).forEach(c => {
+                            c.style.background = 'transparent';
+                            c.style.color = '#ffffff';
+                        });
+                        btn.style.background = '#ffffff';
+                        btn.style.color = '#9b1122';
+                    };
+                    switcherBar.appendChild(btn);
+                });
+            }
 
             // Text Details
             const details = document.createElement('div');
             details.style.color = 'white';
             details.style.textAlign = 'center';
-            details.style.marginTop = '20px';
-            details.innerHTML = `<h3 style="margin:0; font-size:1.5rem; font-weight:800; color:#ffffff;">${title}</h3><p style="color:#ff4d66; font-size:1.25rem; font-weight:700; margin:5px 0 15px;">৳ ${price}</p>`;
+            details.style.marginTop = '16px';
+            details.innerHTML = `<h3 style="margin:0; font-size:1.4rem; font-weight:800; color:#ffffff;">${title}</h3><p style="color:#ff4d66; font-size:1.2rem; font-weight:700; margin:5px 0 14px;">৳ ${price}</p>`;
 
             // Order Request Action
             const actionBtn = document.createElement('button');
@@ -1219,9 +1241,9 @@ document.addEventListener('DOMContentLoaded', () => {
             actionBtn.style.background = 'linear-gradient(135deg, #6c0a1a 0%, #9b1122 45%, #42040d 100%)';
             actionBtn.style.color = 'white';
             actionBtn.style.border = 'none';
-            actionBtn.style.padding = '1rem 3rem';
+            actionBtn.style.padding = '0.9rem 2.6rem';
             actionBtn.style.borderRadius = '12px';
-            actionBtn.style.fontSize = '1.1rem';
+            actionBtn.style.fontSize = '1.05rem';
             actionBtn.style.fontWeight = '700';
             actionBtn.style.cursor = 'pointer';
             actionBtn.style.boxShadow = '0 8px 24px rgba(108, 10, 26, 0.6)';
@@ -1243,6 +1265,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             overlay.appendChild(closeBtn);
             overlay.appendChild(bigImg);
+            if (switcherBar) overlay.appendChild(switcherBar);
             overlay.appendChild(details);
             details.appendChild(actionBtn);
             document.body.appendChild(overlay);
@@ -1253,8 +1276,133 @@ document.addEventListener('DOMContentLoaded', () => {
                 bigImg.style.transform = 'scale(1)';
                 setTimeout(() => {
                     bigImg.style.animationPlayState = 'running';
-                }, 300); // start float after pop-in
+                }, 300);
             });
+        });
+    });
+
+    // =========================================
+    // Product Details Modal (.btn-product-details)
+    // =========================================
+    function openProductDetailsModal(card) {
+        if (!card) return;
+        const addBtn = card.querySelector('.btn-add-cart');
+        const buyBtn = card.querySelector('.btn-buy-now');
+        const imgEl = card.querySelector('.product-image');
+        const title = buyBtn ? buyBtn.getAttribute('data-title') : (card.querySelector('.product-title')?.textContent || 'Product Details');
+        const currentImg = imgEl ? (imgEl.getAttribute('src') || imgEl.src) : '';
+        const productType = card.getAttribute('data-product-type') || 'jersey';
+        const detailsName = card.getAttribute('data-details-name') || 'SUST Exclusive Edition';
+        const detailsFabric = card.getAttribute('data-details-fabric') || 'Premium Export Quality Fabric';
+        const detailsPrice = card.getAttribute('data-details-price') || `৳${buyBtn ? buyBtn.getAttribute('data-price') : ''}`;
+        const galleryItems = parseGalleryAttr(card, currentImg);
+
+        const isSweatshirt = productType === 'sweatshirt' || isSweatshirtTitle(title);
+
+        const sizeTableRows = isSweatshirt
+            ? `
+                <tr><td>M</td><td>39"</td><td>28"</td></tr>
+                <tr><td>L</td><td>41"</td><td>29"</td></tr>
+                <tr><td>XL</td><td>43"</td><td>30"</td></tr>
+                <tr><td>2XL</td><td>45"</td><td>31"</td></tr>
+            `
+            : `
+                <tr><td>M</td><td>38"</td><td>27"</td></tr>
+                <tr><td>L</td><td>40"</td><td>28"</td></tr>
+                <tr><td>XL</td><td>42"</td><td>29"</td></tr>
+                <tr><td>XXL</td><td>44"</td><td>30"</td></tr>
+                <tr><td>3XL</td><td>46"</td><td>31"</td></tr>
+            `;
+
+        const sizeChartHeading = isSweatshirt
+            ? 'High Neck Sweatshirt Size Chart (Inches)'
+            : 'Jersey & Polo T-Shirt Size Chart (Inches)';
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'product-details-modal-overlay';
+
+        const thumbsHtml = galleryItems.length > 1
+            ? `<div class="pdm-thumbs">
+                ${galleryItems.map((g, idx) => `<button type="button" class="pdm-thumb-btn ${idx === 0 ? 'active' : ''}" data-src="${g.src}">${g.label}</button>`).join('')}
+               </div>`
+            : '';
+
+        modalOverlay.innerHTML = `
+            <div class="product-details-modal" role="dialog" aria-modal="true">
+                <button type="button" class="pdm-close-btn" aria-label="Close Product Details">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+                <div class="pdm-image-viewer">
+                    <img src="${galleryItems[0]?.src || currentImg}" alt="${title}" class="pdm-main-img">
+                    ${thumbsHtml}
+                </div>
+                <span class="pdm-badge">${detailsName}</span>
+                <h3 class="pdm-title">${title}</h3>
+                <div class="pdm-specs">
+                    <div class="pdm-spec-row">
+                        <strong>Fabric:</strong>
+                        <span>${detailsFabric}</span>
+                    </div>
+                    <div class="pdm-spec-row">
+                        <strong>Price:</strong>
+                        <span style="color:#9b1122; font-weight:700;">${detailsPrice}</span>
+                    </div>
+                </div>
+                <h4 class="pdm-size-title">${sizeChartHeading}</h4>
+                <table class="pdm-size-table">
+                    <thead>
+                        <tr><th>Size</th><th>Chest</th><th>Length</th></tr>
+                    </thead>
+                    <tbody>
+                        ${sizeTableRows}
+                    </tbody>
+                </table>
+                <div style="display:flex; gap:0.6rem;">
+                    <button type="button" class="btn btn-add-cart pdm-add-btn" style="flex:1; height:42px; font-size:0.9rem; font-weight:700; border-radius:10px; cursor:pointer;">Add to Cart</button>
+                    <button type="button" class="btn btn-buy-now pdm-order-btn" style="flex:1; height:42px; font-size:0.9rem; font-weight:700; border-radius:10px; cursor:pointer;">Order Request</button>
+                </div>
+            </div>
+        `;
+
+        const closeModal = () => {
+            modalOverlay.classList.remove('active');
+            setTimeout(() => modalOverlay.remove(), 250);
+        };
+
+        modalOverlay.querySelector('.pdm-close-btn').addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        const mainImgEl = modalOverlay.querySelector('.pdm-main-img');
+        modalOverlay.querySelectorAll('.pdm-thumb-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                mainImgEl.src = btn.getAttribute('data-src');
+                modalOverlay.querySelectorAll('.pdm-thumb-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        modalOverlay.querySelector('.pdm-add-btn').addEventListener('click', () => {
+            closeModal();
+            if (addBtn) addBtn.click();
+        });
+
+        modalOverlay.querySelector('.pdm-order-btn').addEventListener('click', () => {
+            closeModal();
+            if (buyBtn) buyBtn.click();
+        });
+
+        document.body.appendChild(modalOverlay);
+        requestAnimationFrame(() => modalOverlay.classList.add('active'));
+    }
+
+    document.querySelectorAll('.btn-product-details').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const card = btn.closest('.product-card');
+            openProductDetailsModal(card);
         });
     });
 
@@ -1429,37 +1577,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPromoExplore.addEventListener('click', (e) => {
             e.preventDefault();
             filterByCategory('campus-wear', true);
-        });
-    }
-
-    // ==========================================
-    // INTERACTIVE SMART COUPON PILL COPY
-    // ==========================================
-    const couponPill = document.getElementById('coupon-copy-pill');
-    if (couponPill) {
-        const copyCouponAction = () => {
-            const code = 'EARLYBIRDS';
-            navigator.clipboard.writeText(code).then(() => {
-                const tooltip = couponPill.querySelector('.copy-tooltip');
-                const prevText = tooltip ? tooltip.textContent : 'Click to copy';
-                if (tooltip) tooltip.textContent = 'Copied to Clipboard! ✓';
-                
-                showToast(`Coupon code ${code} copied!`, 'success');
-                
-                setTimeout(() => {
-                    if (tooltip) tooltip.textContent = prevText;
-                }, 2500);
-            }).catch(() => {
-                showToast('Coupon Code: EARLYBIRDS (Save ৳151)', 'info');
-            });
-        };
-
-        couponPill.addEventListener('click', copyCouponAction);
-        couponPill.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                copyCouponAction();
-            }
         });
     }
 });
