@@ -262,20 +262,22 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         const storedCart = JSON.parse(localStorage.getItem('campusmart_cart'));
         if (Array.isArray(storedCart)) {
-            cart = storedCart.map(item => {
-                // Migrate legacy .png image paths and legacy prices if any exist in localStorage
-                if (item.image && item.image.endsWith('.png')) {
-                    item.image = item.image.replace(/\.png$/, '.webp');
-                }
-                if (isSweatshirtTitle(item.title)) {
-                    item.price = 630;
-                } else if (isPoloTitle(item.title)) {
-                    item.price = 550;
-                } else if (isJerseyTitle(item.title)) {
-                    item.price = item.tShirtType === 'Polo Collar + full sleeve' ? 530 : 499;
-                }
-                return item;
-            });
+            cart = storedCart
+                .filter(item => !isJacketTitle(item.title) && String(item.id) !== '10')
+                .map(item => {
+                    // Migrate legacy .png image paths and legacy prices if any exist in localStorage
+                    if (item.image && item.image.endsWith('.png')) {
+                        item.image = item.image.replace(/\.png$/, '.webp');
+                    }
+                    if (isSweatshirtTitle(item.title)) {
+                        item.price = 630;
+                    } else if (isPoloTitle(item.title)) {
+                        item.price = 550;
+                    } else if (isJerseyTitle(item.title)) {
+                        item.price = item.tShirtType === 'Polo Collar + full sleeve' ? 530 : 499;
+                    }
+                    return item;
+                });
         }
     } catch (e) {
         cart = [];
@@ -1446,7 +1448,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         'everyday': {
             title: 'Everyday & Winter Wear',
-            subtitle: 'Quarter-zip sweatshirts, bonded jackets, and comfortable fits built for campus life.',
+            subtitle: 'Exclusive polo t-shirts, quarter-zip sweatshirts, and comfortable fits built for campus life.',
             isLive: true
         }
     };
