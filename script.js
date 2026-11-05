@@ -384,9 +384,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const isInsideCampus = document.querySelector('input[name="delivery_option"]:checked')?.value === 'Inside Campus';
         const district = document.getElementById('district').value;
 
-        let outsideChargeText = "৳80 - ৳130";
+        let outsideChargeText = "৳115 - ৳130";
         if (district === 'Dhaka' || district === 'Sylhet') {
-            outsideChargeText = "৳80";
+            outsideChargeText = "৳115";
         } else if (district) {
             outsideChargeText = "৳130";
         }
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!isInsideCampus) {
             if (district === 'Dhaka' || district === 'Sylhet') {
-                deliveryCharge = 80;
+                deliveryCharge = 115;
             } else if (district) {
                 deliveryCharge = 130;
             } else {
